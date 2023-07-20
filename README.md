@@ -3,10 +3,41 @@
 
 
 ## Getting started
+The projects' configuration is set up using - npm create vite@latest
+Make sure you have the following software installed on your local machine:
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+```
+- Node.js (version 14.18+, recommended 16+)
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+```
+These instructions will help you get a copy of the project up and running on your local machine.
+
+## Installation
+
+1. Clone the repository to your local machine:
+
+- git clone <repository_url>
+
+2. Navigate to the project directory:
+
+- cd project-directory
+
+3. Install dependencies:
+
+```
+npm:
+- npm install
+```
+
+```
+yarn: 
+-yarn install
+```
+
+## Usage
+To start the development server and run the project locally, use the following command:
+
+- npm run dev
 
 ## Add your files
 
@@ -62,12 +93,6 @@ On some READMEs, you may see small images that convey metadata, such as whether 
 
 ## Visuals
 Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
 
 ## Support
 Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
