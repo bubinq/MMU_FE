@@ -1,12 +1,15 @@
 import { Button, Text } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 const Buttons = ({ type, text }) => {
   switch (type) {
     case "login":
       return (
-        <Button variant="login" transition="0.2s ease-in">
-          <Text>{text}</Text>
-        </Button>
+        <Link to={"/login"}>
+          <Button variant="login" transition="0.2s ease-in">
+            <Text>{text}</Text>
+          </Button>
+        </Link>
       );
     case "logout":
       return (
@@ -20,13 +23,15 @@ const Buttons = ({ type, text }) => {
       );
     case "signup":
       return (
-        <Button className="btn-highlight" variant="signup">
-          <svg className="border-highlight" viewBox="0 0 145 56">
-            <polyline points="144,1 144,55 1,55 1,1 144,1" />
-            <polyline points="144,1 144,55 1,55 1,1 144,1" />
-          </svg>
-          <Text>{text}</Text>
-        </Button>
+        <Link to={"/register"}>
+          <Button className="btn-highlight" variant="signup">
+            <svg className="border-highlight" viewBox="0 0 145 56">
+              <polyline points="144,1 144,55 1,55 1,1 144,1" />
+              <polyline points="144,1 144,55 1,55 1,1 144,1" />
+            </svg>
+            <Text>{text}</Text>
+          </Button>
+        </Link>
       );
   }
 };

@@ -27,6 +27,8 @@ const Navbar = () => {
       px={["23px", "46px", "12px"]}
       py={"8px"}
       bg={"yellow.300"}
+      // zIndex={30}
+      // position={"fixed"}
     >
       <NavLink to="/">
         <Logo />

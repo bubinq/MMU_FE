@@ -25,7 +25,7 @@ export const theme = extendTheme({
           fontSize: "2xl",
           paddingX: 4,
           borderRadius: "px",
-          _hover: { bg: "transparent", textColor: "#01a0e2", outline: "2px solid white" },
+          _hover: { bg: "transparent", textColor: "#01a0e2", outline: "2px solid #01a0e2" },
         },
         logout: {
           bg: "transparent",

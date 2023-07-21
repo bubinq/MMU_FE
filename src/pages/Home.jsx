@@ -1,9 +1,9 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, Heading } from "@chakra-ui/react";
 
 const Home = () => {
   return (
-    <Flex as={"section"} w={"100%"} mx={"auto"} minH={"650px"} bg={"yellow.100"}>
-      <h1>Hi from Homepage/Specialties</h1>
+    <Flex as={"section"} w={["75%", "85%","95%"]} mx={"auto"} minH={"3650px"}>
+      <Heading color={"blue.900"} mt={"55px"}>Specialties</Heading>
     </Flex>
   );
 };

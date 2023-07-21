@@ -4,6 +4,9 @@ import Home from "../pages/Home";
 import Layout from "../components/Layout";
 import Specialists from "../pages/Specialists";
 import Login from "../pages/Login"
+import Register from "../pages/Register";
+import Appointments from "../pages/Appointments";
+
 
 export const router = createBrowserRouter([
   {
@@ -20,8 +23,16 @@ export const router = createBrowserRouter([
         element: <Specialists />,
       },
       {
+        path: "/appointments",
+        element: <Appointments />,
+      },
+      {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
       },
     ],
   },
