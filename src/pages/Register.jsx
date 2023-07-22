@@ -1,10 +1,11 @@
+import { Flex, Heading } from "@chakra-ui/react";
+
 const Register = () => {
-    return (
-      <>
-        <h1>Hi from RegisterPage</h1>
-      </>
-    );
-  };
-  
-  export default Register;
-  
+  return (
+    <Flex as={"section"} w={["75%", "85%", "95%"]} mx={"auto"} minH={"3650px"}>
+      <Heading variant={"main"}>Register Page</Heading>
+    </Flex>
+  );
+};
+
+export default Register;

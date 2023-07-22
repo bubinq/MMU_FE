@@ -1,11 +1,11 @@
 import { Button, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
-const Buttons = ({ type, text }) => {
+const Buttons = ({ type, text, handleMenuClick }) => {
   switch (type) {
     case "login":
       return (
-        <Link to={"/login"}>
+        <Link to={"/login"} onClick={handleMenuClick}>
           <Button variant="login" transition="0.2s ease-in">
             <Text>{text}</Text>
           </Button>
@@ -23,7 +23,7 @@ const Buttons = ({ type, text }) => {
       );
     case "signup":
       return (
-        <Link to={"/register"}>
+        <Link to={"/register"} onClick={handleMenuClick}>
           <Button className="btn-highlight" variant="signup">
             <svg className="border-highlight" viewBox="0 0 145 56">
               <polyline points="144,1 144,55 1,55 1,1 144,1" />

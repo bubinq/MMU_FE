@@ -12,7 +12,7 @@ const useWindowScroll = () => {
 
     const updatePrevScrollPos = throttle(() => {
       prevScroll.current = window.scrollY;
-    }, 300);
+    }, 200);
 
     window.addEventListener("scroll", updateWindowScroll);
     window.addEventListener("scroll", updatePrevScrollPos);

@@ -10,3 +10,13 @@ export const throttle = (func, delay) => {
     }
   };
 };
+
+export const shouldNavShow = (scrollDown, isMenuOpened) => {
+  const animation = { top: "0%" };
+
+  if (scrollDown > 0 && !isMenuOpened) {
+    animation.top = "-15%";
+  }
+
+  return animation;
+};

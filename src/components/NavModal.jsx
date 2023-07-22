@@ -1,7 +1,8 @@
-import { Box, List } from "@chakra-ui/react";
+import { Box, List, Flex } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import MenuItem from "./MenuItem";
 import useAuth from "../contexts/AuthContext";
+import Buttons from "./Buttons";
 
 const NavModal = ({ isMenuOpened, handleMenuClick }) => {
   const { user } = useAuth();
@@ -21,7 +22,7 @@ const NavModal = ({ isMenuOpened, handleMenuClick }) => {
         <List
           display={"flex"}
           flexDirection={"column"}
-          gap={8}
+          gap={6}
           h={"100vh"}
           alignItems={"center"}
           mt={"7rem"}
@@ -37,7 +38,17 @@ const NavModal = ({ isMenuOpened, handleMenuClick }) => {
               Appointments
             </MenuItem>
           )}
-          
+          <Box w={"60%"} mx={"auto"} my={3} h={"2px"} bg={"black"} />
+          <>
+            {user.name ? (
+              <Buttons type={"logout"} text={"Log out"} />
+            ) : (
+              <Flex gap={6}>
+                <Buttons type={"login"} text={"Login"} handleMenuClick={handleMenuClick} />
+                <Buttons type={"signup"} text={"Sign Up"} handleMenuClick={handleMenuClick}/>
+              </Flex>
+            )}
+          </>
         </List>
       </Box>
     </Box>

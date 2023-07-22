@@ -1,15 +1,16 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Flex } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { TABLET_DEVICES_RES } from "../constants";
+import { shouldNavShow } from "../utils";
 import Logo from "./Logo";
 import MenuList from "./MenuList";
 import Buttons from "./Buttons";
 import useWindowResize from "../hooks/useWindowResize";
-import NavModal from "./NavModal";
-import { useState } from "react";
-import useAuth from "../contexts/AuthContext";
 import useWindowScroll from "../hooks/useWindowScroll";
+import useAuth from "../contexts/AuthContext";
+import NavModal from "./NavModal";
 
 const Navbar = () => {
   const { width } = useWindowResize();
@@ -17,10 +18,7 @@ const Navbar = () => {
   const [isMenuOpened, setIsMenuOpened] = useState(false);
   const { user } = useAuth();
 
-  const isScrollingDown = scroll - prevScroll.current;
-
-  console.log("Scroll is", scroll);
-  console.log("PrevScroll is", prevScroll.current);
+  const scrollDown = scroll - prevScroll.current;
 
   const handleMenuClick = () => {
     setIsMenuOpened(!isMenuOpened);
@@ -28,11 +26,7 @@ const Navbar = () => {
   return (
     <Flex
       as={motion.nav}
-      animate={
-        isScrollingDown > 0
-          ? { top: "-8%" }
-          : isScrollingDown < 0 && { top: "0%" }
-      }
+      animate={shouldNavShow(scrollDown, isMenuOpened)}
       transition="0.1s"
       align="center"
       justify="space-between"
