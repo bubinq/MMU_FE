@@ -24,14 +24,18 @@ export const theme = extendTheme({
           textColor: "#181938",
           fontSize: "2xl",
           paddingX: 4,
-          borderRadius: "px",
-          _hover: { bg: "transparent", textColor: "#01a0e2", outline: "2px solid #01a0e2" },
+
+          _hover: {
+            bg: "transparent",
+            textColor: "#01a0e2",
+            outline: "2px solid #01a0e2",
+          },
         },
         logout: {
           bg: "transparent",
           textColor: "#181938",
           fontSize: "2xl",
-          border: "1px solid #acb0ad",
+          border: "2px solid #acb0ad",
           paddingX: 4,
           outline: "none",
           transition: "1s ease-in-out",
@@ -43,10 +47,17 @@ export const theme = extendTheme({
           textColor: "white",
           fontSize: "2xl",
           paddingX: 3,
-          borderRadius: "2px",
           outline: "none",
           transition: "1s ease-in-out",
           _hover: { transition: "1s ease-in-out", background: "#e48834" },
+        },
+      },
+    },
+    Heading: {
+      variants: {
+        main: {
+          color: "blue.900",
+          mt: "115px",
         },
       },
     },

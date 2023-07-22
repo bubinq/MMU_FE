@@ -11,8 +11,8 @@ const NavModal = ({ isMenuOpened, handleMenuClick }) => {
       position={"fixed"}
       top={0}
       left={0}
-      bg={"white"}
-      opacity={"80%"}
+      bg={"yellow.100"}
+      opacity={"95%"}
       initial={{ width: "30%" }}
       animate={{ width: "100%" }}
       transition="0.2s ease"
@@ -21,10 +21,10 @@ const NavModal = ({ isMenuOpened, handleMenuClick }) => {
         <List
           display={"flex"}
           flexDirection={"column"}
-          gap={10}
+          gap={8}
           h={"100vh"}
           alignItems={"center"}
-          justifyContent={"center"}
+          mt={"7rem"}
         >
           <MenuItem handleMenuClick={handleMenuClick} to={"/"}>
             Specialties
@@ -37,6 +37,7 @@ const NavModal = ({ isMenuOpened, handleMenuClick }) => {
               Appointments
             </MenuItem>
           )}
+          
         </List>
       </Box>
     </Box>

@@ -13,7 +13,7 @@ const Buttons = ({ type, text }) => {
       );
     case "logout":
       return (
-        <Button className="btn-highlight" variant="logout">
+        <Button className="btn-highlight" variant="logout" >
           <svg className="border-highlight" viewBox="0 0 160 56">
             <polyline points="159,1 159,55 1,55 1,1 159,1" />
             <polyline points="159,1 159,55 1,55 1,1 159,1" />
