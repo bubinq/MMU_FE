@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { throttle } from "../utils";
 
-const useWindowScroll = () => {
+export const useWindowScroll = () => {
   const [scroll, setScroll] = useState(0);
   const prevScroll = useRef(scroll);
 
@@ -26,4 +26,3 @@ const useWindowScroll = () => {
   }, []);
   return { scroll, prevScroll };
 };
-export default useWindowScroll;

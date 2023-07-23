@@ -4,11 +4,11 @@ import { Flex } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { TABLET_DEVICES_RES } from "../constants";
 import { shouldNavShow } from "../utils";
+import { useWindowResize } from "../hooks/useWindowResize";
+import { useWindowScroll } from "../hooks/useWindowScroll";
 import Logo from "./Logo";
 import MenuList from "./MenuList";
 import Buttons from "./Buttons";
-import useWindowResize from "../hooks/useWindowResize";
-import useWindowScroll from "../hooks/useWindowScroll";
 import useAuth from "../contexts/AuthContext";
 import NavModal from "./NavModal";
 
@@ -37,6 +37,7 @@ const Navbar = () => {
       bg={"yellow.300"}
       zIndex={30}
       position={"fixed"}
+      shadow={"md"}
     >
       <NavLink to="/">
         <Logo />

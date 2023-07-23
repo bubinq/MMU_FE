@@ -9,6 +9,7 @@ const NavModal = ({ isMenuOpened, handleMenuClick }) => {
   return (
     <Box
       as={motion.div}
+      aria-label="navigation-modal"
       position={"fixed"}
       top={0}
       left={0}

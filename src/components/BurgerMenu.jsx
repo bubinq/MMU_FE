@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 const BurgerMenu = ({ handleMenuClick, isMenuOpened }) => {
   return (
     <Flex
+      aria-label="burger-menu"
       onClick={handleMenuClick}
       as={motion.div}
       w={"50px"}
