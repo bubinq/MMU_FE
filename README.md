@@ -26,10 +26,16 @@ These instructions will help you get a copy of the project up and running on you
 
 - npm install
 
-// TODO
-- npm run build
-
 ## Usage
 To start the development server and run the project locally, use the following command:
 
 - npm run dev
+
+To make a dist folder with compiled HTML, CSS and JS you should run:
+
+- npm run build
+
+NOTE: If the HTML file output was opened with file protocol, the scripts won't run.
+You will need to access the file with http protocol. The easiest way to achieve this is to run:
+
+- npx vite preview

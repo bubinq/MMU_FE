@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event"
-import { vi } from "vitest";
+import { vi, describe, beforeEach, test } from "vitest";
 import "@testing-library/jest-dom";
 import { expect } from "vitest";
 import { router } from "../routes";
@@ -65,5 +65,12 @@ describe("Navbar Component in mobile resolutions", () => {
     await userEvent.click(burgerMenu);
     const navModal = screen.getByLabelText("navigation-modal");
     expect(navModal).toBeInTheDocument()
+  });
+  test("burgerMenu closes dropdown onClick", async () => {
+    const burgerMenu = screen.getByLabelText("burger-menu");
+    await userEvent.click(burgerMenu);
+    const navModal = screen.getByLabelText("navigation-modal");
+    await userEvent.click(burgerMenu);
+    expect(navModal).not.toBeInTheDocument();
   });
 });
