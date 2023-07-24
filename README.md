@@ -7,7 +7,7 @@ The projects' configuration is set up using - npm create vite@latest
 Make sure you have the following software installed on your local machine:
 
 ```
-- Node.js ( recommended 16+)
+- Node.js ( recommended 16+ )
 
 ```
 
