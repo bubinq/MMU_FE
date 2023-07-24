@@ -39,3 +39,24 @@ NOTE: If the HTML file output was opened with file protocol, the scripts won't r
 You will need to access the file with http protocol. The easiest way to achieve this is to run:
 
 - npx vite preview
+
+## Testing
+For this application we went with the vite recommended testing tools such as:
+ - vitest
+ - jsdom
+ - testing-library/jest-dom
+ - testing-library/react
+ - testing-library/user-event
+
+### Prerequisites:
+Make sure you have the following installed on your machine before proceeding
+
+Node.js (with npm - recommended 16+) 
+- You can download it from https://nodejs.org
+
+### Setup 
+Install Dependencies
+- npm install
+
+To run tests you can use the following commands:
+- npm (run) test
