@@ -8,10 +8,10 @@ export const useWindowScroll = () => {
   useEffect(() => {
     const updateWindowScroll = throttle(() => {
       setScroll(window.scrollY);
-      if (Math.abs(prevScroll.current - scroll) >= 200) {
+      if (Math.abs(prevScroll.current - scroll) >= 1) {
         prevScroll.current = scroll;
       }
-    }, 200);
+    }, 5);
 
     window.addEventListener("scroll", updateWindowScroll);
 

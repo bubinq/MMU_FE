@@ -27,7 +27,7 @@ const Navbar = () => {
     <Flex
       as={motion.nav}
       animate={shouldNavShow(scrollDown, isMenuOpened)}
-      transition="0.1s"
+      transition="0.05s"
       align="center"
       justify="space-between"
       wrap="wrap"

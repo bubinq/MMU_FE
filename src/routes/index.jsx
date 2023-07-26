@@ -6,7 +6,9 @@ import Specialists from "../pages/Specialists";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Appointments from "../pages/Appointments";
-// import { loader as getAllSpecialties } from "../pages/Home";
+import { loader as getAllSpecialties } from "../pages/Home";
+import { getSpecialistsSettings } from "../pages/Specialists";
+// import { loader as getTestData } from "../pages/Specialists";
 
 export const router = createBrowserRouter([
   {
@@ -17,11 +19,22 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
-        // loader: getAllSpecialties,
+        loader: getAllSpecialties,
       },
       {
         path: "/specialists",
         element: <Specialists />,
+        action: getSpecialistsSettings,
+        // loader: getTestData,
+        // children: [
+        //   {
+        //     path: ":query",
+        //     loader: async ({params}) => {
+        //       console.log(params);
+        //     },
+        //     element: <Specialists />,
+        //   },
+        // ],
       },
       {
         path: "/appointments",
