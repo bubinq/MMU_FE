@@ -36,7 +36,7 @@ const Navbar = () => {
       py={"8px"}
       bg={"yellow.300"}
       zIndex={30}
-      position={"fixed"}
+      // position={"fixed"}
       shadow={"md"}
     >
       <NavLink to="/">

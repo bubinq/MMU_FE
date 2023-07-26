@@ -2,8 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import Error from "../pages/Error";
 import Home from "../pages/Home";
 import Layout from "../components/Layout";
-import Specialists from "../pages/Specialists";
-import Login from "../pages/Login";
+import Specialists, {loader as getSpecialistData}  from "../pages/Specialists";
+import Login from "../pages/Login"
 import Register from "../pages/Register";
 import Appointments from "../pages/Appointments";
 import { loader as getAllSpecialties } from "../pages/Home";
@@ -22,6 +22,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/specialists",
+        loader: getSpecialistData,
         element: <Specialists />,
         action: getSpecialistsSettings,
       },

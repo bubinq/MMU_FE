@@ -70,7 +70,7 @@ export const theme = extendTheme({
       variants: {
         main: {
           color: "blue.900",
-          mt: "115px",
+          mt: "3.25rem",
         },
       },
     },
