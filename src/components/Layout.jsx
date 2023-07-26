@@ -6,7 +6,7 @@ const Layout = () => {
   return (
     <>
       <Navbar />
-      <Flex as={"main"} bg={"yellow.100"} height={"100vh"}>
+      <Flex as={"main"} bg={"yellow.100"}>
         <Outlet />
       </Flex>
     </>

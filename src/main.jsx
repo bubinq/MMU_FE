@@ -4,7 +4,6 @@ import App from "./App.jsx";
 import { ChakraProvider } from "@chakra-ui/react";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
 import { theme } from "./chakra/theme.js";
-import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

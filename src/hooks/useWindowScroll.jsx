@@ -11,7 +11,7 @@ export const useWindowScroll = () => {
       if (Math.abs(prevScroll.current - scroll) >= 200) {
         prevScroll.current = scroll;
       }
-    }, 300);
+    }, 200);
 
     window.addEventListener("scroll", updateWindowScroll);
 

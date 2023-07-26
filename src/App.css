@@ -62,3 +62,7 @@ main {
 .btn-highlight:hover .border-highlight {
   stroke-dashoffset: -480;
 }
+
+.img-link {
+  max-width: 410px;
+}

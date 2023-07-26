@@ -3,10 +3,10 @@ import Error from "../pages/Error";
 import Home from "../pages/Home";
 import Layout from "../components/Layout";
 import Specialists from "../pages/Specialists";
-import Login from "../pages/Login"
+import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Appointments from "../pages/Appointments";
-
+// import { loader as getAllSpecialties } from "../pages/Home";
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +17,7 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+        // loader: getAllSpecialties,
       },
       {
         path: "/specialists",

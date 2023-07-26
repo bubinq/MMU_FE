@@ -15,7 +15,7 @@ const NavModal = ({ isMenuOpened, handleMenuClick }) => {
       left={0}
       bg={"yellow.100"}
       opacity={"95%"}
-      initial={{ width: "30%" }}
+      initial={{ width: "60%" }}
       animate={{ width: "100%" }}
       transition="0.2s ease"
     >
