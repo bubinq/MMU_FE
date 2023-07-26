@@ -15,7 +15,7 @@ export const shouldNavShow = (scrollDown, isMenuOpened) => {
   const animation = { top: "0%" };
 
   if (scrollDown > 0 && !isMenuOpened) {
-    animation.top = "-20%";
+    animation.top = "-10%";
   }
 
   return animation;
