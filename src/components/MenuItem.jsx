@@ -11,7 +11,7 @@ const MenuItem = ({ to, children, handleMenuClick }) => {
       }
       to={to}
     >
-      <Text fontSize={"2xl"} color={"blue.900"}>
+      <Text fontSize={"2xl"} color={"black"}>
         {children}
       </Text>
     </NavLink>
