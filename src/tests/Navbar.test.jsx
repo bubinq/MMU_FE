@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event"
+import userEvent from "@testing-library/user-event";
 import { vi, describe, beforeEach, test } from "vitest";
 import "@testing-library/jest-dom";
 import { expect } from "vitest";
@@ -7,6 +7,16 @@ import { router } from "../routes";
 import { RouterProvider } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { useWindowResize } from "../hooks/useWindowResize";
+
+vi.mock("react-router-dom", async () => {
+  const router = await vi.importActual("react-router-dom");
+  return {
+    ...router,
+    createBrowserRouter: vi.fn(() => {
+      return router;
+    }),
+  };
+});
 
 vi.mock("../contexts/AuthContext", async () => {
   return {
@@ -64,7 +74,7 @@ describe("Navbar Component in mobile resolutions", () => {
     const burgerMenu = screen.getByLabelText("burger-menu");
     await userEvent.click(burgerMenu);
     const navModal = screen.getByLabelText("navigation-modal");
-    expect(navModal).toBeInTheDocument()
+    expect(navModal).toBeInTheDocument();
   });
   test("burgerMenu closes dropdown onClick", async () => {
     const burgerMenu = screen.getByLabelText("burger-menu");

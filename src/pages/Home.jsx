@@ -12,7 +12,6 @@ const Home = () => {
       direction={"column"}
       w={["75%", "85%", "95%"]}
       mx={"auto"}
-      minH={"10000px"}
     >
       <Heading variant={"main"}>Specialties</Heading>
       <Grid
@@ -28,15 +27,17 @@ const Home = () => {
             key={specialty.id}
             onClick={() => {
               submit(
-                { specialty },
+                { id: specialty.id, name: specialty.name },
                 { method: "post", action: "/specialists" }
               );
             }}
             to={`/specialists`}
-            // state={{ specialty: specialty.name }}
             className="img-link"
           >
-            <MainCard title={specialty.name} img={specialty.image_url} />
+            <MainCard
+              title={<Heading size="lg">{specialty.name}</Heading>}
+              img={specialty.image_url}
+            />
           </Link>
         ))}
       </Grid>

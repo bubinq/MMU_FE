@@ -1,4 +1,5 @@
-import { Card, CardBody, Image, Heading, Box, Flex } from "@chakra-ui/react";
+import { Card, CardBody, Image, Box, Flex } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 
 const MainCard = ({ title, specialty, rating, location, img }) => {
   return (
@@ -10,10 +11,13 @@ const MainCard = ({ title, specialty, rating, location, img }) => {
       overflow={"hidden"}
       cursor={"pointer"}
       transition={"0.2s all"}
-      _hover={{ring: 4, ringColor: "blue.900"}}
+      _hover={{ ring: 4, ringColor: "blue.900"}}
     >
       <CardBody padding={0}>
         <Image
+          as={motion.img}
+          transition={"0.2s all"}
+          whileHover={{scale: 1.05}}
           h={specialty ? "75%" : "90%"}
           w={"100%"}
           objectFit={"cover"}
@@ -32,20 +36,23 @@ const MainCard = ({ title, specialty, rating, location, img }) => {
           boxShadow={"0px 0px 20px 30px rgba(255, 255, 255, 1)"}
           overflow={"hidden"}
         ></Box>
-        <Flex justify={"space-between"} paddingX={specialty ? "14px" : ""} position={"absolute"} top={"89%"}>
+        <Flex
+          justify={"space-between"}
+          paddingX={specialty ? "14px" : ""}
+          position={"absolute"}
+          top={"89%"}
+        >
           <Flex
             pos={"relative"}
             direction={"column"}
             paddingLeft={"15px"}
             zIndex={10}
           >
-            <Heading size="lg" >{title}</Heading>
+            {title}
             {specialty}
             {location}
           </Flex>
-          <Flex paddingRight={"15px"} zIndex={"10"} >
-            {rating}
-          </Flex>
+          {rating}
         </Flex>
       </CardBody>
     </Card>
