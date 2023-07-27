@@ -3,20 +3,26 @@ import SearchBar from "../components/Specialists/SearchBar.jsx";
 import specialistService from "../services/specialist/index.js";
 import cityService from "../services/city/index.js";
 import specialtyService from "../services/specialty/index.js";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useActionData } from "react-router-dom";
 import { useState } from "react";
 import DoctorList from "../components/Specialists/DoctorList.jsx";
 
 const Specialists = () => {
   const data = useLoaderData();
+  const actionData = useActionData();
+
+  console.log(actionData);
+
+  const fromSpecialtyCard = actionData && actionData.length > 0;
 
   const [searchTerms, setSearchTerms] = useState({
     name: "",
-    specialty: "",
+    specialty: fromSpecialtyCard ? actionData[0].id : "",
     city: "",
   });
-  const [doctors, setDoctors] = useState([]);
-  console.log(doctors);
+  const [doctors, setDoctors] = useState(
+    actionData || data.specialists.content
+  );
 
   const handleSearch = () => {
     specialistService
@@ -39,17 +45,22 @@ const Specialists = () => {
         cities={data.cities}
         onSearch={handleSearch}
       />
-      <DoctorList
-        doctors={doctors.length > 0 ? doctors : data.specialists.content}
-        specialties={data.specialties}
-      />
+      <DoctorList doctors={doctors} specialties={data.specialties} />
     </Box>
   );
 };
 
 export const getSpecialistsSettings = async ({ request }) => {
+  let data;
   const formData = Object.fromEntries(await request.formData());
-  console.log(formData);
+
+  try {
+    data = await specialistService.searchDocs({ specialty: formData.id });
+  } catch (err) {
+    console.log(err);
+  }
+
+  return data.content;
 };
 export default Specialists;
 
@@ -64,12 +75,12 @@ export const loader = async () => {
       sortDir: "desc",
     });
 
-    data.cities = await cityService.getAllCities;
+    data.cities = await cityService.getAllCities();
 
-    data.specialties = await specialtyService.getAllSpecialties;
+    data.specialties = await specialtyService.getAllSpecialties();
   } catch (err) {
     console.log(err);
   }
-
+  console.log(data);
   return data;
 };

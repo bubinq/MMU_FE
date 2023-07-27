@@ -22,7 +22,7 @@ const MainCard = ({ title, specialty, rating, location, img }) => {
           w={"100%"}
           objectFit={"cover"}
           src={img}
-          alt={title}
+          alt={`${specialty ? "Doctor Profile" : "Specialty"}`}
           borderRadius="5%"
           pos={"absolute"}
         />{" "}

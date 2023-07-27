@@ -1,17 +1,17 @@
 const specialty = {
-  listAll: "/specialties",
-  create: "/specialties",
+  listAll: "/specialties?sortBy=name&sortDir=asc",
 };
 
 const specialist = {
   listAll: ({ pageNo, pageSize, sortBy, sortDir }) =>
-      `/doctors?pageNo=${pageNo}&pageSize=${pageSize}&sortBy=${sortBy}&sortDir=${sortDir}`,
+    `/doctors?pageNo=${pageNo}&pageSize=${pageSize}&sortBy=${sortBy}&sortDir=${sortDir}`,
   create: (cityUuid) => `/cities/${cityUuid}/doctors`,
   getSingleDoctor: (uuid) => `/doctors/${uuid}`,
   updateDoctor: (uuid) => `/doctors/${uuid}`,
   deleteDoctor: (uuid) => `/doctors/${uuid}`,
 
-  searchBy: ({name, specialty, city}) => `/doctors?name=${name}&specialtyId=${specialty}&cityId=${city}`
+  searchBy: ({ name = "", specialty = "", city = "" }) =>
+    `/doctors?name=${name}&specialtyId=${specialty}&cityId=${city}`,
 };
 
 const city = {

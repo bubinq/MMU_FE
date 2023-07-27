@@ -1,6 +1,7 @@
 import { Flex, Grid, Heading } from "@chakra-ui/react";
-import { Link, useLoaderData, useSubmit } from "react-router-dom";
+import { useLoaderData, Form, useSubmit } from "react-router-dom";
 import MainCard from "../components/MainCard";
+import specialtyService from "../services/specialty";
 
 const Home = () => {
   const data = useLoaderData();
@@ -23,22 +24,28 @@ const Home = () => {
         py={10}
       >
         {data.content.map((specialty) => (
-          <Link
+          <Form
             key={specialty.id}
+            action="/specialists"
             onClick={() => {
-              submit(
-                { id: specialty.id, name: specialty.name },
-                { method: "post", action: "/specialists" }
-              );
+              const formData = new FormData();
+              formData.append("id", specialty.id);
+              submit(formData, {
+                method: "post",
+                action: "/specialists",
+              });
             }}
-            to={`/specialists`}
             className="img-link"
           >
             <MainCard
-              title={<Heading size="lg">{specialty.name}</Heading>}
+              title={
+                <Heading as={"h3"} size="lg">
+                  {specialty.name}
+                </Heading>
+              }
               img={specialty.image_url}
             />
-          </Link>
+          </Form>
         ))}
       </Grid>
     </Flex>
@@ -49,12 +56,10 @@ export default Home;
 
 export const loader = async () => {
   let data;
-  const res = await fetch(
-    "http://localhost:8080/api/v1/specialties?sortBy=name&sortDir=asc"
-  );
-  if (res.ok) {
-    data = await res.json();
+  try {
+    data = await specialtyService.getAllSpecialties();
+  } catch (error) {
+    console.log(error);
   }
-
   return data;
 };

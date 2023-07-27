@@ -38,6 +38,7 @@ const SearchBar = ({
           size="lg"
           name="specialty"
           onChange={handleTermsChange}
+          value={searchTerms.specialty}
         >
           {specialties?.content.map((s, index) => (
             <option key={index} value={s.id}>
