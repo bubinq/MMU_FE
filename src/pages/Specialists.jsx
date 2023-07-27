@@ -16,14 +16,12 @@ const Specialists = () => {
     city: "",
   });
   const [doctors, setDoctors] = useState([]);
-  const [isSearched, setIsSearched] = useState(false);
   console.log(doctors);
 
   const handleSearch = () => {
     specialistService
       .searchDocs(searchTerms)
       .then((res) => {
-        setIsSearched(true);
         setDoctors(res.content);
       })
       .catch((err) => console.log(err));
@@ -42,7 +40,7 @@ const Specialists = () => {
         onSearch={handleSearch}
       />
       <DoctorList
-        doctors={isSearched ? doctors : data.specialists.content}
+        doctors={doctors.length > 0 ? doctors : data.specialists.content}
         specialties={data.specialties}
       />
     </Box>
@@ -72,25 +70,6 @@ export const loader = async () => {
   } catch (err) {
     console.log(err);
   }
-
-  // specialistService
-  //   .getAll({
-  //     pageNo: 0,
-  //     pageSize: 10000,
-  //     sortBy: "averageRating",
-  //     sortDir: "asc",
-  //   })
-  //   .then((res) => console.log(res))
-  //   .then((res) => (data.specialists = res))
-  //   .catch((err) => console.log(err));
-  //
-  // cityService.getAllCities
-  //   .then((res) => (data.cities = res))
-  //   .catch((err) => console.log(err));
-  //
-  // specialtyService.getAllSpecialties
-  //   .then((res) => (data.specialties = res))
-  //   .catch((err) => console.log(err));
 
   return data;
 };
