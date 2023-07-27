@@ -8,6 +8,7 @@ const specialistService = {
   getSpecialist: (uuid) => callGet(urls.specialist.getSingleDoctor(uuid)),
   update: (uuid, info) => callPut(urls.specialist.updateDoctor(uuid), info),
   deleteSpecialist: (uuid) => callDelete(urls.specialist.deleteDoctor(uuid)),
+  searchDocs: (terms) => callGet(urls.specialist.searchBy(terms)),
 };
 
 export default specialistService;

@@ -1,52 +1,32 @@
-import { Box, Flex, Input, Select, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { Box, Button, Flex, Input, Select, Text } from "@chakra-ui/react";
 
-const SearchBar = ({ setSearchTerms, specialties = [], cities = [] }) => {
-  const [name, setName] = useState("");
-  const [specialty, setSpecialty] = useState("");
-  const [city, setCity] = useState("");
+const SearchBar = ({
+  searchTerms,
+  setSearchTerms,
+  specialties,
+  cities,
+  onSearch,
+}) => {
+  const handleTermsChange = (e) => {
+    const fieldKey = e.target.name;
+    const value = e.target.value;
 
-  const handleCityChange = (e) => {
-    const city = e.target.value;
-    setCity(city);
-    const delta = {
-      name: name,
-      specialty: specialty,
-      city: city,
-    };
-    setSearchTerms(delta);
+    setSearchTerms((previousState) => ({
+      ...previousState,
+      [fieldKey]: value,
+    }));
   };
-
-  const handleSpecialtyChange = (e) => {
-    const specialty = e.target.value;
-    setSpecialty(specialty);
-    const delta = {
-      name: name,
-      specialty: specialty,
-      city: city,
-    };
-    setSearchTerms(delta);
-  };
-
-  const handleNameChange = (e) => {
-    const name = e.target.value;
-    setName(name);
-    setSearchTerms({
-      name: name,
-      specialty: specialty,
-      city: city,
-    });
-  }
 
   return (
     <Flex mt={"2rem"} gap={"5rem"}>
       <Box>
         <Text as="span">Specialist Name</Text>
         <Input
-          value={name}
-          onChange={handleNameChange}
+          value={searchTerms.name}
+          onChange={handleTermsChange}
           placeholder="Search by doctor's name"
           mt={"1rem"}
+          name="name"
           size="lg"
         />
       </Box>
@@ -56,34 +36,41 @@ const SearchBar = ({ setSearchTerms, specialties = [], cities = [] }) => {
           placeholder="Select option"
           mt={"1rem"}
           size="lg"
-          onChange={handleSpecialtyChange}
+          name="specialty"
+          onChange={handleTermsChange}
         >
-          {specialties.map((s, index) => (
-            <option key={index}>{index + 1}</option>
+          {specialties?.content.map((s, index) => (
+            <option key={index} value={s.id}>
+              {s.name}
+            </option>
           ))}
-          <option value="option1">Option 1</option>
-          <option value="option2">Option 2</option>
-          <option value="option3">Option 3</option>
         </Select>
       </Box>
       <Box width={"25rem"}>
         <Text as="span">City</Text>
-        <Text as="span">Specialty</Text>
         <Select
           placeholder="Select option"
           mt={"1rem"}
           size="lg"
-          onChange={handleCityChange}
+          name="city"
+          onChange={handleTermsChange}
         >
-          {cities.map((c, index) => (
+          {cities?.content.map((c, index) => (
             <option key={index} value={c.id}>
-              Option {index + 1}
+              {c.name}
             </option>
           ))}
-          <option value="option4">Option 4</option>
-          <option value="option5">Option 5</option>
-          <option value="option6">Option 6</option>
         </Select>
+      </Box>
+      <Box display={"flex"} alignItems={"end"}>
+        <Button
+          fontSize={"16px"}
+          padding="1.5rem 2rem"
+          bg={"blue.300"}
+          onClick={onSearch}
+        >
+          Search
+        </Button>
       </Box>
     </Flex>
   );
