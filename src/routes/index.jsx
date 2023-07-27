@@ -2,6 +2,9 @@ import { createBrowserRouter } from "react-router-dom";
 import Error from "../pages/Error";
 import Home from "../pages/Home";
 import Layout from "../components/Layout";
+import DoctorDetails, {
+  loader as getDoctorDetails,
+} from "../pages/DoctorDetails.jsx";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Appointments from "../pages/Appointments";
@@ -9,7 +12,7 @@ import { loader as getAllSpecialties } from "../pages/Home";
 import { getSpecialistsSettings } from "../pages/Specialists";
 import Specialists, { loader as getSpecialistData } from "../pages/Specialists";
 
-export const routes = [
+export const router = createBrowserRouter([
   {
     path: "/",
     errorElement: <Error />,
@@ -27,6 +30,11 @@ export const routes = [
         action: getSpecialistsSettings,
       },
       {
+        path: "/specialists/:id",
+        element: <DoctorDetails />,
+        loader: getDoctorDetails,
+      },
+      {
         path: "/appointments",
         element: <Appointments />,
       },
@@ -40,6 +48,4 @@ export const routes = [
       },
     ],
   },
-];
-
-export const router = createBrowserRouter(routes);
+]);

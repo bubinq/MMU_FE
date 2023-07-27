@@ -18,6 +18,8 @@ const Specialists = () => {
     name: "",
     specialty: fromSpecialtyCard ? actionData[0].id : "",
     city: "",
+    sortBy: "averageRating",
+    sortDir: "desc",
   });
   const [doctors, setDoctors] = useState(
     actionData || data.specialists.content
@@ -33,8 +35,8 @@ const Specialists = () => {
   };
 
   return (
-    <Box as={"section"} w={["75%", "85%", "95%"]} mx={"auto"}>
-      <Heading variant={"main"} display={"block"}>
+    <Box as={"section"} w={["75%", "85%", "95%"]} mx={"auto"} minH={"93vh"}>
+      <Heading variant={"main"} display={"block"} ml={"4rem"}>
         Specialists
       </Heading>
       <SearchBar
@@ -60,16 +62,18 @@ export const getSpecialistsSettings = async ({ request }) => {
 };
 export default Specialists;
 
-export const loader = async () => {
+export const loader = async ({ request }) => {
   let data = {};
 
-  try {
-    data.specialists = await specialistService.getAll({
-      pageNo: 0,
-      pageSize: 10000,
-      sortBy: "averageRating",
-      sortDir: "desc",
-    });
+  console.log(request);
+  if (request.url !== "http://localhost:5173/specialists?name=") {
+    try {
+      data.specialists = await specialistService.getAll({
+        pageNo: 0,
+        pageSize: 10000,
+        sortBy: "averageRating",
+        sortDir: "desc",
+      });
 
     data.cities = await cityService.getAllCities();
 
