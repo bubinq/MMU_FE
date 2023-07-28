@@ -18,8 +18,6 @@ const Specialists = () => {
     name: "",
     specialty: fromSpecialtyCard ? actionData[0].id : "",
     city: "",
-    sortBy: "averageRating",
-    sortDir: "desc",
   });
   const [doctors, setDoctors] = useState(
     actionData || data.specialists.content
@@ -35,8 +33,13 @@ const Specialists = () => {
   };
 
   return (
-    <Box as={"section"} w={["75%", "85%", "95%"]} mx={"auto"} minH={"93vh"}>
-      <Heading variant={"main"} display={"block"} ml={"4rem"}>
+    <Box as={"section"} w={["100%", "85%", "95%"]} mx={"auto"} minH={"100vh"}>
+      <Heading
+        variant={"main"}
+        display={"block"}
+        ml={["0rem", "0rem", "4rem"]}
+        textAlign={["center", "center", "start"]}
+      >
         Specialists
       </Heading>
       <SearchBar
@@ -62,24 +65,24 @@ export const getSpecialistsSettings = async ({ request }) => {
 };
 export default Specialists;
 
-export const loader = async ({ request }) => {
+export const loader = async () => {
   let data = {};
 
-  console.log(request);
-  if (request.url !== "http://localhost:5173/specialists?name=") {
-    try {
-      data.specialists = await specialistService.getAll({
-        pageNo: 0,
-        pageSize: 10000,
-        sortBy: "averageRating",
-        sortDir: "desc",
-      });
+  try {
+    data.specialists = await specialistService.getAll({
+      pageNo: 0,
+      pageSize: 10000,
+      sortBy: "averageRating",
+      sortDir: "desc",
+    });
 
     data.cities = await cityService.getAllCities();
 
     data.specialties = await specialtyService.getAllSpecialties();
   } catch (err) {
-    console.log(err);
+    throw new Error(
+      "Server Error: Keep refreshing this page. We will be back soon!"
+    );
   }
   return data;
 };

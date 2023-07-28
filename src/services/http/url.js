@@ -1,6 +1,5 @@
 const specialty = {
-  listAll: () => "/specialties",
-  create: () => "/specialties",
+  listAll: "/specialties?sortBy=name&sortDir=asc",
 };
 
 const specialist = {
@@ -12,7 +11,7 @@ const specialist = {
   deleteDoctor: (uuid) => `/doctors/${uuid}`,
 
   searchBy: (
-    { name="", specialty="", city="", sortBy, sortDir },
+    { name="", specialty="", city="", sortBy="averageRating", sortDir="desc" },
 
   ) =>
     `/doctors?name=${name}&specialtyId=${specialty}&cityId=${city}&sortBy=${sortBy}&sortDir=${sortDir}`,

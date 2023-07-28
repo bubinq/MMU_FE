@@ -28,6 +28,7 @@ const SpecialtyList = ({ data }) => {
               </Heading>
             }
             img={specialty.image_url}
+            source="home"
           />
         </Form>
       ))}

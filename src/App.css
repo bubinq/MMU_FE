@@ -82,3 +82,27 @@ main {
   right: 5%;
   top: 46%;
 }
+
+@media (max-width: 1087px) {
+  .img-link {
+    max-width: 410px;
+    min-width: 320px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .img-link {
+    max-width: 410px;
+    min-width: 320px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 360px) {
+  .img-link {
+    max-width: 410px;
+    min-width: 300px;
+    margin: 0 auto;
+  }
+}
