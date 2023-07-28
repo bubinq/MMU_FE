@@ -53,7 +53,7 @@ main {
   left: 0;
   top: 0;
   fill: none;
-  stroke: #01a0e2;
+  stroke: #181938;
   stroke-dasharray: 150 480;
   stroke-dashoffset: 150;
   transition: 1s ease-in-out;
@@ -61,4 +61,8 @@ main {
 
 .btn-highlight:hover .border-highlight {
   stroke-dashoffset: -480;
+}
+
+.img-link {
+  max-width: 410px;
 }

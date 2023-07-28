@@ -7,7 +7,7 @@ import useAuth from "../contexts/AuthContext";
 const MenuList = ({ width, handleMenuClick, isMenuOpened }) => {
   const { user } = useAuth();
   return (
-    <Flex align="center" gap={[4, 8]}>
+    <Flex align="center" ml={"30%"} gap={[4, 8]}>
       {width > TABLET_DEVICES_RES ? (
         <>
           <MenuItem to={"/"}>Specialties</MenuItem>

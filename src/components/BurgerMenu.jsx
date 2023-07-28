@@ -9,7 +9,7 @@ const BurgerMenu = ({ handleMenuClick, isMenuOpened }) => {
       as={motion.div}
       w={"50px"}
       h={"50px"}
-      bg={"yellow.500"}
+      bg={"yellow.900"}
       flexDirection={"column"}
       gap={2}
       align="center"

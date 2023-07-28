@@ -8,21 +8,18 @@ export const useWindowScroll = () => {
   useEffect(() => {
     const updateWindowScroll = throttle(() => {
       setScroll(window.scrollY);
-    }, 100);
-
-    const updatePrevScrollPos = throttle(() => {
-      prevScroll.current = window.scrollY;
-    }, 200);
+      if (Math.abs(prevScroll.current - scroll) >= 1) {
+        prevScroll.current = scroll;
+      }
+    }, 5);
 
     window.addEventListener("scroll", updateWindowScroll);
-    window.addEventListener("scroll", updatePrevScrollPos);
+
     updateWindowScroll();
-    updatePrevScrollPos();
 
     return () => {
       window.removeEventListener("scroll", updateWindowScroll);
-      window.removeEventListener("scroll", updatePrevScrollPos);
     };
-  }, []);
+  }, [scroll]);
   return { scroll, prevScroll };
 };

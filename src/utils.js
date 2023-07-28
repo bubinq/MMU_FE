@@ -15,8 +15,21 @@ export const shouldNavShow = (scrollDown, isMenuOpened) => {
   const animation = { top: "0%" };
 
   if (scrollDown > 0 && !isMenuOpened) {
-    animation.top = "-20%";
+    animation.top = "-10%";
   }
 
   return animation;
+};
+
+export const requestExecuter = async (request) => {
+  let data;
+  try {
+    data = await request;
+  } catch (error) {
+    throw new Error(
+      "Server Error: Keep refreshing this page. We will be back soon!"
+    );
+  }
+
+  return data;
 };

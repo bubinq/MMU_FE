@@ -1,1 +1,1 @@
-export const TABLET_DEVICES_RES = 768;
+export const TABLET_DEVICES_RES = 997;
