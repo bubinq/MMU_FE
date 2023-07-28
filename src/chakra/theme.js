@@ -72,6 +72,10 @@ export const theme = extendTheme({
           color: "blue.900",
           mt: "8.25rem",
         },
+        errorHeading: {
+          color: "blue.900",
+          mt: "6.25rem",
+        },
       },
     },
   },

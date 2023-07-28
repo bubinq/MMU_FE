@@ -20,3 +20,16 @@ export const shouldNavShow = (scrollDown, isMenuOpened) => {
 
   return animation;
 };
+
+export const requestExecuter = async (request) => {
+  let data;
+  try {
+    data = await request;
+  } catch (error) {
+    throw new Error(
+      "Server Error: Keep refreshing this page. We will be back soon!"
+    );
+  }
+
+  return data;
+};

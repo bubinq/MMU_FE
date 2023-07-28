@@ -6,12 +6,11 @@ import specialtyService from "../services/specialty/index.js";
 import { useLoaderData, useActionData } from "react-router-dom";
 import { useState } from "react";
 import DoctorList from "../components/Specialists/DoctorList.jsx";
+import { requestExecuter } from "../utils.js";
 
 const Specialists = () => {
   const data = useLoaderData();
   const actionData = useActionData();
-
-  console.log(actionData);
 
   const fromSpecialtyCard = actionData && actionData.length > 0;
 
@@ -51,14 +50,11 @@ const Specialists = () => {
 };
 
 export const getSpecialistsSettings = async ({ request }) => {
-  let data;
   const formData = Object.fromEntries(await request.formData());
 
-  try {
-    data = await specialistService.searchDocs({ specialty: formData.id });
-  } catch (err) {
-    console.log(err);
-  }
+  const data = await requestExecuter(
+    specialistService.searchDocs({ specialty: formData.id })
+  );
 
   return data.content;
 };
@@ -81,6 +77,5 @@ export const loader = async () => {
   } catch (err) {
     console.log(err);
   }
-  console.log(data);
   return data;
 };

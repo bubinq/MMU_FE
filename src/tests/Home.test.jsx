@@ -8,6 +8,29 @@ import Home from "../pages/Home";
 import Specialists from "../pages/Specialists";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
+const mockSpecialtiesContent = {
+  content: [
+    {
+      id: 1,
+      name: "Ophthalmology",
+      image_url:
+        "https://images.pexels.com/photos/5765827/pexels-photo-5765827.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    },
+    {
+      id: 2,
+      name: "Cardiology",
+      image_url:
+        "https://images.pexels.com/photos/7659564/pexels-photo-7659564.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    },
+    {
+      id: 3,
+      name: "Orthopedics",
+      image_url:
+        "https://images.pexels.com/photos/7446990/pexels-photo-7446990.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    },
+  ],
+};
+
 const mockRoutes = [
   {
     path: "/",
@@ -18,28 +41,7 @@ const mockRoutes = [
         index: true,
         element: <Home />,
         loader: vi.fn(() => {
-          return {
-            content: [
-              {
-                id: 1,
-                name: "Ophthalmology",
-                image_url:
-                  "https://images.pexels.com/photos/5765827/pexels-photo-5765827.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-              },
-              {
-                id: 2,
-                name: "Cardiology",
-                image_url:
-                  "https://images.pexels.com/photos/7659564/pexels-photo-7659564.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-              },
-              {
-                id: 3,
-                name: "Orthopedics",
-                image_url:
-                  "https://images.pexels.com/photos/7446990/pexels-photo-7446990.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-              },
-            ],
-          };
+          return mockSpecialtiesContent;
         }),
       },
       {
@@ -50,16 +52,7 @@ const mockRoutes = [
             cities: {
               content: [{ id: 1, name: "Sofia", countryId: 1 }],
             },
-            specialties: {
-              content: [
-                {
-                  id: 1,
-                  name: "Ophthalmology",
-                  image_url:
-                    "https://images.pexels.com/photos/5765827/pexels-photo-5765827.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-                },
-              ],
-            },
+            specialties: mockSpecialtiesContent,
             specialists: {
               content: {
                 address: "123 Main Street, New York, USA",
@@ -96,7 +89,7 @@ const mockRoutes = [
               imageUrl:
                 "https://familydoctor.org/wp-content/uploads/2018/02/41808433_l.jpg",
               lastName: "Doe",
-              specialtyId: 1,
+              specialtyId: 2,
               specialtyName: "Cardiology",
               summary: "Summary for Doctor John Doe",
             },
@@ -147,9 +140,13 @@ describe("HomePage Component", () => {
   test("redirects to Specialists page onClick", async () => {
     const heading = screen.getByRole("heading", {
       level: 3,
-      name: "Ophthalmology",
+      name: "Cardiology",
     });
     await userEvent.click(heading);
-    screen.debug();
+    const specialistHeading = screen.getByRole("heading", {
+      level: 2,
+      name: "Specialists",
+    });
+    expect(specialistHeading).toBeInTheDocument();
   });
 });
