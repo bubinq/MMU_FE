@@ -27,13 +27,12 @@ const DoctorList = ({ doctors, specialties }) => {
           ]}
           columnGap={"50px"}
           rowGap={"50px"}
-          as={"article"}
+          as={"section"}
           w={"100%"}
           py={10}
-          px={["1.5rem", "5rem"]}
         >
           {doctors.map((d) => (
-            <Link key={d.id} to={`${d.id}`} className="img-link">
+            <Link  key={d.id} to={`${d.id}`} className="doc-img-link">
               <MainCard
                 title={
                   <Heading size="lg" color={"#181938"}>

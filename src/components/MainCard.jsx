@@ -6,6 +6,7 @@ import { faStar, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 const MainCard = ({ title, specialty, rating, location, img, source }) => {
   return (
     <Card
+      as={"article"}
       maxW="410px"
       minH="420px"
       borderRadius={"5%"}

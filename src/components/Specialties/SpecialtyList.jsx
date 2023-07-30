@@ -19,7 +19,7 @@ const SpecialtyList = ({ data }) => {
               }
             );
           }}
-          className="img-link"
+          className="home-img-link"
         >
           <MainCard
             title={

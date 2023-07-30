@@ -26,7 +26,6 @@ const SearchBar = ({
       <Flex
         mt={"2rem"}
         gap={["1rem", "2rem", "5rem"]}
-        ml={["0rem", "0rem", "4rem"]}
         direction={["column", "column", "row"]}
         alignItems={["center", "center", "end"]}
       >
