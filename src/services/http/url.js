@@ -10,19 +10,22 @@ const specialist = {
   updateDoctor: (uuid) => `/doctors/${uuid}`,
   deleteDoctor: (uuid) => `/doctors/${uuid}`,
 
-  searchBy: ({ name = "", specialty = "", city = "" }) =>
-    `/doctors?name=${name}&specialtyId=${specialty}&cityId=${city}`,
+  searchBy: (
+    { name="", specialty="", city="", sortBy="averageRating", sortDir="desc" },
+
+  ) =>
+    `/doctors?name=${name}&specialtyId=${specialty}&cityId=${city}&sortBy=${sortBy}&sortDir=${sortDir}`,
 };
 
 const city = {
-  listAll: "/cities",
+  listAll: () => "/cities",
   getCity: (uuid) => `/cities/${uuid}`,
   create: (countryUuid) => `/countries/${countryUuid}/cities`,
 };
 
 const country = {
-  listAll: "/country",
-  create: "/country",
+  listAll: () => "/country",
+  create: () => "/country",
   getCountry: (uuid) => `/countries/${uuid}`,
   updateCountry: (uuid) => `/countries/${uuid}`,
   deleteCountry: (uuid) => `/countries/${uuid}`,

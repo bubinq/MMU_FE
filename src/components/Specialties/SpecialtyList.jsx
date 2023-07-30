@@ -19,7 +19,7 @@ const SpecialtyList = ({ data }) => {
               }
             );
           }}
-          className="img-link"
+          className="home-img-link"
         >
           <MainCard
             title={
@@ -28,6 +28,7 @@ const SpecialtyList = ({ data }) => {
               </Heading>
             }
             img={specialty.image_url}
+            source="home"
           />
         </Form>
       ))}

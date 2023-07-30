@@ -16,8 +16,8 @@ const Specialists = () => {
 
   const [searchTerms, setSearchTerms] = useState({
     name: "",
-    specialty: fromSpecialtyCard ? actionData[0].id : "",
-    city: "",
+    specialty: fromSpecialtyCard ? actionData[0].specialtyId : "",
+    city: ""
   });
   const [doctors, setDoctors] = useState(
     actionData || data.specialists.content
@@ -33,8 +33,11 @@ const Specialists = () => {
   };
 
   return (
-    <Box as={"section"} w={["75%", "85%", "95%"]} mx={"auto"}>
-      <Heading variant={"main"} display={"block"}>
+    <Box as={"main"} w={["100%", "85%", "95%"]} mx={"auto"} minH={"100vh"}>
+      <Heading
+        variant={"main"}
+        textAlign={["center", "center", "start"]}
+      >
         Specialists
       </Heading>
       <SearchBar
@@ -66,7 +69,7 @@ export const loader = async () => {
   try {
     data.specialists = await specialistService.getAll({
       pageNo: 0,
-      pageSize: 10000,
+      pageSize: 10,
       sortBy: "averageRating",
       sortDir: "desc",
     });
@@ -75,7 +78,9 @@ export const loader = async () => {
 
     data.specialties = await specialtyService.getAllSpecialties();
   } catch (err) {
-    console.log(err);
+    throw new Error(
+      "Server Error: Keep refreshing this page. We will be back soon!"
+    );
   }
   return data;
 };

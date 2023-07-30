@@ -1,9 +1,12 @@
-import { Card, CardBody, Image, Box, Flex } from "@chakra-ui/react";
+import { Card, CardBody, Image, Box, Flex, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
-const MainCard = ({ title, specialty, rating, location, img }) => {
+const MainCard = ({ title, specialty, rating, location, img, source }) => {
   return (
     <Card
+      as={"article"}
       maxW="410px"
       minH="420px"
       borderRadius={"5%"}
@@ -11,13 +14,13 @@ const MainCard = ({ title, specialty, rating, location, img }) => {
       overflow={"hidden"}
       cursor={"pointer"}
       transition={"0.2s all"}
-      _hover={{ ring: 4, ringColor: "blue.900"}}
+      _hover={{ ring: 4, ringColor: "blue.900" }}
     >
       <CardBody padding={0}>
         <Image
           as={motion.img}
           transition={"0.2s all"}
-          whileHover={{scale: 1.05}}
+          whileHover={{ scale: 1.05 }}
           h={specialty ? "75%" : "90%"}
           w={"100%"}
           objectFit={"cover"}
@@ -36,24 +39,58 @@ const MainCard = ({ title, specialty, rating, location, img }) => {
           boxShadow={"0px 0px 20px 30px rgba(255, 255, 255, 1)"}
           overflow={"hidden"}
         ></Box>
-        <Flex
-          justify={"space-between"}
-          paddingX={specialty ? "14px" : ""}
-          position={"absolute"}
-          top={"89%"}
-        >
+        {source === "home" && (
           <Flex
-            pos={"relative"}
-            direction={"column"}
-            paddingLeft={"15px"}
-            zIndex={10}
+            justify={"space-between"}
+            paddingX={specialty ? "14px" : ""}
+            position={"absolute"}
+            top={"89%"}
           >
-            {title}
-            {specialty}
-            {location}
+            <Flex
+              pos={"relative"}
+              direction={"column"}
+              paddingLeft={"15px"}
+              zIndex={10}
+            >
+              {title}
+              {specialty}
+              {location}
+            </Flex>
+            {rating}
           </Flex>
-          {rating}
-        </Flex>
+        )}
+        {source === "docs" && (
+          <Flex
+            justify={"space-between"}
+            position={"absolute"}
+            top={"73%"}
+            direction={"column"}
+            gap={3}
+            width={"100%"}
+            paddingX={"2rem"}
+          >
+            <Flex pos={"relative"} direction={"column"} zIndex={10}>
+              <Flex justify={"space-between"} alignItems={"center"}>
+                <Box>
+                  {title}
+                  {specialty}
+                </Box>
+                <Flex gap={1} alignItems={"center"}>
+                  <FontAwesomeIcon icon={faStar} color={"#d9af0e"} />
+                  {rating}
+                </Flex>
+              </Flex>
+            </Flex>
+            <Flex gap={3} alignItems={"center"}>
+              <FontAwesomeIcon
+                icon={faLocationDot}
+                fontSize={"1.75rem"}
+                color={"#5b4a0d"}
+              />
+              {location}
+            </Flex>
+          </Flex>
+        )}
       </CardBody>
     </Card>
   );
