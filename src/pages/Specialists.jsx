@@ -16,8 +16,8 @@ const Specialists = () => {
 
   const [searchTerms, setSearchTerms] = useState({
     name: "",
-    specialty: fromSpecialtyCard ? actionData[0].id : "",
-    city: "",
+    specialty: fromSpecialtyCard ? actionData[0].specialtyId : "",
+    city: ""
   });
   const [doctors, setDoctors] = useState(
     actionData || data.specialists.content
