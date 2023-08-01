@@ -7,10 +7,12 @@ import { useLoaderData, useActionData } from "react-router-dom";
 import { useState } from "react";
 import DoctorList from "../components/Specialists/DoctorList.jsx";
 import { requestExecuter } from "../utils.js";
+import useScrollToTop from "../hooks/useScrollToTop.jsx";
 
 const Specialists = () => {
   const data = useLoaderData();
   const actionData = useActionData();
+  useScrollToTop();
 
   const fromSpecialtyCard = actionData && actionData.length > 0;
 
