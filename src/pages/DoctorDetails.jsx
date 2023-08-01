@@ -1,6 +1,6 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
 import specialistService from "../services/specialist/index.js";
-import { Box, Button } from "@chakra-ui/react";
+import {Box, Button, Heading} from "@chakra-ui/react";
 
 const DoctorDetails = () => {
   const data = useLoaderData();
@@ -8,14 +8,16 @@ const DoctorDetails = () => {
 
   return (
     <Box mx={"auto"} minHeight={"100vh"}>
-      <Box fontSize={"1.5rem"} mt={"20rem"}>
+      <Heading as={"h2"} fontSize={"1.5rem"} mt={"20rem"}>
         Coming soon...
-      </Box>
+      </Heading>
       <Button
           mt={"2rem"}
           variant={"signup"}
           fontSize={"1.5rem"}
-          onClick={() => history(-1)}>
+          onClick={() => history(-1)}
+          data-testid="go-back-button"
+      >
         GO BACK
       </Button>
     </Box>

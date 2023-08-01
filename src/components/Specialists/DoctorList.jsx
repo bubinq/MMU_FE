@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const DoctorList = ({ doctors, specialties }) => {
-  const specialty = (id) => specialties.content.find((s) => s.id === id);
 
   return (
     <>
@@ -32,7 +31,7 @@ const DoctorList = ({ doctors, specialties }) => {
           py={10}
         >
           {doctors.map((d) => (
-            <Link  key={d.id} to={`${d.id}`} className="doc-img-link">
+            <Link  key={d.id} to={`${d.id}`} className="doc-img-link" data-testid={`link-${d.id}`}>
               <MainCard
                 title={
                   <Heading size="lg" color={"#181938"}>
@@ -41,13 +40,13 @@ const DoctorList = ({ doctors, specialties }) => {
                   </Heading>
                 }
                 specialty={
-                  <Text fontSize={"lg"} color="#c34723">
-                    {specialty(d.specialtyId).name}
+                  <Text fontSize={"lg"} color="#c34723" id={`${d.id}-specialtyName`} data-testid={d.id}>
+                    {d.specialtyName}
                   </Text>
                 }
-                rating={<Text fontSize={"lg"}>{d.averageRating}</Text>}
+                rating={<Text fontSize={"lg"} data-testid={d.averageRating}>{d.averageRating}</Text>}
                 location={
-                  <Text className="doc-location" fontSize={"lg"}>
+                  <Text className="doc-location" fontSize={"lg"} data-testid={d.address}>
                     {d.address}
                   </Text>
                 }

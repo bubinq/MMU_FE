@@ -37,6 +37,7 @@ const Specialists = () => {
   return (
     <Box as={"main"} w={["100%", "85%", "95%"]} mx={"auto"} minH={"100vh"}>
       <Heading
+        as={"h1"}
         variant={"main"}
         textAlign={["center", "center", "start"]}
       >
@@ -71,7 +72,7 @@ export const loader = async () => {
   try {
     data.specialists = await specialistService.getAll({
       pageNo: 0,
-      pageSize: 10,
+      pageSize: 100,
       sortBy: "averageRating",
       sortDir: "desc",
     });

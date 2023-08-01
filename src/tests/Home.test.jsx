@@ -144,7 +144,7 @@ describe("HomePage Component", () => {
     });
     await userEvent.click(heading);
     const specialistHeading = screen.getByRole("heading", {
-      level: 2,
+      level: 1,
       name: "Specialists",
     });
     expect(specialistHeading).toBeInTheDocument();
