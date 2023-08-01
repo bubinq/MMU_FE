@@ -3,9 +3,11 @@ import { useLoaderData } from "react-router-dom";
 import { requestExecuter } from "../utils";
 import specialtyService from "../services/specialty";
 import SpecialtyList from "../components/Specialties/SpecialtyList";
+import useScrollToTop from "../hooks/useScrollToTop";
 
 const Home = () => {
   const data = useLoaderData();
+  useScrollToTop();
 
   return (
     <Flex
