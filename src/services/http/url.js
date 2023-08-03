@@ -10,11 +10,15 @@ const specialist = {
   updateDoctor: (uuid) => `/doctors/${uuid}`,
   deleteDoctor: (uuid) => `/doctors/${uuid}`,
 
-  searchBy: (
-    { name="", specialty="", city="", sortBy="averageRating", sortDir="desc" },
-
-  ) =>
-    `/doctors?name=${name}&specialtyId=${specialty}&cityId=${city}&sortBy=${sortBy}&sortDir=${sortDir}`,
+  searchBy: ({
+    name = "",
+    specialty = "",
+    city = "",
+    pageSize = 100,
+    sortBy = "averageRating",
+    sortDir = "desc",
+  }) =>
+    `/doctors?name=${name}&specialtyId=${specialty}&cityId=${city}&pageSize=${pageSize}&sortBy=${sortBy}&sortDir=${sortDir}`,
 };
 
 const city = {
