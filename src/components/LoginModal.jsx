@@ -1,7 +1,7 @@
 import { Flex, Heading, Image, Box, Text, Link } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 import LoginForm from "./LoginForm";
-import google from "../assets/googleTopG.jpg";
+import google from "../assets/googleTopG.png";
 
 const LoginModal = () => {
   return (
@@ -13,7 +13,7 @@ const LoginModal = () => {
       h={"610px"}
       mt={"100px"}
       borderRadius={"15px"}
-      border={"2px solid black"}
+      shadow={"lg"}
       paddingX={"69px"}
       paddingY={"39px"}
       gap={"30px"}
