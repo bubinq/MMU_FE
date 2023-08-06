@@ -30,7 +30,6 @@ const SuccessfullyRegistered = () => {
         <ChakraLink
           as={Link}
           to={"/login"}
-          // fontFamily={"Inter"}
           color={"#c34723"}
           fontSize={"1rem"}
           lineHeight={"1.5rem"}

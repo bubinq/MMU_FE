@@ -91,12 +91,11 @@ main {
 
 .invalid-input {
   color: #D71C21;
-  font-family: Inter, serif;
   font-size: 0.875rem;
   font-style: normal;
   font-weight: 400;
   line-height: 1rem;
-  /*letter-spacing: 0.025rem;*/
+  letter-spacing: 0.025rem;
 }
 
 .formik-form {

@@ -16,8 +16,7 @@ const TemplateInput = ({ type, name, label, placeholder = "", error }) => {
     >
       <FormLabel
         color={"var(--licorice, #200017)"}
-        fontFamily={"Inter"} //TODO
-        fontSize={"1rem"} //TODO Set to 1rem instead 0.875rem
+        fontSize={"1rem"}
         fontStyle={"normal"}
         fontWeight={"700"}
         lineHeight={"normal"}
@@ -40,13 +39,17 @@ const TemplateInput = ({ type, name, label, placeholder = "", error }) => {
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
       />
-      <Box>
-        {error ? (
+      <Box minHeight={name === "password" ? "26px" : "1rem"}>
+        {error && name === "password" ? (
           <Box className="invalid-input">{error}</Box>
         ) : formik.touched[name] && formik.errors[name] ? (
           <Box className="invalid-input">{formik.errors[name]}</Box>
         ) : (
-          name === "password" && <Box className="invalid-input" color={"#ACA1A6"}>{passwordHint}</Box>
+          name === "password" && (
+            <Box className="invalid-input" color={"#ACA1A6"}>
+              {passwordHint}
+            </Box>
+          )
         )}
       </Box>
     </Flex>

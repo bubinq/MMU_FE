@@ -6,7 +6,7 @@ import userService from "../../services/user/index.js";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const SignUpForm = () => {
+const SignUpForm = ({setServerError}) => {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
 
@@ -59,20 +59,23 @@ const SignUpForm = () => {
   };
 
   const onSave = (values) => {
-    validatePassword(values).then((err) => console.log(err));
-
-    if (!error) {
-      const userData = {
-        ...values,
-        verified: true,
-      };
-      userService
-        .register(userData)
-        .then(() => {
-          navigate("/register/successful", { replace: true });
-        })
-        .catch((error) => console.log(error));
-    }
+    validatePassword(values).then((validationError) => {
+      if (!validationError && values.password === values.confirmPassword) {
+        const userData = {
+          ...values,
+          verified: true,
+        };
+        userService
+          .register(userData)
+          .then(() => {
+            navigate("/register/successful", { replace: true });
+          })
+          .catch((error) => {
+            console.log(error);
+            setServerError(error.message);
+          });
+      }
+    });
   };
 
   return (
@@ -83,18 +86,43 @@ const SignUpForm = () => {
       validationSchema={validationSchema}
       onSubmit={onSave}
     >
-      <FormikForm style={{width: "100%"}}>
+      <FormikForm style={{ width: "100%" }}>
         <Flex
           width={"100%"}
           flexDirection={"column"}
           alignItems={"flex-start"}
-          gap={"1.25rem"}
+          gap={"1rem"}
         >
-          <TemplateInput type={"email"} name={"email"} label={"Email address *"} placeholder={"placeholder@email.com"}/>
-          <TemplateInput type={"text"} name={"first_name"} label={"First Name *"} placeholder={"First Name"}/>
-          <TemplateInput type={"text"} name={"last_name"} label={"Last Name *"} placeholder={"Last Name"} />
-          <TemplateInput type={"password"} name={"password"} label={"Password *"} error={error} />
-          <TemplateInput type={"password"} name={"confirmPassword"} label={"Confirm Password *"} error={error} />
+          <TemplateInput
+            type={"email"}
+            name={"email"}
+            label={"Email address *"}
+            placeholder={"placeholder@email.com"}
+          />
+          <TemplateInput
+            type={"text"}
+            name={"first_name"}
+            label={"First Name *"}
+            placeholder={"First Name"}
+          />
+          <TemplateInput
+            type={"text"}
+            name={"last_name"}
+            label={"Last Name *"}
+            placeholder={"Last Name"}
+          />
+          <TemplateInput
+            type={"password"}
+            name={"password"}
+            label={"Password *"}
+            error={error}
+          />
+          <TemplateInput
+            type={"password"}
+            name={"confirmPassword"}
+            label={"Confirm Password *"}
+            error={error}
+          />
           <Button
             type={"submit"}
             variant={"signup"}
@@ -102,7 +130,6 @@ const SignUpForm = () => {
             padding={"0.625rem 8.6875rem"}
             textAlign={"center"}
             fontSize={"1rem"}
-            fontFamily={"Inter"} //TODO Again, needs to be imported
             fontStyle={"normal"}
             fontWeight={"700"}
             lineHeight={"1.5rem"}
