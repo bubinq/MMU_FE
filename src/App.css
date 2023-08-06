@@ -160,6 +160,14 @@ canvas {
   }
 }
 
+@media (max-width: 400px) {
+  .signup-confirmation {
+    max-width: 320px;
+    margin-top: 15rem !important;
+    padding: 1.4375rem 2rem;
+  }
+}
+
 @media (max-width: 360px) {
   .doc-img-link {
     max-width: 410px;
