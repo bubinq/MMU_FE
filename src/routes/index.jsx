@@ -12,6 +12,7 @@ import RouteGuard from "../guards/RouteGuard";
 import { loader as getAllSpecialties } from "../pages/Home";
 import { getSpecialistsSettings } from "../pages/Specialists";
 import Specialists, { loader as getSpecialistData } from "../pages/Specialists";
+import SuccessfullyRegistered from "../pages/SuccessfullyRegistered.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
         path: "/register",
         element: <Register />,
       },
+      {
+        path: "/register/successful",
+        element: <SuccessfullyRegistered />
+      }
     ],
   },
 ]);

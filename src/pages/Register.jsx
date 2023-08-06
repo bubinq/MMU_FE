@@ -7,7 +7,7 @@ const Register = () => {
   return (
     <Box w={["75%", "85%", "100%"]} mx={"auto"} minH={"100vh"}>
       <Flex
-        width={"28.75rem"}
+        width={"30.0625rem"}
         height={"52.25rem"}
         mt={"9.125rem"}
         mx={"auto"}
@@ -21,15 +21,11 @@ const Register = () => {
       >
         <SignUpHeader />
         <SignUpForm />
-        <Box textAlign={"center"} width={"100%"}>
-          <Text as={"span"} width={"8.40625rem"}>
-            -
-          </Text>
+        <Flex textAlign={"center"} width={"100%"}>
+          <Box width={"8.40625rem"}></Box>
           <Text as={"span"}> OR </Text>
-          <Text as={"span"} width={"8.40625rem"}>
-            -
-          </Text>
-        </Box>
+          <Box width={"8.40625rem"}></Box>
+        </Flex>
         <SignUpWithGoogle />
       </Flex>
     </Box>

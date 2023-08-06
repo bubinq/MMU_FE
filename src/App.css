@@ -1,6 +1,5 @@
-@font-face {
-  font-family: "Inter";
-  src: url("./fonts/static/Inter-Regular.ttf") format("truetype");
+:root {
+  font-family: monospace;
 }
 
 main {
@@ -88,6 +87,16 @@ main {
   position: absolute;
   right: 5%;
   top: 46%;
+}
+
+.invalid-input {
+  color: #D71C21;
+  font-family: Inter, serif;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1rem;
+  /*letter-spacing: 0.025rem;*/
 }
 
 .formik-form {
