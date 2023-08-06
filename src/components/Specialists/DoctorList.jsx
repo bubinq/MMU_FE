@@ -34,19 +34,19 @@ const DoctorList = ({ doctors, specialties }) => {
             <Link  key={d.id} to={`${d.id}`} className="doc-img-link" data-testid={`link-${d.id}`}>
               <MainCard
                 title={
-                  <Heading size="lg" color={"#181938"}>
+                  <Heading size="md" color={"#181938"}>
                     {" "}
                     {`${d.firstName} ${d.lastName}`}
                   </Heading>
                 }
                 specialty={
-                  <Text fontSize={"lg"} color="#c34723" id={`${d.id}-specialtyName`} data-testid={d.id}>
+                  <Text fontSize={"md"} color="#c34723" id={`${d.id}-specialtyName`} data-testid={d.id}>
                     {d.specialtyName}
                   </Text>
                 }
-                rating={<Text fontSize={"lg"} data-testid={d.averageRating}>{d.averageRating}</Text>}
+                rating={<Text fontSize={"md"} data-testid={d.averageRating}>{d.averageRating}</Text>}
                 location={
-                  <Text className="doc-location" fontSize={"lg"} data-testid={d.address}>
+                  <Text className="doc-location" fontSize={"md"} data-testid={d.address}>
                     {d.address}
                   </Text>
                 }

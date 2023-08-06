@@ -1,6 +1,9 @@
 import { extendTheme } from "@chakra-ui/react";
 
 export const theme = extendTheme({
+  fonts: {
+    body: `'Inter', sans-serif`,
+  },
   colors: {
     yellow: {
       100: "#fffcf1",
@@ -11,7 +14,8 @@ export const theme = extendTheme({
       900:"#C34723"
     },
     red: {
-      300: "#FF3C00"
+      300: "#FF3C00",
+      500: "#E54335"
     },
     gray: {
       300: "#acb0ad",
@@ -35,7 +39,7 @@ export const theme = extendTheme({
         login: {
           bg: "transparent",
           textColor: "blue.900",
-          fontSize: "2xl",
+          fontSize: "lg",
           paddingX: 4,
 
           _hover: {
@@ -47,7 +51,7 @@ export const theme = extendTheme({
         logout: {
           bg: "transparent",
           textColor: "#181938",
-          fontSize: "2xl",
+          fontSize: "lg",
           border: "2px solid #181938",
           paddingX: 4,
           outline: "none",
@@ -58,7 +62,7 @@ export const theme = extendTheme({
         signup: {
           bg: "yellow.900",
           textColor: "white",
-          fontSize: "2xl",
+          fontSize: "lg",
           paddingX: 3,
           outline: "none",
           transition: "1s ease-in-out",

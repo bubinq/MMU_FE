@@ -1,4 +1,4 @@
-import { Card, CardBody, Image, Box, Flex, Text } from "@chakra-ui/react";
+import { Card, CardBody, Image, Box, Flex } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faLocationDot } from "@fortawesome/free-solid-svg-icons";
@@ -28,7 +28,8 @@ const MainCard = ({ title, specialty, rating, location, img, source }) => {
           alt={`${specialty ? "Doctor Profile" : "Specialty"}`}
           borderRadius="5%"
           pos={"absolute"}
-        />{" "}
+        />
+
         <Box
           pos={"absolute"}
           h={"4%"}
@@ -84,7 +85,7 @@ const MainCard = ({ title, specialty, rating, location, img, source }) => {
             <Flex gap={3} alignItems={"center"}>
               <FontAwesomeIcon
                 icon={faLocationDot}
-                fontSize={"1.75rem"}
+                fontSize={"1.5rem"}
                 color={"#5b4a0d"}
               />
               {location}

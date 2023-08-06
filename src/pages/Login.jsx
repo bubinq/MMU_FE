@@ -1,9 +1,10 @@
-import { Flex, Heading } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
+import LoginModal from "../components/LoginModal";
 
 const Login = () => {
   return (
-    <Flex as={"section"} w={["75%", "85%", "95%"]} mx={"auto"} minH={"3650px"}>
-      <Heading variant={"main"}>Login Page</Heading>
+    <Flex as={"section"} w={["75%", "85%", "95%"]} justifyContent={"center"} h={"100vh"} mx={"auto"}>
+      <LoginModal/>
     </Flex>
   );
 };
