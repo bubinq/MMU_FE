@@ -13,26 +13,26 @@ const LoginModal = () => {
       h={"610px"}
       mt={"100px"}
       borderRadius={"15px"}
-      shadow={"lg"}
-      paddingX={"69px"}
-      paddingY={"39px"}
-      gap={"30px"}
+      boxShadow={"0px 4px 4px 0px rgba(0, 0, 0, 0.25)"}
+      paddingX={["20px", "69px"]}
+      paddingY={["39px"]}
+      gap={["25px","35px"]}
     >
-      <Heading fontWeight={700} fontSize={"24px"} lineHeight={"29.05px"}>
+      <Heading fontWeight={700} fontSize={"24px"} lineHeight={"normal"}>
         Login
       </Heading>
       <Flex
         as={"button"}
-        borderColor={"red.500"}
+        border={"2px solid #E54335"}
+        alignItems={"center"}
         borderRadius={"5px"}
-        borderWidth={"2px"}
+        h={"44px"}
       >
-        <Image w={"59px"} h={"44px"} src={google} borderLeftRadius={"5px"} />
+        <Image w={"59px"} h={"40px"} src={google} borderLeftRadius={"5px"} />
         <Box
           display={"flex"}
           alignItems={"center"}
           justifyContent={"center"}
-          borderRadius={"0px"}
           bg={"red.500"}
           w={"100%"}
           h={"100%"}

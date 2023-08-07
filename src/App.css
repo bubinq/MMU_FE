@@ -103,6 +103,7 @@ main {
   font-size: 18px;
   border: 2px solid lightgray;
   border-radius: 5px;
+  outline: none;
 }
 
 .input-errors {
@@ -111,14 +112,28 @@ main {
   padding: 10px;
   font-size: 18px;
   border: 2px solid red;
+  outline: none;
   border-radius: 5px;
 }
 
-.input-fields:active {
-  border: 2px solid #200017;
+.input-fields:active,
+.input-fields:focus,
+.input-fields:focus-visible {
+  outline: none;
+  border: 2px solid #d9af0e;
+}
+
+.input-errors:active,
+.input-errors:focus,
+.input-errors:focus-visible {
+  outline: none;
+  border: 2px solid #d9af0e;
 }
 
 .error-message {
+  position: absolute;
+  left: 0;
+  top: 100%;
   font-size: 14px;
   font-weight: normal;
   color: red;
@@ -137,5 +152,8 @@ main {
     max-width: 410px;
     min-width: 300px;
     margin: 0 auto;
+  }
+  .error-message {
+    font-size: 12px;
   }
 }

@@ -26,7 +26,7 @@ const LoginForm = () => {
     >
       {({ isSubmitting, errors, touched }) => (
         <Form className="formik-form">
-          <FormLabel fontSize={"16px"} fontWeight={700} margin={0}>
+          <FormLabel fontSize={"16px"} fontWeight={700} margin={0} pos={"relative"}>
             Email Address &#42;
             <Field
               type="email"
@@ -43,7 +43,7 @@ const LoginForm = () => {
             />
           </FormLabel>
 
-          <FormLabel fontSize={"16px"} fontWeight={700} m={0} mt={"10px"}>
+          <FormLabel fontSize={"16px"} fontWeight={700} m={0} mt={"10px"} pos={"relative"}>
             Password &#42;
             <Field
               type="password"
