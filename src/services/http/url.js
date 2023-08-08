@@ -36,7 +36,7 @@ const country = {
 };
 
 const users = {
-  create: "/users"
+  create: "/auth/register"
 }
 
 const urls = {

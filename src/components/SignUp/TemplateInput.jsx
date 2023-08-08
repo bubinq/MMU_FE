@@ -39,14 +39,14 @@ const TemplateInput = ({ type, name, label, placeholder = "", error }) => {
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
       />
-      <Box minHeight={name === "password" ? "26px" : "1rem"}>
+      <Box minHeight={"13px"}>
         {error && name === "password" ? (
           <Box className="invalid-input">{error}</Box>
         ) : formik.touched[name] && formik.errors[name] ? (
           <Box className="invalid-input">{formik.errors[name]}</Box>
         ) : (
           name === "password" && (
-            <Box className="invalid-input" color={"#ACA1A6"}>
+            <Box className="invalid-input" color={"#ACA1A6"} minHeight={"26px"}>
               {passwordHint}
             </Box>
           )

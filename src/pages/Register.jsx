@@ -7,12 +7,14 @@ import {useEffect, useState} from "react";
 
 const Register = () => {
   const [serverError, setServerError] = useState(null);
+  console.log(serverError)
 
   useEffect(() => {
       if(serverError) {
-          setTimeout(()=> {
+          const timeOut = setTimeout(()=> {
               setServerError(null);
           }, 5000)
+      return () => clearTimeout(timeOut);
       }
   }, [serverError]);
 
@@ -38,7 +40,7 @@ const Register = () => {
         boxShadow={"0px 4px 4px 0px rgba(0, 0, 0, 0.25)"}
       >
         <SignUpHeader />
-        <SignUpForm setServerError={setServerError}/>
+        <SignUpForm serverError={serverError} setServerError={setServerError}/>
         <Flex
           textAlign={"center"}
           alignItems={"center"}
@@ -53,35 +55,41 @@ const Register = () => {
           <Box h={"2px"} w={"44%"} bg={"black"} />
         </Flex>
         <SignUpWithGoogle />
+        {serverError && (
+            <Flex
+                position={"absolute"}
+                w={"26.625rem"}
+                minHeight={"5.875rem"}
+                backgroundColor={"#D71C21"}
+                top={"8%"}
+                left={"calc(50% - 26.625rem / 2)"}
+                borderRadius={"0.3125rem"}
+                boxShadow={"0px 4px 4px 0px rgba(0, 0, 0, 0.25)"}
+                padding={"1.375rem 2.125rem"}
+                gap={"0.75rem"}
+            >
+              <Image w={"3.125rem"} src={exclamation} />
+              <Flex
+                  color={"#FFFFFD"}
+                  justifyContent={"center"}
+                  alignItems={"flex-start"}
+                  fontSize={"1rem"}
+                  flexDirection={"column"}
+                  fontStyle={"normal"}
+                  fontWeight={"700"}
+                  lineHeight={"1.5rem"}
+                  letterSpacing={"0.00938rem"}
+                  gap={"0.5rem"}
+              >
+                {Object.values(serverError).map((msg, index) => (
+                    <Box key={index}>• {msg.split(".,")[0]}</Box>
+                ))}
+
+              </Flex>
+            </Flex>
+        )}
       </Flex>
-      {serverError && (
-        <Flex
-          position={"absolute"}
-          w={"26.625rem"}
-          h={"5.875rem"}
-          backgroundColor={"#D71C21"}
-          top={"8%"}
-          left={"24%"}
-          borderRadius={"0.3125rem"}
-          boxShadow={"0px 4px 4px 0px rgba(0, 0, 0, 0.25)"}
-          padding={"1.375rem 2.125rem"}
-          gap={"0.75rem"}
-        >
-          <Image w={"3.125rem"} src={exclamation} />
-          <Flex
-            color={"#FFFFFD"}
-            justifyContent={"center"}
-            alignItems={"center"}
-            fontSize={"1rem"}
-            fontStyle={"normal"}
-            fontWeight={"700"}
-            lineHeight={"1.5rem"}
-            letterSpacing={"0.00938rem"}
-          >
-            {serverError}
-          </Flex>
-        </Flex>
-      )}
+
     </Box>
   );
 };

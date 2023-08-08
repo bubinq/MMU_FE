@@ -6,16 +6,16 @@ import userService from "../../services/user/index.js";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const SignUpForm = ({setServerError}) => {
+const SignUpForm = ({ serverError, setServerError }) => {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
 
   const initialValues = {
     email: "",
-    first_name: "",
-    last_name: "",
+    firstName: "",
+    lastName: "",
     password: "",
-    confirmPassword: "",
+    matchingPassword: "",
   };
 
   const validationSchema = Yup.object({
@@ -26,14 +26,14 @@ const SignUpForm = ({setServerError}) => {
         "Please enter a valid email address."
       )
       .required("Please enter an email address."),
-    first_name: Yup.string()
+    firstName: Yup.string()
       .required("Please enter a first name.")
       .max(50, "First name must be less than 50 characters long."),
-    last_name: Yup.string()
+    lastName: Yup.string()
       .required("Please enter a last name.")
       .max(50, "Last name must be less than 50 characters long."),
     password: Yup.string().required("Please enter a password."),
-    confirmPassword: Yup.string().required("Please enter a password."),
+    matchingPassword: Yup.string().required("Please enter a password."),
   });
 
   const passwordSchema = Yup.object({
@@ -45,7 +45,7 @@ const SignUpForm = ({setServerError}) => {
         /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w]).*$/,
         "Your password must have at least 8 characters, with a mix of uppercase, lowercase, numbers and symbols."
       ),
-    confirmPassword: Yup.string().oneOf(
+    matchingPassword: Yup.string().oneOf(
       [Yup.ref("password"), null],
       "Those passwords didn't match. Please try again."
     ),
@@ -60,19 +60,15 @@ const SignUpForm = ({setServerError}) => {
 
   const onSave = (values) => {
     validatePassword(values).then((validationError) => {
-      if (!validationError && values.password === values.confirmPassword) {
-        const userData = {
-          ...values,
-          verified: true,
-        };
+      if (!validationError && values.password === values.matchingPassword) {
         userService
-          .register(userData)
+          .register(values)
           .then(() => {
             navigate("/register/successful", { replace: true });
           })
           .catch((error) => {
             console.log(error);
-            setServerError(error.message);
+            setServerError(error.response.data);
           });
       }
     });
@@ -101,13 +97,13 @@ const SignUpForm = ({setServerError}) => {
           />
           <TemplateInput
             type={"text"}
-            name={"first_name"}
+            name={"firstName"}
             label={"First Name *"}
             placeholder={"First Name"}
           />
           <TemplateInput
             type={"text"}
-            name={"last_name"}
+            name={"lastName"}
             label={"Last Name *"}
             placeholder={"Last Name"}
           />
@@ -119,7 +115,7 @@ const SignUpForm = ({setServerError}) => {
           />
           <TemplateInput
             type={"password"}
-            name={"confirmPassword"}
+            name={"matchingPassword"}
             label={"Confirm Password *"}
             error={error}
           />
@@ -134,6 +130,8 @@ const SignUpForm = ({setServerError}) => {
             fontWeight={"700"}
             lineHeight={"1.5rem"}
             letterSpacing={"0.00938rem"}
+            isDisabled={serverError}
+            _disabled={{opacity: "40%"}}
           >
             Sign up
           </Button>
