@@ -1,7 +1,13 @@
 import { Button, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import useAuth from "../contexts/AuthContext";
 
 const Buttons = ({ type, text, handleMenuClick }) => {
+  const { setUser } = useAuth();
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    setUser({ name: "" });
+  };
   switch (type) {
     case "login":
       return (
@@ -13,7 +19,12 @@ const Buttons = ({ type, text, handleMenuClick }) => {
       );
     case "logout":
       return (
-        <Button className="btn-highlight" variant="logout" aria-label="logout-button">
+        <Button
+          className="btn-highlight"
+          variant="logout"
+          aria-label="logout-button"
+          onClick={handleLogout}
+        >
           <svg className="border-highlight" viewBox="0 0 160 56">
             <polyline points="159,1 159,55 1,55 1,1 159,1" />
             <polyline points="159,1 159,55 1,55 1,1 159,1" />
@@ -24,7 +35,11 @@ const Buttons = ({ type, text, handleMenuClick }) => {
     case "signup":
       return (
         <Link to={"/register"} onClick={handleMenuClick}>
-          <Button className="btn-highlight" variant="signup" aria-label="signup-button">
+          <Button
+            className="btn-highlight"
+            variant="signup"
+            aria-label="signup-button"
+          >
             <svg className="border-highlight" viewBox="0 0 145 56">
               <polyline points="144,1 144,55 1,55 1,1 144,1" />
               <polyline points="144,1 144,55 1,55 1,1 144,1" />

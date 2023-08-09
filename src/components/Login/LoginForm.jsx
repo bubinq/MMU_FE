@@ -1,7 +1,9 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { object, string } from "yup";
 import { FormLabel, Button, Link } from "@chakra-ui/react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import useAuth from "../../contexts/AuthContext";
+import axios from "axios";
 
 const initialVals = {
   email: "",
@@ -14,19 +16,40 @@ const validationSchema = object({
   password: string().required("Please enter your password."),
 });
 
-const LoginForm = () => {
+const LoginForm = ({ setServerError }) => {
+  const { setUser } = useAuth();
+  const goTo = useNavigate();
+
+  const handleLogin = async (values, { setSubmitting }) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/v1/auth/signin",
+        { email: values.email, password: values.password }
+      );
+
+      localStorage.setItem("accessToken", response.data.accessToken);
+      setUser({ name: response.data.accessToken });
+      goTo("/", { replace: true });
+    } catch (error) {
+      setServerError(error.response.data.message);
+    }
+
+    setSubmitting(false);
+  };
   return (
     <Formik
       initialValues={initialVals}
       validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting }) => {
-        console.log(values);
-        setSubmitting(false);
-      }}
+      onSubmit={handleLogin}
     >
-      {({ isSubmitting, errors, touched }) => (
+      {({ isSubmitting, errors, touched, values }) => (
         <Form className="formik-form">
-          <FormLabel fontSize={"16px"} fontWeight={700} margin={0} pos={"relative"}>
+          <FormLabel
+            fontSize={"16px"}
+            fontWeight={700}
+            margin={0}
+            pos={"relative"}
+          >
             Email Address &#42;
             <Field
               type="email"
@@ -43,7 +66,13 @@ const LoginForm = () => {
             />
           </FormLabel>
 
-          <FormLabel fontSize={"16px"} fontWeight={700} m={0} mt={"10px"} pos={"relative"}>
+          <FormLabel
+            fontSize={"16px"}
+            fontWeight={700}
+            m={0}
+            mt={"10px"}
+            pos={"relative"}
+          >
             Password &#42;
             <Field
               type="password"
@@ -65,7 +94,7 @@ const LoginForm = () => {
             mt={"16px"}
             ml={"auto"}
             textDecoration={"underline"}
-            fontSize={"16px"}
+            fontSize={["14px", "16px"]}
             as={NavLink}
             color={"yellow.500"}
             w={"fit-content"}
@@ -74,13 +103,17 @@ const LoginForm = () => {
           </Link>
           <Button
             type="submit"
-            disabled={isSubmitting}
+            disabled={isSubmitting || (!errors.email && !errors.password)}
             h={"44px"}
             fontSize={"16px"}
             color={"white"}
             borderRadius="5px"
             py={"10px"}
-            bg={"red.500"}
+            bg={
+              !values.email || !values.password
+                ? "rgba(229, 67, 53, 0.5)"
+                : "red.500"
+            }
             _hover={{ bg: "red.300" }}
           >
             Login
