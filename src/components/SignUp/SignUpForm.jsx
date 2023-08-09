@@ -69,7 +69,6 @@ const SignUpForm = ({ serverError, setServerError }) => {
             navigate("/register/successful", { replace: true });
           })
           .catch((error) => {
-            console.log(error);
             setServerError(error.response.data);
           });
       }
