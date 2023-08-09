@@ -22,7 +22,7 @@ const SignUpForm = ({ serverError, setServerError }) => {
     email: Yup.string()
       .email("Please enter a valid email address.")
       .matches(
-        /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+        /^[\w-\.]+@([\w-]+\.)+[\w-]{2,5}$/,
         "Please enter a valid email address."
       )
       .required("Please enter an email address."),

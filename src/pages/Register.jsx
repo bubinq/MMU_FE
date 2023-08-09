@@ -21,17 +21,17 @@ const Register = () => {
 
   return (
     <Box
-      w={["75%", "85%", "100%"]}
+      w={["100%", "85%", "100%"]}
       mx={"auto"}
       minH={"100vh"}
       position={"relative"}
     >
       <Flex
-        width={"30.0625rem"}
+        width={["316px", "30.0625rem", "30.0625rem"]}
         minHeight={"54rem"}
-        mt={"9.125rem"}
+        mt={["7rem", "9.125rem", "9.125rem"]}
         mx={"auto"}
-        padding={"2.4375rem 4.3125rem"}
+        padding={["1.5rem 2rem", "2.4375rem 4.3125rem", "2.4375rem 4.3125rem"]}
         flexDirection={"column"}
         alignItems={"flex-start"}
         gap={"1.875rem"}

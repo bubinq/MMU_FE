@@ -11,6 +11,7 @@ const SignUpWithGoogle = () => {
          w={"100%"}
          alignItems={"center"}
          backgroundColor={"#e54335"}
+         _hover={{ bg: "red.300" }}
      >
         <Image w={"3.25rem"} src={google} borderLeftRadius={"5px"} />
         <Box
@@ -20,7 +21,7 @@ const SignUpWithGoogle = () => {
             borderRadius={"0px"}
             bg={"red.500"}
             w={"100%"}
-            h={"100%"}
+            h={"34.5px"}
             p={"0px"}
             _hover={{ bg: "red.300" }}
             color={"#FFF2F8"}
