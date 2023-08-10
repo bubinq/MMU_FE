@@ -36,11 +36,14 @@ const TemplateInput = ({ type, name, label, placeholder = "", error }) => {
             alignItems={"flex-start"}
             alignSelf={"stretch"}
             borderRadius={"0.3125rem"}
-            border={"2px solid #d9af0e"}
-            background={"#FFF"}
+            // border={"2px solid #d9af0e"}
+            // background={"#FFF"}
             value={formik.values[name]}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            className={
+              formik.errors && formik.touched ? "input-errors" : `input-fields`
+            }
         >
         </Input>
         {type === "password" && <Box zIndex={"3"} _hover={{cursor: "pointer"}} position={"absolute"} top={"4px"} right={"10px"} onClick={() => setIsVisible(!isVisible)}>

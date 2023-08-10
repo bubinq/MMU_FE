@@ -69,6 +69,7 @@ export default Specialists;
 export const loader = async () => {
   let data = {};
 
+  console.log("TEST")
   try {
     data.specialists = await specialistService.getAll({
       pageNo: 0,
@@ -77,6 +78,7 @@ export const loader = async () => {
       sortDir: "desc",
     });
 
+    console.log(data)
     data.cities = await cityService.getAllCities();
 
     data.specialties = await specialtyService.getAllSpecialties();
@@ -85,5 +87,7 @@ export const loader = async () => {
       "Server Error: Keep refreshing this page. We will be back soon!"
     );
   }
+  console.log(data)
+  console.log("ANOTHER TEST")
   return data;
 };

@@ -2,12 +2,16 @@ import { Box, Flex, Text, Image } from "@chakra-ui/react";
 import SignUpHeader from "../components/SignUp/SignUpHeader.jsx";
 import SignUpForm from "../components/SignUp/SignUpForm.jsx";
 import SignUpWithGoogle from "../components/SignUp/SignUpWithGoogle.jsx";
-import exclamation from "../../public/exclamation-mark.svg";
-import {useEffect, useState} from "react";
+import exclamation from "../assets/exclamation-mark.svg";
+import {useEffect, useRef, useState} from "react";
+import {Canvas} from "../utils.js";
 
 const Register = () => {
+  const ref = useRef();
+  useEffect(() => {
+      new Canvas(ref.current);
+  }, []);
   const [serverError, setServerError] = useState(null);
-  console.log(serverError)
 
   useEffect(() => {
       if(serverError) {
@@ -21,15 +25,18 @@ const Register = () => {
 
   return (
     <Box
+      as={"section"}
       w={["100%", "85%", "100%"]}
       mx={"auto"}
       minH={"100vh"}
       position={"relative"}
+      ref={ref}
+
     >
       <Flex
         width={["316px", "30.0625rem", "30.0625rem"]}
         minHeight={"54rem"}
-        mt={["7rem", "9.125rem", "9.125rem"]}
+        mt={"100px"}
         mx={"auto"}
         padding={["1.5rem 2rem", "2.4375rem 4.3125rem", "2.4375rem 4.3125rem"]}
         flexDirection={"column"}

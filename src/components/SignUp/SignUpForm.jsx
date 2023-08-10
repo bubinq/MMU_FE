@@ -1,5 +1,5 @@
 import { Button, Flex } from "@chakra-ui/react";
-import { Form as FormikForm, Formik } from "formik";
+import {Form as FormikForm, Formik, useFormikContext} from "formik";
 import * as Yup from "yup";
 import TemplateInput from "./TemplateInput.jsx";
 import userService from "../../services/user/index.js";
@@ -28,10 +28,12 @@ const SignUpForm = ({ serverError, setServerError }) => {
       .required("Please enter an email address."),
     firstName: Yup.string()
       .required("Please enter a first name.")
-      .max(50, "First name must be less than 50 characters long."),
+      .matches(/^[A-Za-z'-]{1,50}$/, "Please enter a valid name.")
+      .max(50, "First name must not exceed 50 characters."),
     lastName: Yup.string()
       .required("Please enter a last name.")
-      .max(50, "Last name must be less than 50 characters long."),
+      .matches(/^[A-Za-z'-]{1,50}$/, "Please enter a valid name.")
+      .max(50, "Last name must not exceed 50 characters."),
     password: Yup.string().required("Please enter a password."),
     matchingPassword: Yup.string().required("Please enter a password."),
   });
@@ -40,7 +42,7 @@ const SignUpForm = ({ serverError, setServerError }) => {
     password: Yup.string()
       .required("Please enter a password.")
       .min(8, "Password must be at least 8 characters long.")
-      .max(100, "Password must be less than 100 characters long.")
+      .max(100, "Password must not exceed 100 characters.")
       .matches(
         /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w]).*$/,
         "Your password must have at least 8 characters, with a mix of uppercase, lowercase, numbers and symbols."
@@ -132,6 +134,8 @@ const SignUpForm = ({ serverError, setServerError }) => {
             letterSpacing={"0.00938rem"}
             isDisabled={serverError}
             _disabled={{opacity: "40%"}}
+            bg={"yellow.400"}
+            _hover={{ bg: "red.300" }}
           >
             Sign up
           </Button>

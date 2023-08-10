@@ -1,38 +1,40 @@
 import {Box, Flex, Image} from "@chakra-ui/react";
 import google from "../../assets/googleTopG.png";
+import {GOOGLE_OAUTH2_URL} from "../../constants.js";
+import googleImg from "../../assets/googleTopG.png";
 
 const SignUpWithGoogle = () => {
  return (
      <Flex
-         as={"button"}
-         borderColor={"red.500"}
-         borderRadius={"5px"}
-         borderWidth={"2px"}
-         w={"100%"}
+         as={"a"}
+         href={GOOGLE_OAUTH2_URL}
+         target="_self"
+         border={"2px solid #F4B400"}
          alignItems={"center"}
-         backgroundColor={"#e54335"}
-         _hover={{ bg: "red.300" }}
+         borderRadius={"5px"}
+         h={"32.5px"}
+         w={"100%"}
+         transition={"0.2s all ease-in-out"}
+         _hover={{ borderColor: "red.300" }}
      >
-        <Image w={"3.25rem"} src={google} borderLeftRadius={"5px"} />
-        <Box
-            display={"flex"}
-            alignItems={"center"}
-            justifyContent={"center"}
-            borderRadius={"0px"}
-            bg={"red.500"}
-            w={"100%"}
-            h={"34.5px"}
-            p={"0px"}
-            _hover={{ bg: "red.300" }}
-            color={"#FFF2F8"}
-            lineHeight={"1.5rem"}
-            fontWeight={700}
-            fontSize={"1rem"}
-            letterSpacing={"0.00938rem"}
-        >
-          Sign up with Google
-        </Box>
-      </Flex>
+         <Image w={"47px"} h={"30px"} src={googleImg} borderLeftRadius={"5px"} />
+         <Box
+             display={"flex"}
+             alignItems={"center"}
+             justifyContent={"center"}
+             bg={"yellow.400"}
+             w={"100%"}
+             h={"100%"}
+             p={"0px"}
+             transition={"0.2s all ease-in-out"}
+             _hover={{ bg: "red.300" }}
+             color={"white"}
+             fontWeight={700}
+             fontSize={["0.8125rem", "1rem"]}
+         >
+             Continue with Google
+         </Box>
+     </Flex>
  );
 }
 

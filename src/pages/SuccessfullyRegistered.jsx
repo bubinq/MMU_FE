@@ -18,7 +18,7 @@ const SuccessfullyRegistered = () => {
         marginX={"auto"}
       >
         <Box marginX={"auto"}>
-          <img src="../../public/registered_checked.svg" alt="Successful" />
+          <img src="../assets/registered_checked.svg" alt="Successful" />
         </Box>
         <Heading marginX={"auto"}>
           Congratulations!

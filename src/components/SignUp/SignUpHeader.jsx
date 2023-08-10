@@ -1,5 +1,5 @@
 import {Box, Flex, Heading, Link as ChakraLink} from "@chakra-ui/react";
-import {Link} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const SignUpHeader = () => {
   return (
@@ -18,9 +18,13 @@ const SignUpHeader = () => {
         letterSpacing={"0.00938rem"}
       >
         Already have an account?{" "}
-        <ChakraLink as={Link} to={"/login"} color={"#c34723"} textDecoration={"underline"}>
+        <ChakraLink textDecoration={"underline"}
+                    as={NavLink}
+                    color={"yellow.400"}
+                    to={"/register"}>
           Login
         </ChakraLink>
+
       </Box>
     </Flex>
   );
