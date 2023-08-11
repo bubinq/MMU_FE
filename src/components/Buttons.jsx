@@ -6,7 +6,7 @@ const Buttons = ({ type, text, handleMenuClick }) => {
   const { setUser } = useAuth();
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
-    setUser({ name: "" });
+    setUser({ accessToken: "" });
   };
   switch (type) {
     case "login":

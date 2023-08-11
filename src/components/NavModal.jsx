@@ -15,9 +15,9 @@ const NavModal = ({ isMenuOpened, handleMenuClick }) => {
       left={0}
       bg={"yellow.100"}
       opacity={"95%"}
-      initial={{ width: "60%" }}
+      initial={{ width: "70%" }}
       animate={{ width: "100%" }}
-      transition="0.2s ease"
+      transition="0.1s all ease"
     >
       <Box visibility={isMenuOpened ? "" : "hidden"}>
         <List
@@ -34,14 +34,14 @@ const NavModal = ({ isMenuOpened, handleMenuClick }) => {
           <MenuItem handleMenuClick={handleMenuClick} to={"/specialists"}>
             Specialists
           </MenuItem>
-          {user.name && (
+          {user.accessToken && (
             <MenuItem handleMenuClick={handleMenuClick} to={"/appointments"}>
               Appointments
             </MenuItem>
           )}
           <Box w={"60%"} mx={"auto"} my={3} h={"2px"} bg={"black"} />
           <>
-            {user.name ? (
+            {user.accessToken ? (
               <Buttons type={"logout"} text={"Log out"} />
             ) : (
               <Flex gap={6}>

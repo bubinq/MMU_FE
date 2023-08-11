@@ -28,7 +28,7 @@ const LoginForm = ({ setServerError }) => {
       );
 
       localStorage.setItem("accessToken", response.data.accessToken);
-      setUser({ name: response.data.accessToken });
+      setUser({ accessToken: response.data.accessToken });
       goTo("/", { replace: true });
     } catch (error) {
       setServerError(error.response.data.message);
@@ -96,7 +96,7 @@ const LoginForm = ({ setServerError }) => {
             textDecoration={"underline"}
             fontSize={["14px", "16px"]}
             as={NavLink}
-            color={"yellow.500"}
+            color={"yellow.400"}
             w={"fit-content"}
           >
             Forgot password?
@@ -109,10 +109,11 @@ const LoginForm = ({ setServerError }) => {
             color={"white"}
             borderRadius="5px"
             py={"10px"}
+            transition={"0.2s all ease"}
             bg={
               !values.email || !values.password
-                ? "rgba(229, 67, 53, 0.5)"
-                : "red.500"
+                ? "rgba(244, 180, 0, 0.6)"
+                : "yellow.400"
             }
             _hover={{ bg: "red.300" }}
           >

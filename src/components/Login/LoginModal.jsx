@@ -2,19 +2,27 @@ import { Flex, Heading, Image, Box, Text, Link } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import LoginForm from "./LoginForm";
-import google from "../../assets/googleTopG.png";
-import exclamation from "../../assets/exclamation.svg";
+import googleImg from "../../assets/googleTopG.png";
+import AuthAlert from "../AuthAlert";
 import { GOOGLE_OAUTH2_URL } from "../../constants";
+import { AnimatePresence } from "framer-motion";
 
 const LoginModal = () => {
   const [serverError, setServerError] = useState("");
+  const [isAlertVisible, setisAlertVisible] = useState(false);
+
   useEffect(() => {
+    let timerId;
     if (serverError) {
-      setTimeout(() => {
+      setisAlertVisible(true);
+      timerId = setTimeout(() => {
+        setisAlertVisible(false);
         setServerError("");
       }, 5000);
     }
+    return () => clearInterval(timerId);
   }, [serverError]);
+
   return (
     <Flex
       as={"article"}
@@ -38,20 +46,23 @@ const LoginModal = () => {
         as={"a"}
         href={GOOGLE_OAUTH2_URL}
         target="_self"
-        border={"2px solid #E54335"}
+        border={"2px solid #F4B400"}
         alignItems={"center"}
         borderRadius={"5px"}
         h={"44px"}
+        transition={"0.2s all ease-in-out"}
+        _hover={{ borderColor: "red.300" }}
       >
-        <Image w={"59px"} h={"40px"} src={google} borderLeftRadius={"5px"} />
+        <Image w={"59px"} h={"40px"} src={googleImg} borderLeftRadius={"5px"} />
         <Box
           display={"flex"}
           alignItems={"center"}
           justifyContent={"center"}
-          bg={"red.500"}
+          bg={"yellow.400"}
           w={"100%"}
           h={"100%"}
           p={"0px"}
+          transition={"0.2s all ease-in-out"}
           _hover={{ bg: "red.300" }}
           color={"white"}
           fontWeight={700}
@@ -67,33 +78,10 @@ const LoginModal = () => {
         </Text>
         <Box h={"2px"} w={"12.5%"} bg={"black"} />
       </Flex>
-      {serverError && (
-        <Flex
-          position={"relative"}
-          w={"20.2rem"}
-          backgroundColor={"#D71C21"}
-          borderRadius={"0.3125rem"}
-          boxShadow={"0px 4px 4px 0px rgba(0, 0, 0, 0.25)"}
-          padding={"10px"}
-          gap={"0.75rem"}
-        >
-          <Image w={"3.125rem"} src={exclamation} />
-          <Flex
-            color={"#FFFFFD"}
-            justifyContent={"center"}
-            alignItems={"flex-start"}
-            fontSize={"1rem"}
-            flexDirection={"column"}
-            fontStyle={"normal"}
-            fontWeight={"700"}
-            lineHeight={"1.5rem"}
-            letterSpacing={"0.00938rem"}
-            gap={"0.5rem"}
-          >
-            {serverError}
-          </Flex>
-        </Flex>
-      )}
+      <AnimatePresence>
+        {isAlertVisible && <AuthAlert serverError={serverError} />}
+      </AnimatePresence>
+
       <LoginForm setServerError={setServerError} />
 
       <Text fontSize={["14px", "16px"]} textAlign={"center"}>
@@ -101,7 +89,7 @@ const LoginModal = () => {
         <Link
           textDecoration={"underline"}
           as={NavLink}
-          color={"yellow.500"}
+          color={"yellow.400"}
           to={"/register"}
         >
           Sign up

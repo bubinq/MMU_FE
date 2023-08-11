@@ -9,13 +9,14 @@ export const theme = extendTheme({
       100: "#fffcf1",
       200: "#ffff00",
       300: "#d9af0e",
+      400: "#F4B400",
       500: "#fea004",
       800: "#e48834",
-      900:"#C34723"
+      900: "#C34723",
     },
     red: {
       300: "#FF3C00",
-      500: "#E54335"
+      500: "#E54335",
     },
     gray: {
       300: "#acb0ad",
@@ -27,11 +28,11 @@ export const theme = extendTheme({
     },
   },
   breakpoints: {
-    sm: '48em',
-    md: '68em',
-    lg: '82em',
-    xl: '100em',
-    '2xl': '96em',
+    sm: "48em",
+    md: "68em",
+    lg: "82em",
+    xl: "100em",
+    "2xl": "96em",
   },
   components: {
     Button: {

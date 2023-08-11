@@ -48,7 +48,7 @@ const Navbar = () => {
       />
       {width > TABLET_DEVICES_RES ? (
         <>
-          {user.name ? (
+          {user.accessToken ? (
             <Buttons type={"logout"} text={"Log out"} />
           ) : (
             <Flex gap={6}>

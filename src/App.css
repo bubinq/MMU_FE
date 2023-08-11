@@ -120,14 +120,14 @@ main {
 .input-fields:focus,
 .input-fields:focus-visible {
   outline: none;
-  border: 2px solid #d9af0e;
+  border: 2px solid #F4B400;
 }
 
 .input-errors:active,
 .input-errors:focus,
 .input-errors:focus-visible {
   outline: none;
-  border: 2px solid #d9af0e;
+  border: 2px solid #F4B400;
 }
 
 .error-message {
