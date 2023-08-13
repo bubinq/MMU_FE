@@ -31,7 +31,6 @@ const Register = () => {
       minH={"100vh"}
       position={"relative"}
       ref={ref}
-
     >
       <Flex
         width={["316px", "30.0625rem", "30.0625rem"]}
@@ -44,6 +43,8 @@ const Register = () => {
         gap={"1.875rem"}
         backgroundColor={"var(--white, #FFFFFD)"}
         borderRadius={"0.9375rem"}
+        zIndex={"1"}
+        position={"relative"}
         boxShadow={"0px 4px 4px 0px rgba(0, 0, 0, 0.25)"}
       >
         <SignUpHeader />
