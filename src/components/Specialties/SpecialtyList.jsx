@@ -1,19 +1,21 @@
 import { Form, useSubmit } from "react-router-dom";
 import { Heading } from "@chakra-ui/react";
 import MainCard from "../MainCard";
-import { useEffect } from "react";
-import jwt_decode from "jwt-decode"
+import { useEffect, useState } from "react";
+import jwt_decode from "jwt-decode";
 
 const SpecialtyList = ({ data }) => {
   const submit = useSubmit();
-
+  const [token, setToken] = useState(null);
+  console.log(token);
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const jwtToken = urlParams.get("jwt_token");
     if (jwtToken) {
-      const token = jwt_decode(jwtToken)
-      console.log(token);
+      const token = jwt_decode(jwtToken);
+      setToken(token);
     }
+
     console.log(jwtToken);
   }, []);
   return (

@@ -45,7 +45,7 @@ const LoginForm = ({ setServerError }) => {
       {({ isSubmitting, errors, touched, values }) => (
         <Form className="formik-form">
           <FormLabel
-            fontSize={"16px"}
+            fontSize={"1rem"}
             fontWeight={700}
             margin={0}
             pos={"relative"}
@@ -54,12 +54,14 @@ const LoginForm = ({ setServerError }) => {
             <Field
               type="email"
               name="email"
+              aria-label="email-field"
               placeholder="placeholder@email.com"
               className={
                 errors.email && touched.email ? "input-errors" : `input-fields`
               }
             />
             <ErrorMessage
+              aria-label="email-error"
               name="email"
               component="span"
               className="error-message"
@@ -67,7 +69,7 @@ const LoginForm = ({ setServerError }) => {
           </FormLabel>
 
           <FormLabel
-            fontSize={"16px"}
+            fontSize={"1rem"}
             fontWeight={700}
             m={0}
             mt={"10px"}
@@ -77,6 +79,7 @@ const LoginForm = ({ setServerError }) => {
             <Field
               type="password"
               name="password"
+              aria-label="password-field"
               className={
                 errors.password && touched.password
                   ? "input-errors"
@@ -84,6 +87,7 @@ const LoginForm = ({ setServerError }) => {
               }
             />
             <ErrorMessage
+              aria-label="password-error"
               name="password"
               component="span"
               className="error-message"
@@ -103,6 +107,7 @@ const LoginForm = ({ setServerError }) => {
           </Link>
           <Button
             type="submit"
+            aria-label="login-submit"
             disabled={isSubmitting || (!errors.email && !errors.password)}
             h={"44px"}
             fontSize={"16px"}

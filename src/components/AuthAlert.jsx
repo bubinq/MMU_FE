@@ -11,7 +11,7 @@ const AuthAlert = ({ serverError }) => {
       initial={{ opacity: 0, scale: 0 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0 }}
-      w={["100%", "20.1rem"]}
+      w={"100%"}
       backgroundColor={"#D71C21"}
       borderRadius={"0.3125rem"}
       boxShadow={"0px 4px 4px 0px rgba(0, 0, 0, 0.25)"}

@@ -100,7 +100,7 @@ main {
   width: 100%;
   height: 39px;
   padding: 10px;
-  font-size: 18px;
+  font-size: 1rem;
   border: 2px solid lightgray;
   border-radius: 5px;
   outline: none;
@@ -110,7 +110,7 @@ main {
   width: 100%;
   height: 39px;
   padding: 10px;
-  font-size: 18px;
+  font-size: 1rem;
   border: 2px solid red;
   outline: none;
   border-radius: 5px;
@@ -119,13 +119,6 @@ main {
 .input-fields:active,
 .input-fields:focus,
 .input-fields:focus-visible {
-  outline: none;
-  border: 2px solid #F4B400;
-}
-
-.input-errors:active,
-.input-errors:focus,
-.input-errors:focus-visible {
   outline: none;
   border: 2px solid #F4B400;
 }
