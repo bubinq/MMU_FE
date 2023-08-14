@@ -1,15 +1,14 @@
 import { Outlet } from "react-router-dom";
+import { Flex } from "@chakra-ui/react";
 import Navbar from "./Navbar";
-import Footer from "./Footer";
 
 const Layout = () => {
   return (
     <>
       <Navbar />
-      <main>
+      <Flex as={"main"} bg={"yellow.100"}>
         <Outlet />
-      </main>
-      <Footer />
+      </Flex>
     </>
   );
 };
