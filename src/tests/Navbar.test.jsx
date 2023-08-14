@@ -52,7 +52,7 @@ const router = createBrowserRouter(mockRoutes);
 
 vi.mock("../contexts/AuthContext", async () => {
   return {
-    default: vi.fn(() => ({ user: { name: "Bob" } })),
+    default: vi.fn(() => ({ user: { accessToken: "Bob" } })),
   };
 });
 

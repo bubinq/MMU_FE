@@ -8,6 +8,7 @@ import DoctorDetails, {
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Appointments from "../pages/Appointments";
+import RouteGuard from "../guards/RouteGuard";
 import { loader as getAllSpecialties } from "../pages/Home";
 import { getSpecialistsSettings } from "../pages/Specialists";
 import Specialists, { loader as getSpecialistData } from "../pages/Specialists";
@@ -40,7 +41,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <Login />,
+        element: (
+          <RouteGuard>
+            <Login />
+          </RouteGuard>
+        ),
       },
       {
         path: "/register",

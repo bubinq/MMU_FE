@@ -12,7 +12,7 @@ const MenuList = ({ width, handleMenuClick, isMenuOpened }) => {
         <>
           <MenuItem to={"/"}>Specialties</MenuItem>
           <MenuItem to={"/specialists"}>Specialists</MenuItem>
-          {user.name && <MenuItem to={"/appointments"}>Appointments</MenuItem>}
+          {user.accessToken && <MenuItem to={"/appointments"}>Appointments</MenuItem>}
         </>
       ) : (
         <BurgerMenu
