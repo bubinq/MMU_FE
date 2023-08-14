@@ -23,7 +23,6 @@ const sendDataToServer = async () => {
     );
     return response;
   } catch (error) {
-    // console.log(error);
     return error;
   }
 };
