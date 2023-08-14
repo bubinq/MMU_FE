@@ -7,7 +7,7 @@ const SignUpHeader = () => {
       flexDirection={"column"}
       alignItems={"flex-start"}
       gap={"0.3125rem"}
-      alignSelf={"stretch"}
+      alignself={"stretch"}
     >
       <Heading>Sign up</Heading>
       <Box
@@ -21,7 +21,7 @@ const SignUpHeader = () => {
         <ChakraLink textDecoration={"underline"}
                     as={NavLink}
                     color={"yellow.400"}
-                    to={"/register"}>
+                    to={"/login"}>
           Login
         </ChakraLink>
 

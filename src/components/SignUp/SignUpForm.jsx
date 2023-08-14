@@ -1,5 +1,5 @@
 import { Button, Flex } from "@chakra-ui/react";
-import {Form as FormikForm, Formik, useFormikContext} from "formik";
+import { Form as FormikForm, Formik, useFormikContext } from "formik";
 import * as Yup from "yup";
 import TemplateInput from "./TemplateInput.jsx";
 import userService from "../../services/user/index.js";
@@ -20,20 +20,20 @@ const SignUpForm = ({ serverError, setServerError }) => {
 
   const validationSchema = Yup.object({
     email: Yup.string()
-      .email("Please enter a valid email address.")
-      .matches(
-        /^[\w-\.]+@([\w-]+\.)+[\w-]{2,5}$/,
-        "Please enter a valid email address."
-      )
-      .required("Please enter an email address."),
+        .email("Please enter a valid email address.")
+        .matches(
+            /^[\w-\.]+@([\w-]+\.)+[\w-]{2,5}$/,
+            "Please enter a valid email address."
+        )
+        .required("Please enter an email address."),
     firstName: Yup.string()
-      .required("Please enter a first name.")
-      .matches(/^[A-Za-z'-]{1,50}$/, "Please enter a valid name.")
-      .max(50, "First name must not exceed 50 characters."),
+        .required("Please enter a first name.")
+        .matches(/^[A-Za-z'-]{1,50}$/, "Please enter a valid name.")
+        .max(50, "First name must not exceed 50 characters."),
     lastName: Yup.string()
-      .required("Please enter a last name.")
-      .matches(/^[A-Za-z'-]{1,50}$/, "Please enter a valid name.")
-      .max(50, "Last name must not exceed 50 characters."),
+        .required("Please enter a last name.")
+        .matches(/^[A-Za-z'-]{1,50}$/, "Please enter a valid name.")
+        .max(50, "Last name must not exceed 50 characters."),
     password: Yup.string().required("Please enter a password."),
     matchingPassword: Yup.string().required("Please enter a password."),
   });
@@ -133,8 +133,13 @@ const SignUpForm = ({ serverError, setServerError }) => {
             lineHeight={"1.5rem"}
             letterSpacing={"0.00938rem"}
             isDisabled={serverError}
-            _disabled={{opacity: "40%"}}
+            h={"2.75rem"}
+            color={"white"}
+            borderRadius="5px"
+            py={"10px"}
+            transition={"0.2s all ease"}
             bg={"yellow.400"}
+            _disabled={{ opacity: "40%" }}
             _hover={{ bg: "red.300" }}
           >
             Sign up

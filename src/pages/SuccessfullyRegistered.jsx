@@ -1,13 +1,9 @@
 import { Box, Flex, Link as ChakraLink } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import {useEffect, useRef} from "react";
-import {Canvas} from "../utils.js";
+import useCanvasWaves from "../hooks/useCanvasWaves.jsx";
 
 const SuccessfullyRegistered = () => {
-  const ref = useRef();
-  useEffect(() => {
-    new Canvas(ref.current);
-  }, []);
+  const ref = useCanvasWaves();
 
   return (
     <Box w={"100%"} mx={"auto"} minH={"100vh"} ref={ref}>
