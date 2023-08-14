@@ -36,21 +36,21 @@ export const requestExecuter = async (request) => {
 
 export class Canvas {
   constructor(parent) {
-    if (document.querySelector("canvas")) {
-      return;
-    }
-    this.parent = parent;
     this.canvas = document.createElement("canvas");
     this.ctx = this.canvas.getContext("2d");
-    parent.appendChild(this.canvas);
+    this.parent = parent;
+    this.parent.appendChild(this.canvas);
 
     this.waveLine = new WaveLine();
 
-    window.addEventListener("resize", this.resize.bind(this));
+    this.boundResize = this.resize.bind(this);
+    this.boundAnimate = this.animate.bind(this);
+
+    window.addEventListener("resize", this.boundResize);
 
     this.resize();
 
-    requestAnimationFrame(this.animate.bind(this));
+    requestAnimationFrame(this.boundAnimate);
   }
 
   resize() {
@@ -63,8 +63,17 @@ export class Canvas {
   }
   animate() {
     this.ctx.clearRect(0, 0, this.viewportWidth, this.viewportHeight);
-    this.waveLine.draw(this.ctx);
-    requestAnimationFrame(this.animate.bind(this));
+    if (this.waveLine) {
+      this.waveLine.draw(this.ctx);
+    }
+    requestAnimationFrame(this.boundAnimate);
+  }
+  cleanup() {
+    window.removeEventListener("resize", this.boundResize);
+    cancelAnimationFrame(this.boundAnimate);
+    this.waveLine = null;
+    this.parent.removeChild(this.canvas);
+    this.parent = null;
   }
 }
 

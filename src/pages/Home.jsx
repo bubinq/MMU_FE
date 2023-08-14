@@ -8,7 +8,6 @@ import useScrollToTop from "../hooks/useScrollToTop";
 const Home = () => {
   const data = useLoaderData();
   useScrollToTop();
-
   return (
     <Flex
       as={"section"}

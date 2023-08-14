@@ -1,13 +1,21 @@
 import { Flex } from "@chakra-ui/react";
 import LoginModal from "../components/Login/LoginModal";
-import { useRef, useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Canvas } from "../utils";
 
 const Login = () => {
   const ref = useRef();
+  const canvasRef = useRef();
   useEffect(() => {
-    new Canvas(ref.current);
+    canvasRef.current = new Canvas(ref.current);
+    return () => {
+      if (canvasRef.current) {
+        canvasRef.current.cleanup();
+        canvasRef.current = null;
+      }
+    };
   }, []);
+
   return (
     <Flex
       as={"section"}

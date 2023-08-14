@@ -9,5 +9,4 @@ redirect_uri=${REDIRECT_URI}&
 client_id=${CLIENT_ID}&
 prompt=consent`;
 
-export const TEST_URI =
-  "https://accounts.google.com/o/oauth2/auth?redirect_uri=http://localhost:8080/api/v1/auth/login/oauth2/code/google&prompt=consent&response_type=code&client_id=100732516280-3uqf9q6kfjcd22688age9gf2l8ju43hg.apps.googleusercontent.com&scope=openid%20profile%20email";
+export const BASE_URL = "http://localhost:5173";
