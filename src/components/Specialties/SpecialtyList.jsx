@@ -1,4 +1,4 @@
-import { Form, useSubmit } from "react-router-dom";
+import { Link, useSubmit } from "react-router-dom";
 import { Heading } from "@chakra-ui/react";
 import MainCard from "../MainCard";
 import { useEffect } from "react";
@@ -14,7 +14,10 @@ const SpecialtyList = ({ data }) => {
     const jwtToken = urlParams.get("jwt_token");
     if (jwtToken) {
       const token = jwt_decode(jwtToken);
-      localStorage.setItem("accessToken", JSON.stringify({email: token.sub, accessToken: jwtToken}));
+      localStorage.setItem(
+        "accessToken",
+        JSON.stringify({ email: token.sub, accessToken: jwtToken })
+      );
       setUser({ accessToken: jwtToken });
       window.history.replaceState(null, null, BASE_URL);
     }
@@ -22,10 +25,11 @@ const SpecialtyList = ({ data }) => {
   return (
     <>
       {data.content.map((specialty) => (
-        <Form
+        <Link
           key={specialty.id}
-          action="/specialists"
-          onClick={() => {
+          to={"/specialists"}
+          onClick={(ev) => {
+            ev.preventDefault();
             submit(
               { id: specialty.id },
               {
@@ -45,7 +49,7 @@ const SpecialtyList = ({ data }) => {
             img={specialty.image_url}
             source="home"
           />
-        </Form>
+        </Link>
       ))}
     </>
   );
