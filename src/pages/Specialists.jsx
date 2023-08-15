@@ -19,7 +19,7 @@ const Specialists = () => {
   const [searchTerms, setSearchTerms] = useState({
     name: "",
     specialty: fromSpecialtyCard ? actionData[0].specialtyId : "",
-    city: ""
+    city: "",
   });
   const [doctors, setDoctors] = useState(
     actionData || data.specialists.content
