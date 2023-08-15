@@ -3,7 +3,7 @@ import SignUpHeader from "../components/SignUp/SignUpHeader.jsx";
 import SignUpForm from "../components/SignUp/SignUpForm.jsx";
 import SignUpWithGoogle from "../components/SignUp/SignUpWithGoogle.jsx";
 import { useEffect, useState } from "react";
-import ValidationErrorMSG from "../components/SignUp/ValidationErrorMSG.jsx";
+import BackEndValidationErrorMSG from "../components/SignUp/BackEndValidationErrorMSG.jsx";
 import {AnimatePresence} from "framer-motion";
 import useCanvasWaves from "../hooks/useCanvasWaves.jsx";
 
@@ -37,7 +37,7 @@ const Register = () => {
     >
       <Flex
         width={["316px", "30.0625rem", "30.0625rem"]}
-        height={"54rem"}
+        maxHeight={"56rem"}
         mt={"100px"}
         padding={["1.5rem 2rem", "2.4375rem 4.3125rem", "2.4375rem 4.3125rem"]}
         flexDirection={"column"}
@@ -66,7 +66,7 @@ const Register = () => {
         </Flex>
         <SignUpWithGoogle />
         <AnimatePresence>
-          {isAlertVisible && <ValidationErrorMSG serverError={serverError} />}
+          {isAlertVisible && <BackEndValidationErrorMSG serverError={serverError} />}
         </AnimatePresence>
       </Flex>
     </Flex>

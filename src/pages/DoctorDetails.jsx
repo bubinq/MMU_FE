@@ -101,11 +101,10 @@ const DoctorDetails = () => {
             <FontAwesomeIcon icon={faStar} color={"#d9af0e"} />
             <Box
               fontSize={"15px"}
-              fontWeight={"600"}
               color={"#200017"}
               textAlign={"center"}
             >
-              {data.averageRating || "--"}
+              {(data.averageRating < 1 || data.averageRating > 5 ) ? "--" : data.averageRating }
             </Box>
           </Flex>
           <Flex flexDir={"column"} gap={"-1px"}>

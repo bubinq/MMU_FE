@@ -44,7 +44,7 @@ const DoctorList = ({ doctors, specialties }) => {
                     {d.specialtyName}
                   </Text>
                 }
-                rating={<Text fontSize={"md"} data-testid={d.averageRating}>{d.averageRating}</Text>}
+                rating={<Text fontSize={"md"} data-testid={d.averageRating}>{(d.averageRating < 1 || d.averageRating > 5 ) ? "- -" : d.averageRating }</Text>}
                 location={
                   <Text className="doc-location" fontSize={"md"} data-testid={d.address}>
                     {d.address}
