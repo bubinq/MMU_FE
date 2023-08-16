@@ -35,11 +35,16 @@ const country = {
   deleteCountry: (uuid) => `/countries/${uuid}`,
 };
 
+const users = {
+  create: "/auth/register"
+}
+
 const urls = {
   specialty,
   specialist,
   country,
   city,
+  users
 };
 
 export default urls;

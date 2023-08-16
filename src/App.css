@@ -1,6 +1,5 @@
-@font-face {
-  font-family: "Inter";
-  src: url("./fonts/static/Inter-Regular.ttf") format("truetype");
+:root {
+  font-family: monospace;
 }
 
 main {
@@ -90,6 +89,15 @@ main {
   top: 46%;
 }
 
+.invalid-input {
+  color: #D71C21;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1rem;
+  letter-spacing: 0.025rem;
+}
+
 .formik-form {
   display: flex;
   flex-direction: column;
@@ -106,6 +114,16 @@ main {
   outline: none;
 }
 
+.input-fields-reg {
+  width: 100%;
+  height: 2.4375rem;
+  padding: 0.625rem;
+  font-size: 1rem;
+  border: 2px solid lightgray;
+  border-radius: 0.3125rem;
+  outline: none;
+}
+
 .input-errors {
   width: 100%;
   height: 39px;
@@ -116,9 +134,32 @@ main {
   border-radius: 5px;
 }
 
+.input-errors-reg {
+  width: 100%;
+  height: 2.4375rem;
+  padding: 0.625rem;
+  font-size: 1rem;
+  border: 2px solid red;
+  outline: none;
+  border-radius: 5px;
+}
+
 .input-fields:active,
 .input-fields:focus,
-.input-fields:focus-visible {
+.input-fields:focus-visible,
+.input-fields-reg:active,
+.input-fields-reg:focus,
+.input-fields-reg:focus-visible {
+  outline: none;
+  border: 2px solid #F4B400;
+}
+
+.input-errors:active,
+.input-errors:focus,
+.input-errors:focus-visible,
+.input-errors-reg:active,
+.input-errors-reg:focus,
+.input-errors-reg:focus-visible {
   outline: none;
   border: 2px solid #F4B400;
 }
@@ -136,6 +177,7 @@ canvas {
   z-index: 0;
   width: 100%;
   height: 100%;
+  top: 0;
 }
 @media (max-width: 1087px) {
   .doc-img-link {
@@ -148,6 +190,14 @@ canvas {
 @media (max-width: 768px) {
   .error-message {
     font-size: 12px;
+  }
+}
+
+@media (max-width: 400px) {
+  .signup-confirmation {
+    max-width: 320px;
+    margin-top: 15rem !important;
+    padding: 1.4375rem 2rem;
   }
 }
 

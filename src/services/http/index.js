@@ -1,8 +1,22 @@
 import axios from "axios";
+import {GOOGLE_OAUTH2_URL} from "../../constants.js";
 
 export const axiosEnv = axios.create({
   baseURL: "http://localhost:8080/api/v1",
 });
+
+// axiosEnv.interceptors.request.use(config => {
+//     const googleUser = GOOGLE_OAUTH2_URL.auth2.getAuthInstance().currentUser.get();
+//     const id_token = googleUser.getAuthResponse().id_token;
+//
+//     if (id_token) {
+//         config.headers.Authorization = `Bearer ${id_token}`;
+//     }
+//
+//     return config;
+// }, error => {
+//     return Promise.reject(error);
+// });
 
 const call =
   (verb) =>
