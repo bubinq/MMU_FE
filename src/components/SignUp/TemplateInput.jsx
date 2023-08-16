@@ -3,12 +3,11 @@ import { Box, Flex, FormLabel } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import FrontEndValidationErrorMsg from "./FrontEndValidationErrorMsg.jsx";
 
 const TemplateInput = ({ type, name, label, placeholder = "", error }) => {
   const [isVisible, setIsVisible] = useState(false);
   const formik = useFormikContext();
-  const passwordHint =
-    "Use 8 or more characters, with a mix of uppercase, lowercase, numbers and symbols.";
 
   return (
     <Flex
@@ -45,7 +44,7 @@ const TemplateInput = ({ type, name, label, placeholder = "", error }) => {
               ? "input-errors-reg"
               : `input-fields-reg`
           }
-        ></Field>
+        />
         {type === "password" && (
           <Box
             zIndex={"3"}
@@ -60,17 +59,7 @@ const TemplateInput = ({ type, name, label, placeholder = "", error }) => {
         )}
       </Box>
       <Box minHeight={"13px"}>
-        {error && name === "password" ? (
-          <Box className="invalid-input">{error}</Box>
-        ) : formik.touched[name] && formik.errors[name] ? (
-          <Box className="invalid-input">{formik.errors[name]}</Box>
-        ) : (
-          name === "password" && (
-            <Box className="invalid-input" color={"#ACA1A6"} minHeight={"26px"}>
-              {passwordHint}
-            </Box>
-          )
-        )}
+        <FrontEndValidationErrorMsg error={error} name={name}/>
       </Box>
     </Flex>
   );

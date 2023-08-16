@@ -94,17 +94,17 @@ const LoginForm = ({ setServerError }) => {
             />
           </FormLabel>
 
-          <Link
-            mt={"16px"}
-            ml={"auto"}
-            textDecoration={"underline"}
-            fontSize={["14px", "16px"]}
-            as={NavLink}
-            color={"yellow.400"}
-            w={"fit-content"}
-          >
-            Forgot password?
-          </Link>
+          {/*<Link*/}
+          {/*  mt={"16px"}*/}
+          {/*  ml={"auto"}*/}
+          {/*  textDecoration={"underline"}*/}
+          {/*  fontSize={["14px", "16px"]}*/}
+          {/*  as={NavLink}*/}
+          {/*  color={"yellow.400"}*/}
+          {/*  w={"fit-content"}*/}
+          {/*>*/}
+          {/*  Forgot password?*/}
+          {/*</Link>*/}
           <Button
             type="submit"
             aria-label="login-submit"
@@ -114,6 +114,7 @@ const LoginForm = ({ setServerError }) => {
             color={"white"}
             borderRadius="5px"
             py={"10px"}
+            mt={"16px"}
             transition={"0.2s all ease"}
             bg={
               !values.email || !values.password

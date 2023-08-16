@@ -2,7 +2,7 @@ import { Box, Flex, Image } from "@chakra-ui/react";
 import exclamation from "../../assets/exclamation-mark.svg";
 import { motion } from "framer-motion";
 
-const ValidationErrorMSG = ({ serverError }) => {
+const BackEndValidationErrorMSG = ({ serverError }) => {
   return (
     <Flex
       position={"absolute"}
@@ -42,4 +42,4 @@ const ValidationErrorMSG = ({ serverError }) => {
   );
 };
 
-export default ValidationErrorMSG;
+export default BackEndValidationErrorMSG;

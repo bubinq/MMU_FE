@@ -2,12 +2,11 @@ import Error from "../pages/Error.jsx";
 import Layout from "../components/Layout.jsx";
 import { vi, describe, beforeEach, test, expect } from "vitest";
 import "@testing-library/jest-dom";
-import Specialists from "../pages/Specialists.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import { render, screen } from "@testing-library/react";
-import Home from "../pages/Home.jsx";
 import DoctorDetails from "../pages/DoctorDetails.jsx";
+import Specialists from "../pages/Specialists.jsx";
 
 const mockSpecialtiesData = {
   content: [
@@ -133,13 +132,6 @@ const mockRoutes = [
     element: <Layout />,
     children: [
       {
-        // index: true,
-        element: <Home />,
-        loader: vi.fn(() => {
-          return mockSpecialtiesData;
-        }),
-      },
-      {
         index: true,
         element: <Specialists />,
         loader: vi.fn(() => {
@@ -162,7 +154,7 @@ const mockRoutes = [
               firstName: "John",
               id: 1,
               imageUrl:
-                "https://familydoctor.org/wp-content/uploads/2018/02/41808433_l.jpg",
+                  "https://familydoctor.org/wp-content/uploads/2018/02/41808433_l.jpg",
               lastName: "Doe",
               specialtyId: 2,
               specialtyName: "Cardiology",
@@ -172,7 +164,7 @@ const mockRoutes = [
         }),
       },
       {
-        path: "/:id",
+        path: "/1",
         element: <DoctorDetails />,
         loader: vi.fn(() => {
           return mockSingleDoctor;
@@ -184,66 +176,31 @@ const mockRoutes = [
 
 const router = createBrowserRouter(mockRoutes);
 
-describe("Specialists Page", () => {
+describe("Doctor Details Page", () => {
   beforeEach(() => {
     userEvent.setup();
     render(
       <RouterProvider router={router}>
-        <Specialists />
         <DoctorDetails />
       </RouterProvider>
     );
   });
-
-  test("renders Specialists", () => {
-    const heading = screen.getByRole("heading", { level: 1 });
-    expect(heading).toHaveTextContent("Specialists");
-  });
-
-  test("renders Doctor Card1", () => {
-    const doctor = mockDoctorsData.content[0];
-    const heading = screen.getByRole("heading", {
-      level: 2,
-      name: `${doctor.firstName} ${doctor.lastName}`,
-    });
-    const specialty = screen.getByTestId(doctor.id);
-    const location = screen.getByTestId(doctor.address);
-    const rating = screen.getByTestId(doctor.averageRating);
-    expect(heading).toHaveTextContent(/^John Doe$/);
-    expect(specialty).toHaveTextContent(/^Cardiology$/);
-    expect(location).toHaveTextContent(/^123 Main Street, Varna, Bulgaria$/);
-    expect(rating).toHaveTextContent(/^4.9$/);
-  });
-
-  test("renders Doctor Card3", () => {
-    const doctor = mockDoctorsData.content[2];
-    const heading = screen.getByRole("heading", {
-      level: 2,
-      name: `${doctor.firstName} ${doctor.lastName}`,
-    });
-    const specialty = screen.getByTestId(doctor.id);
-    const location = screen.getByTestId(doctor.address);
-    const rating = screen.getByTestId(doctor.averageRating);
-    expect(heading).toHaveTextContent(/^Sarah Johnson$/);
-    expect(specialty).toHaveTextContent(/^Pediatrics$/);
-    expect(location).toHaveTextContent(/^789 Elm Street, Dobrich, Bulgaria$/);
-    expect(rating).toHaveTextContent(/^4.7$/);
-  });
-
-  test("navigate to details page when click on Card1", async () => {
-    const doctor = mockDoctorsData.content[0];
-    const card = screen.getByTestId(`link-${doctor.id}`);
-    await userEvent.click(card);
+  test("renders Doctor's name", () => {
     const doc = mockSingleDoctor;
-    const heading = await screen.findByRole("heading", {
+    const heading = screen.findByRole("heading", {
       level: 2,
       name: `${doc.firstName} ${doc.lastName}`,
     });
-    const summary = await screen.findByRole("heading", {
+    const about = screen.findByRole("heading", {
       level: 3,
       name: `About ${doc.firstName} ${doc.lastName}`,
     });
     expect(heading).toHaveTextContent(/^John Doe$/);
-    expect(summary).toHaveTextContent(/^About John Doe$/);
+    expect(about).toHaveTextContent(/^About John Doe$/);
+  });
+
+  test("renders Doctor's address", () => {
+    const address = screen.getByTestId(mockSingleDoctor.address);
+    expect(address).toHaveTextContent(/^123 Main Street, Varna, Bulgaria$/);
   });
 });
