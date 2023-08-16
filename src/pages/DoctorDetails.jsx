@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 import specialistService from "../services/specialist/index.js";
-import { Box, Flex, Image } from "@chakra-ui/react";
+import {Box, Flex, Heading, Image} from "@chakra-ui/react";
 import { faLocationDot, faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -27,8 +27,8 @@ const DoctorDetails = () => {
           backgroundColor={"#fff"}
         >
           <Box
-            background="linear-gradient(90deg, rgba(217,175,14,1) 0%, rgba(195,71,35,1) 100%)"
-            // background="linear-gradient(90deg, rgba(244,180,0,1) 0%, rgba(217,175,14,1) 100%)"
+            // background="linear-gradient(90deg, rgba(217,175,14,1) 0%, rgba(195,71,35,1) 100%)"
+            background="linear-gradient(90deg, rgba(244,180,0,1) 0%, rgba(217,175,14,1) 100%)"
             w={"100%"}
             h={"148px"}
           ></Box>
@@ -60,11 +60,11 @@ const DoctorDetails = () => {
           backgroundColor={"#fff"}
           color={"#200017"}
         >
-          <Box
+          <Heading as={"h3"}
             fontSize={"20px"}
             lineHeight={"normal"}
             fontWeight={"700"}
-          >{`About ${data.firstName} ${data.lastName}`}</Box>
+          >{`About ${data.firstName} ${data.lastName}`}</Heading>
           <Box>{data.summary}</Box>
         </Flex>
         <Flex
@@ -108,7 +108,7 @@ const DoctorDetails = () => {
             </Box>
           </Flex>
           <Flex flexDir={"column"} gap={"-1px"}>
-            <Box
+            <Heading as={"h2"}
               fontSize={"24px"}
               fontWeight={"700"}
               lineHeight={"normal"}
@@ -116,7 +116,7 @@ const DoctorDetails = () => {
               w={["100%", "max-content", "max-content"]}
             >
               {`${data.firstName} ${data.lastName}`}
-            </Box>
+            </Heading>
             <Box
               color={"#c34723"}
               fontSize={"16px"}
@@ -133,7 +133,7 @@ const DoctorDetails = () => {
                   fontSize={"1.75rem"}
                   color={"#5b4a0d"}
                 />
-                <Box>{data.address}</Box>
+                <Box as={"div"} data-testid={data.address}>{data.address}</Box>
               </Flex>
             </Flex>
           </Flex>
