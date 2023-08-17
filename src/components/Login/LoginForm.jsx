@@ -45,7 +45,7 @@ const LoginForm = ({ setServerError }) => {
       {({ isSubmitting, errors, touched, values }) => (
         <Form className="formik-form">
           <FormLabel
-            fontSize={"1rem"}
+            fontSize={["14px", "16px"]}
             fontWeight={700}
             margin={0}
             pos={"relative"}
@@ -69,7 +69,7 @@ const LoginForm = ({ setServerError }) => {
           </FormLabel>
 
           <FormLabel
-            fontSize={"1rem"}
+            fontSize={["14px", "16px"]}
             fontWeight={700}
             m={0}
             mt={"10px"}
@@ -94,34 +94,34 @@ const LoginForm = ({ setServerError }) => {
             />
           </FormLabel>
 
-          {/*<Link*/}
-          {/*  mt={"16px"}*/}
-          {/*  ml={"auto"}*/}
-          {/*  textDecoration={"underline"}*/}
-          {/*  fontSize={["14px", "16px"]}*/}
-          {/*  as={NavLink}*/}
-          {/*  color={"yellow.400"}*/}
-          {/*  w={"fit-content"}*/}
-          {/*>*/}
-          {/*  Forgot password?*/}
-          {/*</Link>*/}
+          <Link
+            mt={"16px"}
+            ml={"auto"}
+            textDecoration={"underline"}
+            fontSize={["14px", "16px"]}
+            as={NavLink}
+            fontWeight={700}
+            color={"blue.900"}
+            w={"fit-content"}
+          >
+            Forgot password?
+          </Link>
           <Button
             type="submit"
             aria-label="login-submit"
             disabled={isSubmitting || (!errors.email && !errors.password)}
             h={"44px"}
             fontSize={"16px"}
-            color={"white"}
+            color={"blue.900"}
             borderRadius="5px"
             py={"10px"}
-            mt={"16px"}
             transition={"0.2s all ease"}
             bg={
               !values.email || !values.password
                 ? "rgba(244, 180, 0, 0.6)"
                 : "yellow.400"
             }
-            _hover={{ bg: "red.300" }}
+            _hover={{ bg: "red.300", color: "white" }}
           >
             Login
           </Button>

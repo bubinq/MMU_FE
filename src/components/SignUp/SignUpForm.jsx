@@ -35,7 +35,7 @@ const SignUpForm = ({ serverError, setServerError }) => {
       .max(50, "Last name must not exceed 50 characters.")
       .matches(/^[A-Za-z'-]{1,50}$/, "Please enter a valid name."),
     password: Yup.string().required("Please enter a password."),
-    matchingPassword: Yup.string().required("Please enter a password.")
+    matchingPassword: Yup.string().required("Please enter a password."),
   });
 
   const passwordSchema = Yup.object({
@@ -69,13 +69,13 @@ const SignUpForm = ({ serverError, setServerError }) => {
       const validationError = await validatePassword(values);
       if (!validationError && values.password === values.matchingPassword) {
         userService
-            .register(values)
-            .then(() => {
-              navigate("/register/successful", { replace: true });
-            })
-            .catch((error) => {
-              setServerError(error.response.data);
-            });
+          .register(values)
+          .then(() => {
+            navigate("/register/successful", { replace: true });
+          })
+          .catch((error) => {
+            setServerError(error.response.data);
+          });
       }
     } catch (validationError) {
       // Handle validation error if needed
@@ -91,67 +91,60 @@ const SignUpForm = ({ serverError, setServerError }) => {
       validationSchema={validationSchema}
       onSubmit={onSave}
     >
-      <FormikForm style={{ width: "100%" }}>
-        <Flex
+      <FormikForm className="formik-form">
+        <TemplateInput
+          type={"email"}
+          name={"email"}
+          label={"Email address *"}
+          placeholder={"placeholder@email.com"}
+        />
+        <TemplateInput
+          type={"text"}
+          name={"firstName"}
+          label={"First Name *"}
+          placeholder={"First Name"}
+        />
+        <TemplateInput
+          type={"text"}
+          name={"lastName"}
+          label={"Last Name *"}
+          placeholder={"Last Name"}
+        />
+        <TemplateInput
+          type={"password"}
+          name={"password"}
+          label={"Password *"}
+          error={error}
+        />
+        <TemplateInput
+          type={"password"}
+          name={"matchingPassword"}
+          label={"Confirm Password *"}
+          error={error}
+        />
+        <Button
+          type={"submit"}
+          variant={"signup"}
           width={"100%"}
-          flexDirection={"column"}
-          alignItems={"flex-start"}
-          gap={"1rem"}
+          padding={"0.625rem 8.6875rem"}
+          textAlign={"center"}
+          fontSize={"1rem"}
+          fontStyle={"normal"}
+          fontWeight={"700"}
+          lineHeight={"1.5rem"}
+          letterSpacing={"0.00938rem"}
+          isDisabled={serverError}
+          h={"2.75rem"}
+          color={"blue.900"}
+          borderRadius="5px"
+          py={"10px"}
+          transition={"0.2s all ease"}
+          bg={"yellow.400"}
+          _disabled={{ opacity: "40%" }}
+          _hover={{ bg: "red.300", color: "white" }}
         >
-          <TemplateInput
-            type={"email"}
-            name={"email"}
-            label={"Email address *"}
-            placeholder={"placeholder@email.com"}
-          />
-          <TemplateInput
-            type={"text"}
-            name={"firstName"}
-            label={"First Name *"}
-            placeholder={"First Name"}
-          />
-          <TemplateInput
-            type={"text"}
-            name={"lastName"}
-            label={"Last Name *"}
-            placeholder={"Last Name"}
-          />
-          <TemplateInput
-            type={"password"}
-            name={"password"}
-            label={"Password *"}
-            error={error}
-          />
-          <TemplateInput
-            type={"password"}
-            name={"matchingPassword"}
-            label={"Confirm Password *"}
-            error={error}
-          />
-          <Button
-            type={"submit"}
-            variant={"signup"}
-            width={"100%"}
-            padding={"0.625rem 8.6875rem"}
-            textAlign={"center"}
-            fontSize={"1rem"}
-            fontStyle={"normal"}
-            fontWeight={"700"}
-            lineHeight={"1.5rem"}
-            letterSpacing={"0.00938rem"}
-            isDisabled={serverError}
-            h={"2.75rem"}
-            color={"white"}
-            borderRadius="5px"
-            py={"10px"}
-            transition={"0.2s all ease"}
-            bg={"yellow.400"}
-            _disabled={{ opacity: "40%" }}
-            _hover={{ bg: "red.300" }}
-          >
-            Sign up
-          </Button>
-        </Flex>
+          Sign up
+        </Button>
       </FormikForm>
     </Formik>
   );

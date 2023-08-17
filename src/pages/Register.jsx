@@ -4,7 +4,7 @@ import SignUpForm from "../components/SignUp/SignUpForm.jsx";
 import SignUpWithGoogle from "../components/SignUp/SignUpWithGoogle.jsx";
 import { useEffect, useState } from "react";
 import BackEndValidationErrorMSG from "../components/SignUp/BackEndValidationErrorMSG.jsx";
-import {AnimatePresence} from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import useCanvasWaves from "../hooks/useCanvasWaves.jsx";
 
 const Register = () => {
@@ -36,6 +36,7 @@ const Register = () => {
       justifyContent={"center"}
     >
       <Flex
+        as={"article"}
         width={["316px", "30.0625rem", "30.0625rem"]}
         maxHeight={"56rem"}
         mt={"100px"}
@@ -66,7 +67,9 @@ const Register = () => {
         </Flex>
         <SignUpWithGoogle />
         <AnimatePresence>
-          {isAlertVisible && <BackEndValidationErrorMSG serverError={serverError} />}
+          {isAlertVisible && (
+            <BackEndValidationErrorMSG serverError={serverError} />
+          )}
         </AnimatePresence>
       </Flex>
     </Flex>

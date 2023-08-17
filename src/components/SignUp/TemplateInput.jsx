@@ -10,58 +10,54 @@ const TemplateInput = ({ type, name, label, placeholder = "", error }) => {
   const formik = useFormikContext();
 
   return (
-    <Flex
-      flexDirection={"column"}
-      alignitems={"flex-start"}
-      gap={"0.315rem"}
-      alignself={"stretch"}
-      w={"100%"}
-    >
+    <>
       <FormLabel
+        display={"flex"}
+        gap={"0.2rem"}
+        flexDir={"column"}
         color={"var(--licorice, #200017)"}
         fontSize={"1rem"}
-        fontStyle={"normal"}
-        fontWeight={"700"}
-        lineHeight={"normal"}
-        m={"0px"}
+        fontWeight={700}
+        m={0}
+        pos={"relative"}
       >
         {label}
+
+        <Box position={type === "password" && "relative"}>
+          <Field
+            type={isVisible ? "text" : type}
+            name={name}
+            placeholder={placeholder}
+            padding={"0.625rem"}
+            alignself={"stretch"}
+            borderradius={"0.3125rem"}
+            value={formik.values[name]}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            className={
+              formik.errors[name] && formik.touched[name]
+                ? "input-errors-reg"
+                : `input-fields-reg`
+            }
+          />
+          {type === "password" && (
+            <Box
+              zIndex={"3"}
+              _hover={{ cursor: "pointer" }}
+              position={"absolute"}
+              top={"4px"}
+              right={"10px"}
+              onClick={() => setIsVisible(!isVisible)}
+            >
+              <FontAwesomeIcon icon={isVisible ? faEyeSlash : faEye} />
+            </Box>
+          )}
+        </Box>
+        <Box minHeight={"13px"}>
+          <FrontEndValidationErrorMsg error={error} name={name} />
+        </Box>
       </FormLabel>
-      <Box position={type === "password" && "relative"}>
-        <Field
-          type={isVisible ? "text" : type}
-          name={name}
-          placeholder={placeholder}
-          padding={"0.625rem"}
-          alignitems={"flex-start"}
-          alignself={"stretch"}
-          borderradius={"0.3125rem"}
-          value={formik.values[name]}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          className={
-            formik.errors[name] && formik.touched[name]
-              ? "input-errors-reg"
-              : `input-fields-reg`
-          }
-        />
-        {type === "password" && (
-          <Box
-            zIndex={"3"}
-            _hover={{ cursor: "pointer" }}
-            position={"absolute"}
-            top={"4px"}
-            right={"10px"}
-            onClick={() => setIsVisible(!isVisible)}
-          >
-            <FontAwesomeIcon icon={isVisible ? faEyeSlash : faEye} />
-          </Box>
-        )}
-      </Box>
-      <Box minHeight={"13px"}>
-        <FrontEndValidationErrorMsg error={error} name={name}/>
-      </Box>
-    </Flex>
+    </>
   );
 };
 
