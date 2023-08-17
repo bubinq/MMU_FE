@@ -13,7 +13,7 @@ const TemplateInput = ({ type, name, label, placeholder = "", error }) => {
     <>
       <FormLabel
         display={"flex"}
-        gap={"0.2rem"}
+        gap={"0.15rem"}
         flexDir={"column"}
         color={"var(--licorice, #200017)"}
         fontSize={"1rem"}
@@ -22,15 +22,12 @@ const TemplateInput = ({ type, name, label, placeholder = "", error }) => {
         pos={"relative"}
       >
         {label}
-
         <Box position={type === "password" && "relative"}>
           <Field
             type={isVisible ? "text" : type}
             name={name}
             placeholder={placeholder}
-            padding={"0.625rem"}
-            alignself={"stretch"}
-            borderradius={"0.3125rem"}
+            position={type === "password" && "relative"}
             value={formik.values[name]}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
