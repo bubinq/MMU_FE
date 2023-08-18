@@ -1,7 +1,9 @@
 import { Flex } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import useAuth from "../contexts/AuthContext";
 
-const BurgerMenu = ({ handleMenuClick, isMenuOpened }) => {
+const BurgerMenu = () => {
+  const { handleMenuClick, isMenuOpened } = useAuth();
   return (
     <Flex
       aria-label="burger-menu"
@@ -9,7 +11,7 @@ const BurgerMenu = ({ handleMenuClick, isMenuOpened }) => {
       as={motion.div}
       w={"50px"}
       h={"50px"}
-      bg={"yellow.500"}
+      bg={"yellow.900"}
       flexDirection={"column"}
       gap={2}
       align="center"

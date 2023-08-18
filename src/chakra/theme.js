@@ -1,55 +1,73 @@
 import { extendTheme } from "@chakra-ui/react";
 
 export const theme = extendTheme({
+  fonts: {
+    body: `Inter, sans-serif`,
+  },
   colors: {
     yellow: {
-      100: "#FFFFE0",
-      300: "#feef7b",
+      100: "#fffcf1",
+      200: "#ffff00",
+      300: "#d9af0e",
+      400: "#F4B400",
       500: "#fea004",
       800: "#e48834",
+      900: "#C34723",
+    },
+    red: {
+      300: "#FF3C00",
+      500: "#E54335",
     },
     gray: {
       300: "#acb0ad",
       500: "#6a6a6b",
     },
     blue: {
+      500: "#329ffe",
       900: "#181938",
     },
+  },
+  breakpoints: {
+    sm: "48em",
+    md: "68em",
+    lg: "82em",
+    xl: "100em",
+    "2xl": "96em",
   },
   components: {
     Button: {
       variants: {
         login: {
           bg: "transparent",
-          textColor: "#181938",
-          fontSize: "2xl",
+          textColor: "blue.900",
+          fontSize: "lg",
           paddingX: 4,
 
           _hover: {
             bg: "transparent",
-            textColor: "#01a0e2",
-            outline: "2px solid #01a0e2",
+            textColor: "blue.900",
+            outline: `2px solid #181938`,
           },
         },
         logout: {
           bg: "transparent",
           textColor: "#181938",
-          fontSize: "2xl",
-          border: "2px solid #acb0ad",
+          fontSize: "lg",
+          border: "2px solid #181938",
           paddingX: 4,
           outline: "none",
           transition: "1s ease-in-out",
           borderRadius: "2px",
-          _hover: { transition: "1s ease-in-out", background: "#fea004" },
+          _hover: { transition: "1s ease-in-out" },
         },
         signup: {
-          bg: "#fea004",
+          bg: "yellow.900",
           textColor: "white",
-          fontSize: "2xl",
+          fontSize: "lg",
           paddingX: 3,
           outline: "none",
           transition: "1s ease-in-out",
-          _hover: { transition: "1s ease-in-out", background: "#e48834" },
+          _hover: { transition: "1s ease-in-out", background: "red.300" },
         },
       },
     },
@@ -57,7 +75,11 @@ export const theme = extendTheme({
       variants: {
         main: {
           color: "blue.900",
-          mt: "115px",
+          mt: "8.25rem",
+        },
+        errorHeading: {
+          color: "blue.900",
+          mt: "6.25rem",
         },
       },
     },

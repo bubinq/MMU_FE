@@ -1,9 +1,23 @@
-import { Flex, Heading } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
+import LoginModal from "../components/Login/LoginModal";
+import useCanvasWaves from "../hooks/useCanvasWaves";
+import useSpinner from "../hooks/useSpinner";
+import Spinner from "../components/Spinner";
 
 const Login = () => {
+  const ref = useCanvasWaves();
+  const isLoading = useSpinner();
+
   return (
-    <Flex as={"section"} w={["75%", "85%", "95%"]} mx={"auto"} minH={"3650px"}>
-      <Heading variant={"main"}>Login Page</Heading>
+    <Flex
+      as={"section"}
+      w={["75%", "85%", "95%"]}
+      justifyContent={"center"}
+      mx={"auto"}
+      minH={"100vh"}
+      ref={ref}
+    >
+      {isLoading ? <Spinner /> : <LoginModal />}
     </Flex>
   );
 };
