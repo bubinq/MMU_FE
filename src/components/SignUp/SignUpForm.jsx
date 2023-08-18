@@ -1,4 +1,4 @@
-import { Button, Flex } from "@chakra-ui/react";
+import { Button, Spinner } from "@chakra-ui/react";
 import { Form as FormikForm, Formik } from "formik";
 import * as Yup from "yup";
 import TemplateInput from "./TemplateInput.jsx";
@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 const SignUpForm = ({ serverError, setServerError }) => {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const initialValues = {
     email: "",
@@ -66,6 +67,7 @@ const SignUpForm = ({ serverError, setServerError }) => {
 
   const onSave = async (values) => {
     try {
+      setIsLoading(true);
       const validationError = await validatePassword(values);
       if (!validationError && values.password === values.matchingPassword) {
         userService
@@ -81,6 +83,7 @@ const SignUpForm = ({ serverError, setServerError }) => {
       // Handle validation error if needed
       console.error(validationError);
     }
+    setIsLoading(false);
   };
 
   return (
@@ -143,7 +146,11 @@ const SignUpForm = ({ serverError, setServerError }) => {
           _disabled={{ opacity: "40%" }}
           _hover={{ bg: "red.300", color: "white" }}
         >
-          Sign up
+          {isLoading ? (
+            <Spinner thickness="4px" speed="0.65s" color="white" size="lg" />
+          ) : (
+            "Sign up"
+          )}
         </Button>
       </FormikForm>
     </Formik>
