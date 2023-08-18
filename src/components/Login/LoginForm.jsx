@@ -33,14 +33,11 @@ const LoginForm = ({ setServerError }) => {
 
       localStorage.setItem("accessToken", response.data.accessToken);
       setUser({ accessToken: response.data.accessToken });
-      setIsLoading(false);
-
       goTo("/", { replace: true });
     } catch (error) {
       setServerError(error.response.data.message);
-      setIsLoading(false);
     }
-
+    setIsLoading(false);
     setSubmitting(false);
   };
   return (
@@ -131,12 +128,7 @@ const LoginForm = ({ setServerError }) => {
             _hover={{ bg: "red.300", color: "white" }}
           >
             {isLoading ? (
-              <Spinner
-                thickness="4px"
-                speed="0.65s"
-                color="white"
-                size="lg"
-              />
+              <Spinner thickness="4px" speed="0.65s" color="white" size="lg" />
             ) : (
               "Login"
             )}

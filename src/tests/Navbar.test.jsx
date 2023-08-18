@@ -7,7 +7,9 @@ import Error from "../pages/Error";
 import Layout from "../components/Layout";
 import Home from "../pages/Home";
 import Navbar from "../components/Navbar";
+import NavModal from "../components/NavModal";
 import { useWindowResize } from "../hooks/useWindowResize";
+import useAuth from "../contexts/AuthContext";
 
 const mockRoutes = [
   {
@@ -27,18 +29,6 @@ const mockRoutes = [
                 image_url:
                   "https://images.pexels.com/photos/5765827/pexels-photo-5765827.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
               },
-              {
-                id: 2,
-                name: "Cardiology",
-                image_url:
-                  "https://images.pexels.com/photos/7659564/pexels-photo-7659564.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-              },
-              {
-                id: 3,
-                name: "Orthopedics",
-                image_url:
-                  "https://images.pexels.com/photos/7446990/pexels-photo-7446990.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-              },
             ],
           };
         }),
@@ -47,14 +37,9 @@ const mockRoutes = [
   },
 ];
 
+vi.mock("../contexts/AuthContext");
+
 const router = createBrowserRouter(mockRoutes);
-
-
-vi.mock("../contexts/AuthContext", async () => {
-  return {
-    default: vi.fn(() => ({ user: { accessToken: "Bob" } })),
-  };
-});
 
 vi.mock("../hooks/useWindowResize", async () => {
   const resize = await vi.importActual("../hooks/useWindowResize");
@@ -68,6 +53,8 @@ describe("Navbar Component in desktop resolutions", () => {
   beforeEach(() => {
     useWindowResize.mockClear();
     useWindowResize.mockReturnValue({ width: 1080 });
+    useAuth.mockClear();
+    useAuth.mockReturnValue({ user: { accessToken: "123" } });
     render(
       <RouterProvider router={router}>
         <Navbar />
@@ -77,7 +64,7 @@ describe("Navbar Component in desktop resolutions", () => {
 
   test("renders Specialties Page", () => {
     const heading = screen.getByRole("heading", { level: 2 });
-    expect(heading).toHaveTextContent(/^Specialties$/)
+    expect(heading).toHaveTextContent(/^Specialties$/);
   });
   test("renders logOut btn when user is logged in", () => {
     const logOutBtn = screen.getByLabelText("logout-button");
@@ -102,17 +89,46 @@ describe("Navbar Component in mobile resolutions", () => {
     const burgerMenu = screen.getByLabelText("burger-menu");
     expect(burgerMenu).toBeInTheDocument();
   });
-  test("burgerMenu opens dropdown onClick", async () => {
-    const burgerMenu = screen.getByLabelText("burger-menu");
-    await userEvent.click(burgerMenu);
+});
+
+describe("NavModal Component in mobile resolutions", () => {
+  beforeEach(() => {
+    useWindowResize.mockClear();
+    useWindowResize.mockReturnValue({ width: 390 });
+    useAuth.mockClear();
+    useAuth.mockReturnValue({
+      isMenuOpened: true,
+      user: { accessToken: "123" },
+    });
+    render(
+      <RouterProvider router={router}>
+        <NavModal />
+      </RouterProvider>
+    );
+  });
+  test("NavModal component opens when menu is opened", async () => {
     const navModal = screen.getByLabelText("navigation-modal");
     expect(navModal).toBeInTheDocument();
   });
-  test("burgerMenu closes dropdown onClick", async () => {
-    const burgerMenu = screen.getByLabelText("burger-menu");
-    await userEvent.click(burgerMenu);
-    const navModal = screen.getByLabelText("navigation-modal");
-    await userEvent.click(burgerMenu);
-    expect(navModal).not.toBeInTheDocument();
+});
+
+describe("NavModal Component in mobile resolutions", () => {
+  beforeEach(() => {
+    useWindowResize.mockClear();
+    useWindowResize.mockReturnValue({ width: 390 });
+    useAuth.mockClear();
+    useAuth.mockReturnValue({
+      isMenuOpened: false,
+      user: { accessToken: "123" },
+    });
+    render(
+      <RouterProvider router={router}>
+        <NavModal />
+      </RouterProvider>
+    );
+  });
+  test("NavModal not present when menu is closed", async () => {
+    const navModal = screen.queryByLabelText("navigation-modal");
+    expect(navModal).toBeNull();
   });
 });
