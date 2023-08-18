@@ -1,27 +1,16 @@
 import { Flex, Heading, Image, Box, Text, Link } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import LoginForm from "./LoginForm";
 import googleImg from "../../assets/googleTopG.png";
 import AuthAlert from "../AuthAlert";
 import { GOOGLE_OAUTH2_URL } from "../../constants";
 import { AnimatePresence } from "framer-motion";
+import useAlert from "../../hooks/useAlert";
 
 const LoginModal = () => {
   const [serverError, setServerError] = useState("");
-  const [isAlertVisible, setisAlertVisible] = useState(false);
-
-  useEffect(() => {
-    let timerId;
-    if (serverError) {
-      setisAlertVisible(true);
-      timerId = setTimeout(() => {
-        setisAlertVisible(false);
-        setServerError("");
-      }, 5000);
-    }
-    return () => clearInterval(timerId);
-  }, [serverError]);
+  const { isAlertVisible } = useAlert(serverError, setServerError);
 
   return (
     <Flex
@@ -53,7 +42,13 @@ const LoginModal = () => {
         transition={"0.2s all ease-in-out"}
         _hover={{ borderColor: "red.300" }}
       >
-        <Image w={"59px"} h={"40px"} src={googleImg} alt="Google Logo" borderLeftRadius={"5px"} />
+        <Image
+          w={"59px"}
+          h={"40px"}
+          src={googleImg}
+          alt="Google Logo"
+          borderLeftRadius={"5px"}
+        />
         <Box
           display={"flex"}
           alignItems={"center"}

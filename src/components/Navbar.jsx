@@ -15,14 +15,10 @@ import NavModal from "./NavModal";
 const Navbar = () => {
   const { width } = useWindowResize();
   const { scroll, prevScroll } = useWindowScroll();
-  const [isMenuOpened, setIsMenuOpened] = useState(false);
-  const { user } = useAuth();
+  const { user, isMenuOpened } = useAuth();
 
   const scrollDown = scroll - prevScroll.current;
 
-  const handleMenuClick = () => {
-    setIsMenuOpened(!isMenuOpened);
-  };
   return (
     <Flex
       as={motion.nav}
@@ -41,11 +37,7 @@ const Navbar = () => {
       <NavLink to="/">
         <Logo />
       </NavLink>
-      <MenuList
-        width={width}
-        handleMenuClick={handleMenuClick}
-        isMenuOpened={isMenuOpened}
-      />
+      <MenuList width={width} />
       {width > TABLET_DEVICES_RES ? (
         <>
           {user.accessToken ? (
@@ -58,14 +50,7 @@ const Navbar = () => {
           )}
         </>
       ) : (
-        <>
-          {isMenuOpened && (
-            <NavModal
-              isMenuOpened={isMenuOpened}
-              handleMenuClick={handleMenuClick}
-            />
-          )}
-        </>
+        <>{isMenuOpened && <NavModal />}</>
       )}
     </Flex>
   );

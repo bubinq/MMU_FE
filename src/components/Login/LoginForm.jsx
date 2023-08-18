@@ -1,7 +1,9 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { object, string } from "yup";
-import { FormLabel, Button, Link } from "@chakra-ui/react";
+import { FormLabel, Button, Link, Spinner } from "@chakra-ui/react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { BASE_API } from "../../constants";
+import { useState } from "react";
 import useAuth from "../../contexts/AuthContext";
 import axios from "axios";
 
@@ -18,20 +20,25 @@ const validationSchema = object({
 
 const LoginForm = ({ setServerError }) => {
   const { setUser } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
   const goTo = useNavigate();
 
   const handleLogin = async (values, { setSubmitting }) => {
+    setIsLoading(true);
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/v1/auth/signin",
-        { email: values.email, password: values.password }
-      );
+      const response = await axios.post(`${BASE_API}/auth/signin`, {
+        email: values.email,
+        password: values.password,
+      });
 
       localStorage.setItem("accessToken", response.data.accessToken);
       setUser({ accessToken: response.data.accessToken });
+      setIsLoading(false);
+
       goTo("/", { replace: true });
     } catch (error) {
       setServerError(error.response.data.message);
+      setIsLoading(false);
     }
 
     setSubmitting(false);
@@ -42,7 +49,7 @@ const LoginForm = ({ setServerError }) => {
       validationSchema={validationSchema}
       onSubmit={handleLogin}
     >
-      {({ isSubmitting, errors, touched, values }) => (
+      {({ errors, touched, values }) => (
         <Form className="formik-form">
           <FormLabel
             fontSize={["14px", "16px"]}
@@ -109,7 +116,7 @@ const LoginForm = ({ setServerError }) => {
           <Button
             type="submit"
             aria-label="login-submit"
-            disabled={isSubmitting || (!errors.email && !errors.password)}
+            disabled={isLoading}
             h={"44px"}
             fontSize={"16px"}
             color={"blue.900"}
@@ -123,7 +130,16 @@ const LoginForm = ({ setServerError }) => {
             }
             _hover={{ bg: "red.300", color: "white" }}
           >
-            Login
+            {isLoading ? (
+              <Spinner
+                thickness="4px"
+                speed="0.65s"
+                color="white"
+                size="lg"
+              />
+            ) : (
+              "Login"
+            )}
           </Button>
         </Form>
       )}
