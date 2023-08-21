@@ -7,9 +7,9 @@ export default function useSpinner() {
 
   useEffect(() => {
     if (state !== "idle") {
-      setIsLoading(true);
+      return setIsLoading(true);
     }
+    setIsLoading(false)
   }, [state]);
-
   return isLoading;
 }

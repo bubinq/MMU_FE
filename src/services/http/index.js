@@ -2,7 +2,7 @@ import axios from "axios";
 import { BASE_API } from "../../constants";
 
 export const axiosEnv = axios.create({
-  baseURL: BASE_API,
+  baseURL: "http://localhost:8080/api/v1",
 });
 
 const call =

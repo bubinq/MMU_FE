@@ -23,10 +23,10 @@ const LoginForm = ({ setServerError }) => {
   const [isLoading, setIsLoading] = useState(false);
   const goTo = useNavigate();
 
-  const handleLogin = async (values, { setSubmitting }) => {
+  const handleLogin = async (values) => {
     setIsLoading(true);
     try {
-      const response = await axios.post(`${BASE_API}/auth/signin`, {
+      const response = await axios.post(`http://localhost:8080/api/v1/auth/signin`, {
         email: values.email,
         password: values.password,
       });
@@ -35,10 +35,9 @@ const LoginForm = ({ setServerError }) => {
       setUser({ accessToken: response.data.accessToken });
       goTo("/", { replace: true });
     } catch (error) {
+      setIsLoading(false);
       setServerError(error.response.data.message);
     }
-    setIsLoading(false);
-    setSubmitting(false);
   };
   return (
     <Formik

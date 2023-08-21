@@ -67,23 +67,24 @@ const SignUpForm = ({ serverError, setServerError }) => {
 
   const onSave = async (values) => {
     try {
-      setIsLoading(true);
       const validationError = await validatePassword(values);
       if (!validationError && values.password === values.matchingPassword) {
+        setIsLoading(true);
         userService
           .register(values)
           .then(() => {
-            navigate("/register/successful", { replace: true });
+            navigate("/auth/successful", { replace: true });
           })
           .catch((error) => {
+            setIsLoading(false);
             setServerError(error.response.data);
           });
       }
     } catch (validationError) {
       // Handle validation error if needed
+      setIsLoading(false);
       console.error(validationError);
     }
-    setIsLoading(false);
   };
 
   return (

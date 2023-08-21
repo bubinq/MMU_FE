@@ -43,7 +43,7 @@ const Register = () => {
           flexDirection={"column"}
           alignItems={"flex-start"}
           gap={"1.875rem"}
-          backgroundColor={"var(--white, #FFFFFD)"}
+          bg={["rgba(255, 255, 253, 0.8)", "#FFFFFD"]}
           borderRadius={"0.9375rem"}
           zIndex={"1"}
           position={"relative"}
