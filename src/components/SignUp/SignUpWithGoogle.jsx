@@ -16,7 +16,7 @@ const SignUpWithGoogle = () => {
       transition={"0.2s all ease-in-out"}
       _hover={{ borderColor: "red.300" }}
     >
-      <Image w={"47px"} h={"32px"} src={googleImg} borderLeftRadius={"5px"} />
+      <Image w={"47px"} h={"32px"} src={googleImg} alt="Google Logo" borderLeftRadius={"5px"} />
       <Box
         display={"flex"}
         alignItems={"center"}
@@ -26,8 +26,8 @@ const SignUpWithGoogle = () => {
         h={"100%"}
         p={"0px"}
         transition={"0.2s all ease-in-out"}
-        _hover={{ bg: "red.300" }}
-        color={"white"}
+        _hover={{ bg: "red.300", color:"white" }}
+        color={"blue.900"}
         fontWeight={700}
         fontSize={"1rem"}
       >

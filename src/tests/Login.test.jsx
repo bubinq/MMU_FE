@@ -8,6 +8,7 @@ import RouteGuard from "../guards/RouteGuard";
 import Login from "../pages/Login";
 
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { BASE_API } from "../constants";
 import axios from "axios";
 
 const mockData = { email: "peter@abv.bg", password: "123" };
@@ -17,10 +18,7 @@ const mockError = { message: "error!" };
 
 const sendDataToServer = async () => {
   try {
-    const response = await axios.post(
-      "http://localhost:8080/api/v1/auth/signin",
-      mockData
-    );
+    const response = await axios.post(`${BASE_API}/auth/signin`, mockData);
     return response;
   } catch (error) {
     return error;

@@ -1,12 +1,15 @@
 import { Button, Text } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../contexts/AuthContext";
 
-const Buttons = ({ type, text, handleMenuClick }) => {
-  const { setUser } = useAuth();
+const Buttons = ({ type, text }) => {
+  const { setUser, handleMenuClick } = useAuth();
+  const goTo = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     setUser({ accessToken: "" });
+    handleMenuClick();
+    goTo("/", { replace: true });
   };
   switch (type) {
     case "login":

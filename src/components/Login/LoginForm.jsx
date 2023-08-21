@@ -1,7 +1,9 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { object, string } from "yup";
-import { FormLabel, Button, Link } from "@chakra-ui/react";
+import { FormLabel, Button, Link, Spinner } from "@chakra-ui/react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { BASE_API } from "../../constants";
+import { useState } from "react";
 import useAuth from "../../contexts/AuthContext";
 import axios from "axios";
 
@@ -18,23 +20,24 @@ const validationSchema = object({
 
 const LoginForm = ({ setServerError }) => {
   const { setUser } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
   const goTo = useNavigate();
 
-  const handleLogin = async (values, { setSubmitting }) => {
+  const handleLogin = async (values) => {
+    setIsLoading(true);
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/v1/auth/signin",
-        { email: values.email, password: values.password }
-      );
+      const response = await axios.post(`http://localhost:8080/api/v1/auth/signin`, {
+        email: values.email,
+        password: values.password,
+      });
 
       localStorage.setItem("accessToken", response.data.accessToken);
       setUser({ accessToken: response.data.accessToken });
       goTo("/", { replace: true });
     } catch (error) {
+      setIsLoading(false);
       setServerError(error.response.data.message);
     }
-
-    setSubmitting(false);
   };
   return (
     <Formik
@@ -42,10 +45,10 @@ const LoginForm = ({ setServerError }) => {
       validationSchema={validationSchema}
       onSubmit={handleLogin}
     >
-      {({ isSubmitting, errors, touched, values }) => (
+      {({ errors, touched, values }) => (
         <Form className="formik-form">
           <FormLabel
-            fontSize={"1rem"}
+            fontSize={["14px", "16px"]}
             fontWeight={700}
             margin={0}
             pos={"relative"}
@@ -69,7 +72,7 @@ const LoginForm = ({ setServerError }) => {
           </FormLabel>
 
           <FormLabel
-            fontSize={"1rem"}
+            fontSize={["14px", "16px"]}
             fontWeight={700}
             m={0}
             mt={"10px"}
@@ -94,36 +97,40 @@ const LoginForm = ({ setServerError }) => {
             />
           </FormLabel>
 
-          {/*<Link*/}
-          {/*  mt={"16px"}*/}
-          {/*  ml={"auto"}*/}
-          {/*  textDecoration={"underline"}*/}
-          {/*  fontSize={["14px", "16px"]}*/}
-          {/*  as={NavLink}*/}
-          {/*  color={"yellow.400"}*/}
-          {/*  w={"fit-content"}*/}
-          {/*>*/}
-          {/*  Forgot password?*/}
-          {/*</Link>*/}
+          <Link
+            mt={"16px"}
+            ml={"auto"}
+            textDecoration={"underline"}
+            fontSize={["14px", "16px"]}
+            as={NavLink}
+            fontWeight={700}
+            color={"blue.900"}
+            w={"fit-content"}
+          >
+            Forgot password?
+          </Link>
           <Button
             type="submit"
             aria-label="login-submit"
-            disabled={isSubmitting || (!errors.email && !errors.password)}
+            disabled={isLoading}
             h={"44px"}
             fontSize={"16px"}
-            color={"white"}
+            color={"blue.900"}
             borderRadius="5px"
             py={"10px"}
-            mt={"16px"}
             transition={"0.2s all ease"}
             bg={
               !values.email || !values.password
                 ? "rgba(244, 180, 0, 0.6)"
                 : "yellow.400"
             }
-            _hover={{ bg: "red.300" }}
+            _hover={{ bg: "red.300", color: "white" }}
           >
-            Login
+            {isLoading ? (
+              <Spinner thickness="4px" speed="0.65s" color="white" size="lg" />
+            ) : (
+              "Login"
+            )}
           </Button>
         </Form>
       )}

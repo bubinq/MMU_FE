@@ -8,10 +8,13 @@ import { useState } from "react";
 import DoctorList from "../components/Specialists/DoctorList.jsx";
 import { requestExecuter } from "../utils.js";
 import useScrollToTop from "../hooks/useScrollToTop.jsx";
+import useSpinner from "../hooks/useSpinner.jsx";
+import Spinner from "../components/Spinner.jsx";
 
 const Specialists = () => {
   const data = useLoaderData();
   const actionData = useActionData();
+  const isLoading = useSpinner();
   useScrollToTop();
 
   const fromSpecialtyCard = actionData && actionData.length > 0;
@@ -50,7 +53,11 @@ const Specialists = () => {
         cities={data.cities}
         onSearch={handleSearch}
       />
-      <DoctorList doctors={doctors} specialties={data.specialties} />
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <DoctorList doctors={doctors} specialties={data.specialties} />
+      )}
     </Box>
   );
 };

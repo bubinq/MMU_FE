@@ -4,10 +4,14 @@ import { requestExecuter } from "../utils";
 import specialtyService from "../services/specialty";
 import SpecialtyList from "../components/Specialties/SpecialtyList";
 import useScrollToTop from "../hooks/useScrollToTop";
+import useSpinner from "../hooks/useSpinner";
+import Spinner from "../components/Spinner";
 
 const Home = () => {
   const data = useLoaderData();
+  const isLoading = useSpinner();
   useScrollToTop();
+
   return (
     <Flex
       as={"section"}
@@ -21,10 +25,11 @@ const Home = () => {
         rowGap={"70px"}
         columnGap={"40px"}
         as={"article"}
+        minH={"100vh"}
         w={"100%"}
         py={10}
       >
-        <SpecialtyList data={data} />
+        {isLoading ? <Spinner /> : <SpecialtyList data={data} />}
       </Grid>
     </Flex>
   );

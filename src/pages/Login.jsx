@@ -1,20 +1,12 @@
 import { Flex } from "@chakra-ui/react";
 import LoginModal from "../components/Login/LoginModal";
-import { useEffect, useRef } from "react";
-import { Canvas } from "../utils";
+import useCanvasWaves from "../hooks/useCanvasWaves";
+import useSpinner from "../hooks/useSpinner";
+import Spinner from "../components/Spinner";
 
 const Login = () => {
-  const ref = useRef();
-  const canvasRef = useRef();
-  useEffect(() => {
-    canvasRef.current = new Canvas(ref.current);
-    return () => {
-      if (canvasRef.current) {
-        canvasRef.current.cleanup();
-        canvasRef.current = null;
-      }
-    };
-  }, []);
+  const ref = useCanvasWaves();
+  const isLoading = useSpinner();
 
   return (
     <Flex
@@ -25,7 +17,7 @@ const Login = () => {
       minH={"100vh"}
       ref={ref}
     >
-      <LoginModal />
+      {isLoading ? <Spinner /> : <LoginModal />}
     </Flex>
   );
 };
