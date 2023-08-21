@@ -9,6 +9,7 @@ import jwt_decode from "jwt-decode";
 const SpecialtyList = ({ data }) => {
   const submit = useSubmit();
   const { setUser } = useAuth();
+  
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const jwtToken = urlParams.get("jwt_token");

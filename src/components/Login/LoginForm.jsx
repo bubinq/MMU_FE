@@ -106,6 +106,7 @@ const LoginForm = ({ setServerError }) => {
             fontWeight={700}
             color={"blue.900"}
             w={"fit-content"}
+            to={"/auth/forgot-password"}
           >
             Forgot password?
           </Link>

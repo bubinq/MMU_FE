@@ -1,3 +1,5 @@
+import { object, string, ref } from "yup";
+
 export const throttle = (func, delay) => {
   let prevTime = 0;
   return (...args) => {
@@ -32,6 +34,37 @@ export const requestExecuter = async (request) => {
   }
 
   return data;
+};
+
+export const passwordSchema = object({
+  password: string()
+    .required("Please enter a password.")
+    .min(8, "Password must be at least 8 characters long.")
+    .max(100, "Password must not exceed 100 characters.")
+    .matches(
+      /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w]).*$/,
+      "Your password must have at least 8 characters, with a mix of uppercase, lowercase, numbers and symbols."
+    ),
+  matchingPassword: string().oneOf(
+    [ref("password"), null],
+    "Those passwords didn't match. Please try again."
+  ),
+});
+
+export const passwordInitial = {
+  password: "",
+  matchingPassword: "",
+};
+
+export const validatePassword = async (values, setError) => {
+  try {
+    await passwordSchema.validate(values, { abortEarly: false });
+    setError(null);
+    return null;
+  } catch (err) {
+    setError(err.errors[0]);
+    return err.errors[0];
+  }
 };
 
 export class Canvas {

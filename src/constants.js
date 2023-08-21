@@ -16,6 +16,7 @@ export const VERRIFIED_MESSAGE = `Your account has already been verified!`;
 export const ERROR_MESSAGE = `Error`;
 export const SUCCESSFULLY_REGISTERED = `Your account has been created successfully.
 An email was sent to verify your account, please check your email`;
+export const SUCCESSFULLY_RESET = `Your password has been successfully reset.`;
 export const EMAIL_VERIFIED = `Your account was successfully verified.`;
 export const TOKEN_EXPIRED = `Please login and request another verification email.`;
 export const ERROR_VERIFICATION = `An unexpected error has ocurred, please try again.`;
