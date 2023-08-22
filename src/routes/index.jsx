@@ -28,6 +28,7 @@ import {
   VERRIFIED_MESSAGE,
   ALREADY_VERIFIED,
   SUCCESSFULLY_RESET,
+  REQUEST_NEW_TOKEN,
 } from "../constants";
 
 export const router = createBrowserRouter([
@@ -118,6 +119,17 @@ export const router = createBrowserRouter([
           {
             path: "reset-success",
             element: <AuthModal message={SUCCESSFULLY_RESET} />,
+          },
+          {
+            path: "reset-error",
+            element: (
+              <AuthModal
+                headingMessage={EXPIRED_MESSAGE}
+                message={REQUEST_NEW_TOKEN}
+                isSuccessful={false}
+                isReset={true}
+              />
+            ),
           },
           {
             path: "forgot-password",

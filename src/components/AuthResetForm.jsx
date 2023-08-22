@@ -18,7 +18,7 @@ export default function AuthResetForm() {
       if (!validationError && values.password === values.matchingPassword) {
         setIsLoading(true);
         await axios.patch(
-          `http://localhost:8080/api/v1/auth/changePassword?token=${token}`,
+          `http://localhost:8080/api/v1/auth/change-password?token=${token}`,
           {
             password: values.password,
             matchingPassword: values.matchingPassword,
@@ -27,8 +27,13 @@ export default function AuthResetForm() {
         goTo("/auth/reset-success", { replace: true });
       }
     } catch (error) {
-      setIsLoading(false);
       console.log(error);
+      sessionStorage.setItem("token", JSON.stringify(token));
+      if (
+        error.response?.data?.message === "The token has expired or is invalid"
+      ) {
+        goTo("/auth/reset-error");
+      }
     }
   };
   return (

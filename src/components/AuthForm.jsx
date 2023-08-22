@@ -4,6 +4,9 @@ import { object, string } from "yup";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useAlert from "../hooks/useAlert";
+import AuthAlert from "./AuthAlert";
+import { AnimatePresence } from "framer-motion";
 
 const initialVals = {
   email: "",
@@ -15,6 +18,9 @@ const validationSchema = object({
 export default function AuthForm() {
   const goTo = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+
+  const [serverError, setServerError] = useState("");
+  const { isAlertVisible } = useAlert(serverError, setServerError);
 
   const handleResetPassword = async (values) => {
     setIsLoading(true);
@@ -28,6 +34,7 @@ export default function AuthForm() {
       });
     } catch (error) {
       setIsLoading(false);
+      setServerError(error.response?.data?.email);
       console.log(error);
     }
   };
@@ -63,7 +70,9 @@ export default function AuthForm() {
           new password via email.
         </Text>
       </Box>
-
+      <AnimatePresence>
+        {isAlertVisible && <AuthAlert serverError={serverError} />}
+      </AnimatePresence>
       <Formik
         initialValues={initialVals}
         validationSchema={validationSchema}
@@ -96,6 +105,7 @@ export default function AuthForm() {
                 className="error-message"
               />
             </FormLabel>
+
             <Button
               type="submit"
               aria-label="reset-submit"
@@ -103,6 +113,7 @@ export default function AuthForm() {
               fontSize={"16px"}
               color={"blue.900"}
               borderRadius="5px"
+              isDisabled={!values.email}
               py={"10px"}
               mt={"5px"}
               transition={"0.2s all ease"}

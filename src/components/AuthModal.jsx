@@ -1,14 +1,52 @@
-import { Flex, Box, Text, Link as ChakraLink } from "@chakra-ui/react";
+import {
+  Flex,
+  Box,
+  Text,
+  Link as ChakraLink,
+  Spinner,
+  Alert,
+  AlertIcon,
+} from "@chakra-ui/react";
 import { Link, redirect } from "react-router-dom";
+import { useState } from "react";
 import checkIcon from "../assets/registered_checked.svg";
 import deniedIcon from "../assets/denied.svg";
 import axios from "axios";
+import BackEndValidationErrorMSG from "./SignUp/BackEndValidationErrorMSG";
+import useAlert from "../hooks/useAlert";
 
 export default function AuthModal({
   headingMessage = "Congratulations!",
   message,
   isSuccessful = true,
+  isReset,
 }) {
+  const resendToken = JSON.parse(sessionStorage.getItem("token"));
+  const [authState, setAuthState] = useState({
+    isLoading: false,
+    success: false,
+    error: "",
+  });
+
+  const [serverError, setServerError] = useState("");
+  const { isAlertVisible } = useAlert(serverError, setServerError);
+
+  const requestNewReset = async () => {
+    setAuthState((prevState) => ({ ...prevState, isLoading: true }));
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/api/v1/auth/resend-forgot?token=${resendToken}`
+      );
+      if (response.status === 200) {
+        sessionStorage.clear();
+        setAuthState({ isLoading: false, success: true });
+      }
+    } catch (error) {
+      setAuthState({ success: false ,isLoading: false });
+      setServerError(error.response?.data);
+      console.log(error);
+    }
+  };
   return (
     <Flex
       mt={"15.4425rem"}
@@ -24,6 +62,20 @@ export default function AuthModal({
       zIndex={"1"}
       position={"relative"}
     >
+      {authState.success && (
+        <Alert
+          position={"absolute"}
+          top={"-24%"}
+          left={"0%"}
+          status="success"
+          fontSize={"lg"}
+          fontWeight={600}
+          variant="subtle"
+        >
+          <AlertIcon/>
+          Successfully resend reset password link to your email.
+        </Alert>
+      )}
       <Box marginX={"auto"}>
         <img
           src={isSuccessful ? checkIcon : deniedIcon}
@@ -39,17 +91,45 @@ export default function AuthModal({
       >
         {headingMessage}
       </Box>
-      <Text fontSize={"16px"}>{message}</Text>
-      <ChakraLink
-        as={Link}
-        to={"/login"}
-        color={"#c34723"}
-        fontSize={"16px"}
-        lineHeight={"1.5rem"}
-        letterSpacing={"0.00938rem"}
-      >
-        Go to the Login page
-      </ChakraLink>
+      <Text fontSize={"16px"}>
+        {message}
+        {isReset && (
+          <ChakraLink
+            as={Link}
+            onClick={requestNewReset}
+            color={"#c34723"}
+            fontSize={"16px"}
+            lineHeight={"1.5rem"}
+            letterSpacing={"0.00938rem"}
+          >
+            {" here."}
+          </ChakraLink>
+        )}
+      </Text>
+      {authState.isLoading && (
+        <Spinner
+          marginX={"auto"}
+          thickness="4px"
+          speed="0.65s"
+          color="yellow.400"
+          size="xl"
+        />
+      )}
+      {isAlertVisible && (
+        <BackEndValidationErrorMSG serverError={serverError} />
+      )}
+      {!isReset && (
+        <ChakraLink
+          as={Link}
+          to={"/login"}
+          color={"#c34723"}
+          fontSize={"16px"}
+          lineHeight={"1.5rem"}
+          letterSpacing={"0.00938rem"}
+        >
+          Go to the Login page
+        </ChakraLink>
+      )}
     </Flex>
   );
 }
