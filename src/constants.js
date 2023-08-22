@@ -14,6 +14,9 @@ export const BASE_URL = "http://localhost:5173";
 export const EXPIRED_MESSAGE = `The token has expired or is invalid!`;
 export const VERRIFIED_MESSAGE = `Your account has already been verified!`;
 export const ERROR_MESSAGE = `Error`;
+export const EMAIL_ALREADY_SENT = `A reset password link is already sent to your email address.`;
+export const RESEND_SENT =
+  "Successfully resend reset password link to your email.";
 export const REQUEST_NEW_TOKEN = `You can request a new token`;
 export const SUCCESSFULLY_REGISTERED = `Your account has been created successfully.
 An email was sent to verify your account, please check your email`;

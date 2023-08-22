@@ -35,16 +35,19 @@ const country = {
   deleteCountry: (uuid) => `/countries/${uuid}`,
 };
 
-const users = {
-  create: "/auth/register"
-}
+const auth = {
+  create: "/auth/register",
+  resend: (token) => `/auth/resend-forgot?token=${token}`,
+  changePassword: (token) => `auth/change-password?token=${token}`,
+  forgottenPassword: "/auth/forgot",
+};
 
 const urls = {
   specialty,
   specialist,
   country,
   city,
-  users
+  auth,
 };
 
 export default urls;

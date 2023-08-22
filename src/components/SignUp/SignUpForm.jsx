@@ -2,7 +2,7 @@ import { Button, Spinner } from "@chakra-ui/react";
 import { Form as FormikForm, Formik } from "formik";
 import * as Yup from "yup";
 import TemplateInput from "./TemplateInput.jsx";
-import userService from "../../services/user/index.js";
+import authService from "../../services/auth/index.js";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { validatePassword } from "../../utils.js";
@@ -45,7 +45,7 @@ const SignUpForm = ({ serverError, setServerError }) => {
       const validationError = await validatePassword(values, setError);
       if (!validationError && values.password === values.matchingPassword) {
         setIsLoading(true);
-        userService
+        authService
           .register(values)
           .then(() => {
             navigate("/auth/successful", { replace: true });

@@ -6,14 +6,17 @@ import {
   Spinner,
   Alert,
   AlertIcon,
+  Button,
 } from "@chakra-ui/react";
 import { Link, redirect } from "react-router-dom";
 import { useState } from "react";
-import checkIcon from "../assets/registered_checked.svg";
-import deniedIcon from "../assets/denied.svg";
+import authService from "../../services/auth";
+import checkIcon from "../../assets/registered_checked.svg";
+import deniedIcon from "../../assets/denied.svg";
 import axios from "axios";
-import BackEndValidationErrorMSG from "./SignUp/BackEndValidationErrorMSG";
-import useAlert from "../hooks/useAlert";
+import BackEndValidationErrorMSG from "../../components/SignUp/BackEndValidationErrorMSG";
+import useAlert from "../../hooks/useAlert";
+import { EMAIL_ALREADY_SENT, RESEND_SENT } from "../../constants";
 
 export default function AuthModal({
   headingMessage = "Congratulations!",
@@ -34,17 +37,14 @@ export default function AuthModal({
   const requestNewReset = async () => {
     setAuthState((prevState) => ({ ...prevState, isLoading: true }));
     try {
-      const response = await axios.post(
-        `http://localhost:8080/api/v1/auth/resend-forgot?token=${resendToken}`
-      );
-      if (response.status === 200) {
+      const response = await authService.resendReset(resendToken);
+      if (typeof response === "string") {
         sessionStorage.clear();
         setAuthState({ isLoading: false, success: true });
       }
     } catch (error) {
-      setAuthState({ success: false ,isLoading: false });
-      setServerError(error.response?.data);
-      console.log(error);
+      setAuthState({ success: false, isLoading: false });
+      setServerError({ message: EMAIL_ALREADY_SENT });
     }
   };
   return (
@@ -72,8 +72,8 @@ export default function AuthModal({
           fontWeight={600}
           variant="subtle"
         >
-          <AlertIcon/>
-          Successfully resend reset password link to your email.
+          <AlertIcon />
+          {RESEND_SENT}
         </Alert>
       )}
       <Box marginX={"auto"}>
@@ -95,12 +95,17 @@ export default function AuthModal({
         {message}
         {isReset && (
           <ChakraLink
-            as={Link}
+            as={Button}
+            disabled={authState.isLoading}
             onClick={requestNewReset}
             color={"#c34723"}
+            bg={"transparent"}
             fontSize={"16px"}
             lineHeight={"1.5rem"}
+            p={0}
+            ml={["0px", "6px"]}
             letterSpacing={"0.00938rem"}
+            _hover={{ bg: "transparent", textDecoration: "underline" }}
           >
             {" here."}
           </ChakraLink>

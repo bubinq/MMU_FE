@@ -4,8 +4,9 @@ import { object, string } from "yup";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useAlert from "../hooks/useAlert";
+import useAlert from "../../hooks/useAlert";
 import AuthAlert from "./AuthAlert";
+import authService from "../../services/auth";
 import { AnimatePresence } from "framer-motion";
 
 const initialVals = {
@@ -25,9 +26,7 @@ export default function AuthForm() {
   const handleResetPassword = async (values) => {
     setIsLoading(true);
     try {
-      await axios.post("http://localhost:8080/api/v1/auth/forgot", {
-        email: values.email,
-      });
+      await authService.forgottenPassword({ email: values.email });
       goTo("/auth/forgot-confirm", {
         replace: true,
         state: { email: values.email },
@@ -35,7 +34,6 @@ export default function AuthForm() {
     } catch (error) {
       setIsLoading(false);
       setServerError(error.response?.data?.email);
-      console.log(error);
     }
   };
   return (

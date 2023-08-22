@@ -12,12 +12,12 @@ import RouteGuard from "../guards/RouteGuard";
 import { loader as getAllSpecialties } from "../pages/Home";
 import { getSpecialistsSettings } from "../pages/Specialists";
 import Specialists, { loader as getSpecialistData } from "../pages/Specialists";
-import { loader as getConfirmationToken } from "../components/AuthModal";
+import { loader as getConfirmationToken } from "../components/Auth/AuthModal";
 import AuthPage from "../pages/AuthPage.jsx";
-import AuthModal from "../components/AuthModal";
-import AuthForm from "../components/AuthForm";
-import AuthResetForm from "../components/AuthResetForm";
-import ForgotConfirm from "../components/ForgotConfirm";
+import AuthModal from "../components/Auth/AuthModal";
+import AuthForm from "../components/Auth/AuthForm";
+import AuthResetForm from "../components/Auth/AuthResetForm";
+import ForgotConfirm from "../components/Auth/ForgotConfirm";
 import {
   SUCCESSFULLY_REGISTERED,
   EMAIL_VERIFIED,

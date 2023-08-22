@@ -1,10 +1,10 @@
 import { Flex, Box, Text, Button, Spinner } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
-import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import TemplateInput from "./SignUp/TemplateInput";
-import { passwordInitial, passwordSchema, validatePassword } from "../utils";
+import TemplateInput from "../SignUp/TemplateInput";
+import { passwordInitial, passwordSchema, validatePassword } from "../../utils";
+import authService from "../../services/auth";
 
 export default function AuthResetForm() {
   const goTo = useNavigate();
@@ -17,17 +17,13 @@ export default function AuthResetForm() {
       const validationError = await validatePassword(values, setError);
       if (!validationError && values.password === values.matchingPassword) {
         setIsLoading(true);
-        await axios.patch(
-          `http://localhost:8080/api/v1/auth/change-password?token=${token}`,
-          {
-            password: values.password,
-            matchingPassword: values.matchingPassword,
-          }
-        );
+        await authService.changePassword(token, {
+          password: values.password,
+          matchingPassword: values.matchingPassword,
+        });
         goTo("/auth/reset-success", { replace: true });
       }
     } catch (error) {
-      console.log(error);
       sessionStorage.setItem("token", JSON.stringify(token));
       if (
         error.response?.data?.message === "The token has expired or is invalid"
