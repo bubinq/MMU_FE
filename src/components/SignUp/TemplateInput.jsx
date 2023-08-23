@@ -45,7 +45,7 @@ const TemplateInput = ({ type, name, label, placeholder = "", error }) => {
               right={"10px"}
               onClick={() => setIsVisible(!isVisible)}
             >
-              <FontAwesomeIcon icon={isVisible ? faEyeSlash : faEye} />
+              <FontAwesomeIcon icon={isVisible ? faEye : faEyeSlash} />
             </Box>
           )}
         </Box>

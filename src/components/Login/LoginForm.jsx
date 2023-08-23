@@ -2,10 +2,9 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { object, string } from "yup";
 import { FormLabel, Button, Link, Spinner } from "@chakra-ui/react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { BASE_API } from "../../constants";
+import authService from "../../services/auth";
 import { useState } from "react";
 import useAuth from "../../contexts/AuthContext";
-import axios from "axios";
 
 const initialVals = {
   email: "",
@@ -26,13 +25,12 @@ const LoginForm = ({ setServerError }) => {
   const handleLogin = async (values) => {
     setIsLoading(true);
     try {
-      const response = await axios.post(`http://localhost:8080/api/v1/auth/signin`, {
+      const response = await authService.login({
         email: values.email,
         password: values.password,
       });
-
-      localStorage.setItem("accessToken", response.data.accessToken);
-      setUser({ accessToken: response.data.accessToken });
+      localStorage.setItem("accessToken", response.accessToken);
+      setUser({ accessToken: response.accessToken });
       goTo("/", { replace: true });
     } catch (error) {
       setIsLoading(false);
@@ -106,6 +104,7 @@ const LoginForm = ({ setServerError }) => {
             fontWeight={700}
             color={"blue.900"}
             w={"fit-content"}
+            to={"/auth/forgot-password"}
           >
             Forgot password?
           </Link>

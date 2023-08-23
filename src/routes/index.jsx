@@ -12,9 +12,12 @@ import RouteGuard from "../guards/RouteGuard";
 import { loader as getAllSpecialties } from "../pages/Home";
 import { getSpecialistsSettings } from "../pages/Specialists";
 import Specialists, { loader as getSpecialistData } from "../pages/Specialists";
-import { loader as getConfirmationToken } from "../components/AuthModal"
+import { loader as getConfirmationToken } from "../components/Auth/AuthModal";
 import AuthPage from "../pages/AuthPage.jsx";
-import AuthModal from "../components/AuthModal";
+import AuthModal from "../components/Auth/AuthModal";
+import AuthForm from "../components/Auth/AuthForm";
+import AuthResetForm from "../components/Auth/AuthResetForm";
+import ForgotConfirm from "../components/Auth/ForgotConfirm";
 import {
   SUCCESSFULLY_REGISTERED,
   EMAIL_VERIFIED,
@@ -24,6 +27,8 @@ import {
   ERROR_VERIFICATION,
   VERRIFIED_MESSAGE,
   ALREADY_VERIFIED,
+  SUCCESSFULLY_RESET,
+  REQUEST_NEW_TOKEN,
 } from "../constants";
 
 export const router = createBrowserRouter([
@@ -106,6 +111,33 @@ export const router = createBrowserRouter([
                 isSuccessful={false}
               />
             ),
+          },
+          {
+            path: "reset",
+            element: <AuthResetForm />,
+          },
+          {
+            path: "reset-success",
+            element: <AuthModal message={SUCCESSFULLY_RESET} />,
+          },
+          {
+            path: "reset-error",
+            element: (
+              <AuthModal
+                headingMessage={EXPIRED_MESSAGE}
+                message={REQUEST_NEW_TOKEN}
+                isSuccessful={false}
+                isReset={true}
+              />
+            ),
+          },
+          {
+            path: "forgot-password",
+            element: <AuthForm />,
+          },
+          {
+            path: "forgot-confirm",
+            element: <ForgotConfirm />,
           },
         ],
       },

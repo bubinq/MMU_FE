@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import LoginForm from "./LoginForm";
 import googleImg from "../../assets/googleTopG.png";
-import AuthAlert from "../AuthAlert";
+import AuthAlert from "../../components/Auth/AuthAlert";
 import { GOOGLE_OAUTH2_URL } from "../../constants";
 import { AnimatePresence } from "framer-motion";
 import useAlert from "../../hooks/useAlert";
