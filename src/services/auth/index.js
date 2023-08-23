@@ -4,7 +4,7 @@ import urls from "../http/url.js";
 const authService = {
   register: (userData) => callPost(urls.auth.create, userData),
   login: (data) => callPost(urls.auth.login, data),
-  confirm: (token) => callGet(urls.auth.confirm(token)),
+  verifyEmail: (token) => callGet(urls.auth.verify(token)),
   resendReset: (token) => callPost(urls.auth.resend(token)),
   changePassword: (token, data) =>
     callPatch(urls.auth.changePassword(token), data),
