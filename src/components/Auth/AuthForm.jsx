@@ -1,7 +1,6 @@
 import { Flex, Box, Text, FormLabel, Button, Spinner } from "@chakra-ui/react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { object, string } from "yup";
-import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAlert from "../../hooks/useAlert";

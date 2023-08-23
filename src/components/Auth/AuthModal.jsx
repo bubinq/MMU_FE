@@ -13,7 +13,6 @@ import { useState } from "react";
 import authService from "../../services/auth";
 import checkIcon from "../../assets/registered_checked.svg";
 import deniedIcon from "../../assets/denied.svg";
-import axios from "axios";
 import BackEndValidationErrorMSG from "../../components/SignUp/BackEndValidationErrorMSG";
 import useAlert from "../../hooks/useAlert";
 import { EMAIL_ALREADY_SENT, RESEND_SENT } from "../../constants";
@@ -140,13 +139,11 @@ export default function AuthModal({
 }
 
 export const loader = async () => {
-  const jwtToken = new URLSearchParams(window.location.search).get("token");
-  if (jwtToken) {
+  const token = new URLSearchParams(window.location.search).get("token");
+  if (token) {
     try {
-      const response = await axios.get(
-        `http://localhost:8080/api/v1/auth/confirm?token=${jwtToken}`
-      );
-      if (response.status === 200) {
+      const response = await authService.confirm(token);
+      if (typeof response === "string") {
         window.history.replaceState(null, null, "/auth/confirm");
         return null;
       }

@@ -5,7 +5,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 import authService from "../../services/auth";
 import { useState } from "react";
 import useAuth from "../../contexts/AuthContext";
-import axios from "axios";
 
 const initialVals = {
   email: "",
