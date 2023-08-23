@@ -11,10 +11,13 @@ export default defineConfig({
     setupFiles: ["./vitest.setup.js"],
     coverage: {
       provider: "v8",
-      reporter: ['text', 'lcov']
+      reporter: ["text", "lcov"],
     },
   },
   server: {
     host: true,
+    rewrite: {
+      "^/.*": "/index.html",
+    },
   },
 });

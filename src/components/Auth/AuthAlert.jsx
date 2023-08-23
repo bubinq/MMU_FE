@@ -1,6 +1,6 @@
 import { Flex, Image } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import exclamation from "../assets/exclamation.svg";
+import exclamation from "../../assets/exclamation.svg";
 
 const AuthAlert = ({ serverError }) => {
   return (

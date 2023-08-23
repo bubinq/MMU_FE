@@ -2,9 +2,10 @@ import { Button, Spinner } from "@chakra-ui/react";
 import { Form as FormikForm, Formik } from "formik";
 import * as Yup from "yup";
 import TemplateInput from "./TemplateInput.jsx";
-import userService from "../../services/user/index.js";
+import authService from "../../services/auth/index.js";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { validatePassword } from "../../utils.js";
 
 const SignUpForm = ({ serverError, setServerError }) => {
   const navigate = useNavigate();
@@ -39,51 +40,26 @@ const SignUpForm = ({ serverError, setServerError }) => {
     matchingPassword: Yup.string().required("Please enter a password."),
   });
 
-  const passwordSchema = Yup.object({
-    password: Yup.string()
-      .required("Please enter a password.")
-      .min(8, "Password must be at least 8 characters long.")
-      .max(100, "Password must not exceed 100 characters.")
-      .matches(
-        /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w]).*$/,
-        "Your password must have at least 8 characters, with a mix of uppercase, lowercase, numbers and symbols."
-      ),
-    matchingPassword: Yup.string().oneOf(
-      [Yup.ref("password"), null],
-      "Those passwords didn't match. Please try again."
-    ),
-  });
-
-  const validatePassword = async (values) => {
-    try {
-      await passwordSchema.validate(values, { abortEarly: false });
-      setError(null);
-      return null;
-    } catch (err) {
-      setError(err.errors[0]);
-      return err.errors[0];
-    }
-  };
-
   const onSave = async (values) => {
     try {
-      setIsLoading(true);
-      const validationError = await validatePassword(values);
+      const validationError = await validatePassword(values, setError);
       if (!validationError && values.password === values.matchingPassword) {
-        userService
+        setIsLoading(true);
+        authService
           .register(values)
           .then(() => {
-            navigate("/register/successful", { replace: true });
+            navigate("/auth/successful", { replace: true });
           })
           .catch((error) => {
+            setIsLoading(false);
             setServerError(error.response.data);
           });
       }
     } catch (validationError) {
       // Handle validation error if needed
+      setIsLoading(false);
       console.error(validationError);
     }
-    setIsLoading(false);
   };
 
   return (

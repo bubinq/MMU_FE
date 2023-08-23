@@ -37,7 +37,17 @@ const mockRoutes = [
   },
 ];
 
-vi.mock("../contexts/AuthContext");
+vi.mock("../contexts/AuthContext", async () => {
+  const authProvider = await vi.importActual("../contexts/AuthContext");
+  return {
+    ...authProvider,
+    default: vi.fn(() => ({
+      user: { accessToken: "123", isMenuOpened: false },
+      setUser: vi.fn(),
+      handleMenuClick: vi.fn(),
+    })),
+  };
+});
 
 const router = createBrowserRouter(mockRoutes);
 
@@ -51,10 +61,9 @@ vi.mock("../hooks/useWindowResize", async () => {
 
 describe("Navbar Component in desktop resolutions", () => {
   beforeEach(() => {
+    userEvent.setup({ advanceTimers: 1000 });
     useWindowResize.mockClear();
     useWindowResize.mockReturnValue({ width: 1080 });
-    useAuth.mockClear();
-    useAuth.mockReturnValue({ user: { accessToken: "123" } });
     render(
       <RouterProvider router={router}>
         <Navbar />
@@ -119,7 +128,7 @@ describe("NavModal Component in mobile resolutions", () => {
     useAuth.mockClear();
     useAuth.mockReturnValue({
       isMenuOpened: false,
-      user: { accessToken: "123" },
+      user: { accessToken: "" },
     });
     render(
       <RouterProvider router={router}>

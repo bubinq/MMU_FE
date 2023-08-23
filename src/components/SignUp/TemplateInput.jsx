@@ -1,5 +1,5 @@
 import { Field, useFormikContext } from "formik";
-import { Box, Flex, FormLabel } from "@chakra-ui/react";
+import { Box, FormLabel } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
@@ -19,7 +19,7 @@ const TemplateInput = ({ type, name, label, placeholder = "", error }) => {
         fontSize={"1rem"}
         fontWeight={700}
         m={0}
-        pos={"relative"}
+        position={"relative"}
       >
         {label}
         <Box position={type === "password" && "relative"}>
@@ -27,7 +27,6 @@ const TemplateInput = ({ type, name, label, placeholder = "", error }) => {
             type={isVisible ? "text" : type}
             name={name}
             placeholder={placeholder}
-            position={type === "password" && "relative"}
             value={formik.values[name]}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
