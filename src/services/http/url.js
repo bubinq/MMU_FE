@@ -38,7 +38,7 @@ const country = {
 const auth = {
   create: "/auth/register",
   login: "/auth/login",
-  confirm: (token) => `/auth/confirm?token=${token}`,
+  verify: (token) => `/auth/verify-email?token=${token}`,
   resend: (token) => `/auth/resend-forgot?token=${token}`,
   changePassword: (token) => `auth/change-password?token=${token}`,
   forgottenPassword: "/auth/forgot",

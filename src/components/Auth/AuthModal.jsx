@@ -142,7 +142,7 @@ export const loader = async () => {
   const token = new URLSearchParams(window.location.search).get("token");
   if (token) {
     try {
-      const response = await authService.confirm(token);
+      const response = await authService.verifyEmail(token);
       if (typeof response === "string") {
         window.history.replaceState(null, null, "/auth/confirm");
         return null;
