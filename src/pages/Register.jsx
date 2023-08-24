@@ -9,6 +9,7 @@ import useCanvasWaves from "../hooks/useCanvasWaves.jsx";
 import useSpinner from "../hooks/useSpinner.jsx";
 import Spinner from "../components/Spinner.jsx";
 import useAlert from "../hooks/useAlert.jsx";
+import { AgreementsProvider } from "../contexts/AgreementsContext.jsx";
 
 const Register = () => {
   const ref = useCanvasWaves();
@@ -18,6 +19,7 @@ const Register = () => {
   const { isAlertVisible } = useAlert(serverError, setServerError);
 
   return (
+    <AgreementsProvider>
     <Flex
       as={"section"}
       w={"100%"}
@@ -76,6 +78,7 @@ const Register = () => {
         </Flex>
       )}
     </Flex>
+    </AgreementsProvider>
   );
 };
 
