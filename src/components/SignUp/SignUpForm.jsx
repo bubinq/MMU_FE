@@ -21,6 +21,7 @@ const SignUpForm = ({ serverError, setServerError }) => {
     lastName: "",
     password: "",
     matchingPassword: "",
+    isOver18: true
   };
 
   const validationSchema = Yup.object({
