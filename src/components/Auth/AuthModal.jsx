@@ -143,12 +143,13 @@ export const loader = async () => {
   if (token) {
     try {
       const response = await authService.verifyEmail(token);
+      console.log(token);
       if (typeof response === "string") {
         window.history.replaceState(null, null, "/auth/confirm");
         return null;
       }
     } catch (error) {
-      if (error.response?.data?.message === "Expired Token") {
+      if (error.response?.data?.message === "The token has expired or is invalid") {
         return redirect("/auth/verification-expired");
       } else if (error.response?.data?.message === "Email already confirmed") {
         return redirect("/auth/already-verified");
