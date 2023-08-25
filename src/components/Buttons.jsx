@@ -3,18 +3,22 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../contexts/AuthContext";
 
 const Buttons = ({ type, text }) => {
-  const { setUser, handleMenuClick } = useAuth();
+  const { setUser, setIsMenuOpened } = useAuth();
   const goTo = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     setUser({ accessToken: "" });
-    handleMenuClick();
+    setIsMenuOpened(false);
     goTo("/", { replace: true });
   };
   switch (type) {
     case "login":
       return (
-        <Link to={"/login"} onClick={handleMenuClick} aria-label="login-button">
+        <Link
+          to={"/login"}
+          onClick={() => setIsMenuOpened(false)}
+          aria-label="login-button"
+        >
           <Button variant="login" transition="0.2s ease-in">
             <Text>{text}</Text>
           </Button>
@@ -37,7 +41,7 @@ const Buttons = ({ type, text }) => {
       );
     case "signup":
       return (
-        <Link to={"/register"} onClick={handleMenuClick}>
+        <Link to={"/register"} onClick={() => setIsMenuOpened(false)}>
           <Button
             className="btn-highlight"
             variant="signup"

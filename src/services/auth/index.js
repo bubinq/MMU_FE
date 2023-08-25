@@ -5,6 +5,7 @@ const authService = {
   register: (userData) => callPost(urls.auth.create, userData),
   login: (data) => callPost(urls.auth.login, data),
   verifyEmail: (token) => callGet(urls.auth.verify(token)),
+  resendVerifyEmail: (email) => callPost(urls.auth.resendVerification(email)),
   resendReset: (token) => callPost(urls.auth.resend(token)),
   changePassword: (token, data) =>
     callPatch(urls.auth.changePassword(token), data),

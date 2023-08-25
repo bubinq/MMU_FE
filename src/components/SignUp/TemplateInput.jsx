@@ -25,6 +25,7 @@ const TemplateInput = ({ type, name, label, placeholder = "", error }) => {
         <Box position={type === "password" && "relative"}>
           <Field
             type={isVisible ? "text" : type}
+            aria-label={name}
             name={name}
             placeholder={placeholder}
             value={formik.values[name]}

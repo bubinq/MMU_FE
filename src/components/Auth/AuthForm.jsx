@@ -31,8 +31,12 @@ export default function AuthForm() {
         state: { email: values.email },
       });
     } catch (error) {
+      console.log(error);
       setIsLoading(false);
-      setServerError(error.response?.data?.email);
+      if (error.response?.data?.email) {
+        return setServerError(error.response?.data?.email);
+      }
+      return setServerError(error.response?.data?.message);
     }
   };
   return (

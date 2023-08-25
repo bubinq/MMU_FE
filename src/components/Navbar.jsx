@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Flex } from "@chakra-ui/react";
 import { motion } from "framer-motion";
@@ -27,7 +26,7 @@ const Navbar = () => {
       align="center"
       justify="space-between"
       w="100%"
-      px={["23px", "46px", "12px"]}
+      px={["calc(12.3%)", "calc(7.3%)", "calc(2.5%)"]}
       py={"8px"}
       bg={"yellow.300"}
       zIndex={30}
