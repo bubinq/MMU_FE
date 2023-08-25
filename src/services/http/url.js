@@ -39,6 +39,7 @@ const auth = {
   create: "/auth/register",
   login: "/auth/login",
   verify: (token) => `/auth/verify-email?token=${token}`,
+  resendVerification: (email) => `/auth/send-email-verification?email=${email}`,
   resend: (token) => `/auth/resend-forgot?token=${token}`,
   changePassword: (token) => `auth/change-password?token=${token}`,
   forgottenPassword: "/auth/forgot",

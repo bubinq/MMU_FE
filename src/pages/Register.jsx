@@ -26,6 +26,7 @@ const Register = () => {
       position={"relative"}
       ref={ref}
       justifyContent={"center"}
+      alignItems={"center"}
     >
       {isLoading ? (
         <Spinner />
@@ -34,7 +35,6 @@ const Register = () => {
           as={"article"}
           width={["316px", "30.0625rem", "30.0625rem"]}
           maxHeight={"56rem"}
-          mt={"100px"}
           padding={[
             "1.5rem 2rem",
             "2.4375rem 4.3125rem",

@@ -19,7 +19,6 @@ const LoginModal = () => {
       bg={["rgba(255, 255, 253, 0.8)", "#FFFFFD"]}
       w={["fit-content", "460px"]}
       h={"fit-content"}
-      mt={"100px"}
       borderRadius={"15px"}
       boxShadow={"0px 4px 4px 0px rgba(0, 0, 0, 0.25)"}
       paddingX={["2rem", "69px"]}

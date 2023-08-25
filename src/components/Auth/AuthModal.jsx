@@ -143,7 +143,6 @@ export const loader = async () => {
   if (token) {
     try {
       const response = await authService.verifyEmail(token);
-      console.log(token);
       if (typeof response === "string") {
         window.history.replaceState(null, null, "/auth/confirm");
         return null;
