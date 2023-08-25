@@ -6,6 +6,7 @@ const authService = {
   login: (data) => callPost(urls.auth.login, data),
   verifyEmail: (token) => callGet(urls.auth.verify(token)),
   resendVerifyEmail: (email) => callPost(urls.auth.resendVerification(email)),
+  validateToken: (token) => callGet(urls.auth.validateToken(token)),
   resendReset: (token) => callPost(urls.auth.resend(token)),
   changePassword: (token, data) =>
     callPatch(urls.auth.changePassword(token), data),
