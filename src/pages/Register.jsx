@@ -26,7 +26,6 @@ const Register = () => {
       position={"relative"}
       ref={ref}
       justifyContent={"center"}
-      alignItems={"center"}
     >
       {isLoading ? (
         <Spinner />
@@ -46,6 +45,7 @@ const Register = () => {
           bg={["rgba(255, 255, 253, 0.8)", "#FFFFFD"]}
           borderRadius={"0.9375rem"}
           zIndex={"1"}
+          mt={"100px"}
           position={"relative"}
           boxShadow={"0px 4px 4px 0px rgba(0, 0, 0, 0.25)"}
         >

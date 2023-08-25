@@ -25,6 +25,7 @@ const LoginModal = () => {
       paddingY={["24px", "39px"]}
       gap={["25px", "35px"]}
       pos={"relative"}
+      mt={"100px"}
       zIndex={1}
     >
       <Heading fontWeight={700} fontSize={"24px"} lineHeight={"normal"}>

@@ -12,7 +12,6 @@ const Login = () => {
     <Flex
       as={"section"}
       w={["75%", "85%", "95%"]}
-      alignItems={"center"}
       justifyContent={"center"}
       mx={"auto"}
       minH={"100vh"}
