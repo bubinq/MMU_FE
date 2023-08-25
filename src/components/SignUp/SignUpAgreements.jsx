@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { CheckboxGroup, Stack, Checkbox, Flex, Tooltip } from "@chakra-ui/react";
+import { CheckboxGroup, Stack, Checkbox, Flex, Tooltip, Link, Text, Box } from "@chakra-ui/react";
 import { QuestionIcon } from '@chakra-ui/icons'
 import { AgreementsContext } from '../../contexts/AgreementsContext';
 
@@ -11,12 +11,13 @@ const SignUpAgreements = () => {
     };
     
     return (
+        <>
         <CheckboxGroup colorScheme='yellow'>
             <Stack spacing={[1, 5]} direction={['column', 'column']}>
-                <Flex  alignItems="center" justifyContent="space-around">
+                <Flex  alignItems="center">
                     <Checkbox
                         value='age'
-                        isAgreed={context.isAgreed} 
+                        mr={"2"}
                         onChange={handleCheckboxChange}>
                             I confirm that I am at least 18 years old *
 
@@ -30,6 +31,13 @@ const SignUpAgreements = () => {
                 <Checkbox value=''>I have read and agree to the Terms and Conditions</Checkbox> */}
             </Stack>
         </CheckboxGroup>
+        <Box fontSize="sm">
+            <Text as="span">By clicking Sign Up, you agree to our</Text>
+            <Link as="span" ml="1" mr="1" color="red">Terms and Conditions</Link>
+            <Text as="span">and our</Text>
+            <Link as="span" ml="1" color="red">Privacy Policy</Link>
+        </Box>
+        </>
     );
 };
 

@@ -34,9 +34,9 @@ const Register = () => {
       ) : (
         <Flex
           as={"article"}
-          width={["316px", "30.0625rem", "30.0625rem"]}
-          maxHeight={"56rem"}
+          maxWidth={"481px"}
           mt={"100px"}
+          mb={["0", "50px"]}
           padding={[
             "1.5rem 2rem",
             "2.4375rem 4.3125rem",
