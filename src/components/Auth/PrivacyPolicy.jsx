@@ -8,7 +8,7 @@ export default function PrivacyPolicy() {
       h={"580px"}
       overflow={"auto"}
       minW={"24rem"}
-      p={"2.4375rem 3.6rem"}
+      p={["2.4375rem 3rem", "2.4375rem 3.6rem"]}
       flexDirection={"column"}
       gap={"1.875rem"}
       borderRadius={"0.9375rem"}
@@ -19,88 +19,112 @@ export default function PrivacyPolicy() {
       zIndex={"1"}
       position={"relative"}
     >
-      <Flex
-        fontWeight={"600"}
-        fontSize={"24px"}
-        as={"nav"}
-        transition="0.05s"
-        pos={"fixed"}
-        zIndex={30}
-      >
-        User Agreement
+      <Flex fontWeight={"600"} fontSize={"24px"} as={"nav"} transition="0.05s">
+        Privacy Policy
       </Flex>
-      <Heading mt={"70px"} fontSize={"16px"}>Last Updated: [Date]</Heading>
+      <Heading fontSize={"18px"}>Last Updated: [Date]</Heading>
       <Text fontSize={"14px"}>
-        Welcome to our lively and learning-centric doctor appointment booking
-        website! We're excited to have you on board for some informative and
-        entertaining experiences. Before we get started, let's get the legal
-        dance moves down. By using our website, you're agreeing to some terms
-        and conditions. Don't worry, we'll keep it simple and even throw in a
-        few jokes along the way!
+        Welcome to our learning-oriented doctor appointment booking website!
+        Before you proceed, let's get comfy with some serious yet lighthearted
+        privacy matters. Remember, while we're here to have a bit of fun, we
+        take your privacy seriously. So, grab your cup of virtual tea and let's
+        dive in!
       </Text>
-
+      <Flex flexDirection={"column"} gap={"10px"}>
+        <Heading fontSize={"18px"}>1. Your Data is Our Secret Sauce</Heading>
+        <Text fontSize={"14px"}>
+          Here's the deal: we don't share your personal data with anyone. We're
+          like that best friend who keeps your secrets – safely hidden from
+          prying eyes. Your name, contact details, and any other info you
+          provide are only used for the purpose of doctor appointment bookings.
+          No secret ingredient sharing here!
+        </Text>
+      </Flex>
+      <Flex flexDirection={"column"} gap={"10px"}>
+        <Heading fontSize={"18px"}>2. Age is Just a Number</Heading>
+        <Text fontSize={"14px"}>
+          Guess what? We need you to be 18 years old or above to use our
+          platform. No offense to our younger pals, but some medical stuff
+          requires a bit more grown-up wisdom. So, if you're not old enough to
+          buy lottery tickets, this isn't the appointment booking carnival for
+          you.
+        </Text>
+      </Flex>
+      <Flex flexDirection={"column"} gap={"10px"}>
+        <Heading fontSize={"18px"}>3. Cookies, Not the Edible Kind</Heading>
+        <Text fontSize={"14px"}>
+          Like most websites, we use cookies. No, they won't steal your cookies
+          from the pantry, but they help us understand how you use our site.
+          It's like peeking into our kitchen to see which recipes you love most.
+          Rest assured, these digital cookies don't munch on your data.
+        </Text>
+      </Flex>
+      <Flex flexDirection={"column"} gap={"10px"}>
+        <Heading fontSize={"18px"}>4. We're Not Mind Readers</Heading>
+        <Text fontSize={"14px"}>
+          We might know you need a doctor, but we're not psychic. So, if you
+          share your symptoms and health info with us, we promise not to use our
+          newfound mind-reading powers. Your health data stays locked away, and
+          we only use it to help you find the right doctor.
+        </Text>
+      </Flex>
+      <Flex flexDirection={"column"} gap={"10px"}>
+        <Heading fontSize={"18px"}>5. Data Security Dance</Heading>
+        <Text fontSize={"14px"}>
+          Picture this: we're doing the security cha-cha to protect your data.
+          Our servers have their own bouncers, and we've hired digital
+          bodyguards to keep your info safe. We're as serious about security as
+          a squirrel guarding its nut stash.
+        </Text>
+      </Flex>
+      <Flex flexDirection={"column"} gap={"10px"}>
+        <Heading fontSize={"18px"}>6. Third-Party Tango</Heading>
+        <Text fontSize={"14px"}>
+          Occasionally, we may dance with third-party services like analytics
+          tools. Don't worry, it's a well-choreographed routine, and your
+          personal info remains backstage. Just remember, we're the star of your
+          data protection show.
+        </Text>
+      </Flex>
+      <Flex flexDirection={"column"} gap={"10px"}>
+        <Heading fontSize={"18px"}>7. Your Rights, Your Stage</Heading>
+        <Text fontSize={"14px"}>
+          You're the lead in this show! If you want to know what info we've got
+          on you, just give us a shout. We'll even let you change or delete it
+          if you're not feeling the rhythm anymore.
+        </Text>
+      </Flex>
+      <Flex flexDirection={"column"} gap={"10px"}>
+        <Heading fontSize={"18px"}>8. Updates, the Non-Boring Kind</Heading>
+        <Text fontSize={"14px"}>
+          Our privacy policy might change, but we'll let you know. No surprises,
+          just like your favorite TV show's plot twists. So, check in now and
+          then to stay in the loop.
+        </Text>
+      </Flex>
+      <Flex flexDirection={"column"} gap={"10px"}>
+        <Heading fontSize={"18px"}> 9. Have a Laugh with Us</Heading>
+        <Text fontSize={"14px"}>
+          We're all about learning, having a good time, and making awkward
+          health topics a little less cringeworthy. But when it comes to your
+          privacy, we're as serious as a cat that accidentally turned on the
+          vacuum cleaner.
+        </Text>
+      </Flex>
       <Text fontSize={"14px"}>
-        1. Learning is Our Jam This website is all about learning,
-        experimenting, and having a good time. It's like the science fair of
-        doctor appointment booking platforms. We're not real doctors, just code
-        magicians in the world of healthcare.
-      </Text>
-
+        Remember, this website is a learning playground, so no real doctors here
+        – just friendly AI and a bunch of code. If you need actual medical
+        advice, consult a real, live, breathing human doc.
+      </Text>{" "}
       <Text fontSize={"14px"}>
-        2. Age Matters Here's the scoop: you need to be 18 years old or above to
-        hang out here. It's like a cool kids' club, but without the secret
-        handshake. Sorry, younger pals – this virtual playground is for the
-        grown-ups.
-      </Text>
-
-      <Text fontSize={"14px"}>
-        3. Be Respectful Respect is the key ingredient to our digital potluck.
-        Be nice to each other, share knowledge, andremember that we're all here
-        to learn and have a chuckle. No trolling or spamming allowed – we're
-        more about unicorns than internet trolls.
+        Thanks for choosing us to be part of your online learning journey!
       </Text>
       <Text fontSize={"14px"}>
-        4. Intellectual Property Tap Dance Everything on this website is like
-        our unique dance moves – copyrighted! Don't copy, reproduce,or use our
-        stuff without our permission. Imagine it's a fancy dance move – you
-        can't just steal it and show it off as your own.
+        If you've got privacy questions or just want to say hi, drop us a line
+        at [Email Address].
       </Text>
-
-      <Text fontSize={"14px"}>
-        5. Links, Not Leaps of Faith We might share links to external sites, but
-        they're like suggested dance partners, not blind leapsof faith. We're
-        not responsible for what happens once you leave our dance floor, so
-        shimmy with caution.
-      </Text>
-
-      <Text fontSize={"14px"}>
-        6. Don't Break the Code Please don't try to break our website or do
-        anything funky with the code. It's like sticking your foot out to trip
-        someone on the dance floor – it's just not cool.
-      </Text>
-
-      <Text fontSize={"14px"}>
-        7. Privacy Polka We're all about privacy – your info is our VIP guest.
-        Check out our privacy policy for more details on how we treat your data.
-        Just remember, no one likes an uninvited party crasher, especially when
-        it's your personal info.
-      </Text>
-
-      <Text fontSize={"14px"}>
-        8. Changes, the Cha-Cha Kind Like a dance routine, our terms might
-        change. We'll keep you posted, so keep an eye out for updates. By
-        sticking around, you're saying you're cool with the changes.
-      </Text>
-
-      <Text fontSize={"14px"}>
-        9. Have Fun and Learn! We're here to make learning entertaining and
-        healthcare topics a little less intimidating. So, have fun, stay
-        curious, and remember, no real doctors here – just a bunch of friendly
-        AI and pixels.Thanks for joining us on this dance floor of knowledge and
-        learning! If you've got questions or want to bust out some moves, reach
-        out to us at [Email Address]. Happy dancing and exploring!Sincerely, The
-        Groovy Guide Gnomes
-      </Text>
+      <Text fontSize={"14px"}>Happy browsing and learning!</Text>
+      <Text fontSize={"14px"}>Sincerely, The Privacy Protector Penguins</Text>
     </Flex>
   );
 }
