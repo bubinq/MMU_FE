@@ -1,4 +1,4 @@
-import { object, string, ref } from "yup";
+import { object, string, ref, boolean } from "yup";
 
 export const throttle = (func, delay) => {
   let prevTime = 0;
@@ -55,6 +55,41 @@ export const passwordInitial = {
   password: "",
   matchingPassword: "",
 };
+
+export const signUpInitialValues = {
+  email: "",
+  firstName: "",
+  lastName: "",
+  password: "",
+  matchingPassword: "",
+  isOver18: false,
+};
+export const signUpValidationSchema = object({
+  email: string()
+    .email("Please enter a valid email address.")
+    .matches(
+      /^[\w-\.]+@([\w-]+\.)+[\w-]{2,5}$/,
+      "Please enter a valid email address."
+    )
+    .required("Please enter an email address."),
+  firstName: string()
+    .required("Please enter a first name.")
+    .max(50, "First name must not exceed 50 characters.")
+    .matches(
+      /^[A-Za-z'-]{1,50}$/,
+      "Please enter a first name containing only English letters."
+    ),
+  lastName: string()
+    .required("Please enter a last name.")
+    .max(50, "Last name must not exceed 50 characters.")
+    .matches(
+      /^[A-Za-z'-]{1,50}$/,
+      "Please enter a last name containing only English letters."
+    ),
+  password: string().required("Please enter a password."),
+  matchingPassword: string().required("Please enter a password."),
+  isOver18: boolean().required(),
+});
 
 export const validatePassword = async (values, setError) => {
   try {
