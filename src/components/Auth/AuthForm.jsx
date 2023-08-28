@@ -32,7 +32,10 @@ export default function AuthForm() {
       });
     } catch (error) {
       setIsLoading(false);
-      setServerError(error.response?.data?.email);
+      if (error.response?.data?.email) {
+        return setServerError(error.response?.data?.email);
+      }
+      return setServerError(error.response?.data?.message);
     }
   };
   return (
@@ -110,11 +113,11 @@ export default function AuthForm() {
               fontSize={"16px"}
               color={"blue.900"}
               borderRadius="5px"
-              isDisabled={!values.email}
+              isDisabled={!values.email || isLoading}
               py={"10px"}
               mt={"5px"}
               transition={"0.2s all ease"}
-              bg={!values.email ? "rgba(244, 180, 0, 0.6)" : "yellow.400"}
+              bg={!values.email || isLoading ? "rgba(244, 180, 0, 0.6)" : "yellow.400"}
               _hover={{ bg: "red.300", color: "white" }}
             >
               {isLoading ? (

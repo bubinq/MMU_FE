@@ -99,7 +99,9 @@ export class Canvas {
     if (this.waveLine) {
       this.waveLine.draw(this.ctx);
     }
-    requestAnimationFrame(this.boundAnimate);
+    setTimeout(() => {
+      requestAnimationFrame(this.boundAnimate);
+    }, 1000 / 60);
   }
   cleanup() {
     window.removeEventListener("resize", this.boundResize);
@@ -116,7 +118,7 @@ class Point {
     this.y = y;
     this.initalY = y;
     this.index = index;
-    this.speed = 0.002;
+    this.speed = 0.006;
     this.cur = index;
     this.max = Math.random() * 75 + 70;
   }

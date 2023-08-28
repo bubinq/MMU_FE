@@ -34,9 +34,8 @@ const Register = () => {
       ) : (
         <Flex
           as={"article"}
-          maxWidth={"481px"}
-          mt={"100px"}
-          mb={["0", "50px"]}
+          width={["316px", "30.0625rem", "30.0625rem"]}
+          maxHeight={"56rem"}
           padding={[
             "1.5rem 2rem",
             "2.4375rem 4.3125rem",
@@ -48,6 +47,7 @@ const Register = () => {
           bg={["rgba(255, 255, 253, 0.8)", "#FFFFFD"]}
           borderRadius={"0.9375rem"}
           zIndex={"1"}
+          mt={"100px"}
           position={"relative"}
           boxShadow={"0px 4px 4px 0px rgba(0, 0, 0, 0.25)"}
         >

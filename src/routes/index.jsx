@@ -12,12 +12,15 @@ import RouteGuard from "../guards/RouteGuard";
 import { loader as getAllSpecialties } from "../pages/Home";
 import { getSpecialistsSettings } from "../pages/Specialists";
 import Specialists, { loader as getSpecialistData } from "../pages/Specialists";
+import { loader as checkTokenAvailability } from "../components/Auth/AuthResetForm";
 import { loader as getConfirmationToken } from "../components/Auth/AuthModal";
 import AuthPage from "../pages/AuthPage.jsx";
 import AuthModal from "../components/Auth/AuthModal";
 import AuthForm from "../components/Auth/AuthForm";
 import AuthResetForm from "../components/Auth/AuthResetForm";
 import ForgotConfirm from "../components/Auth/ForgotConfirm";
+import UserAgreement from "../components/Auth/UserAgreement";
+import PrivacyPolicy from "../components/Auth/PrivacyPolicy";
 import {
   SUCCESSFULLY_REGISTERED,
   EMAIL_VERIFIED,
@@ -57,6 +60,7 @@ export const router = createBrowserRouter([
         path: "/appointments",
         element: <Appointments />,
       },
+
       {
         path: "/login",
         element: (
@@ -93,6 +97,14 @@ export const router = createBrowserRouter([
             ),
           },
           {
+            path: "user-agreement",
+            element: <UserAgreement />,
+          },
+          {
+            path: "privacy-policy",
+            element: <PrivacyPolicy />,
+          },
+          {
             path: "error",
             element: (
               <AuthModal
@@ -115,6 +127,7 @@ export const router = createBrowserRouter([
           {
             path: "reset",
             element: <AuthResetForm />,
+            loader: checkTokenAvailability,
           },
           {
             path: "reset-success",

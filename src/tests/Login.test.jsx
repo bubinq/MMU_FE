@@ -8,24 +8,30 @@ import RouteGuard from "../guards/RouteGuard";
 import Login from "../pages/Login";
 
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { BASE_API } from "../constants";
-import axios from "axios";
+import authService from "../services/auth";
 
 const mockData = { email: "peter@abv.bg", password: "123" };
-const mockDataCorrect = { email: "admin@gmail.com", password: "!Admin123" };
 const returnedData = { data: { accessToken: "123" } };
 const mockError = { message: "error!" };
 
+vi.mock("../services/auth", () => {
+  return {
+    default: {
+      login: vi.fn(),
+    }
+  };
+});
+
+
 const sendDataToServer = async () => {
   try {
-    const response = await axios.post(`${BASE_API}/auth/signin`, mockData);
+    const response = await authService.login(mockData);
     return response;
   } catch (error) {
     return error;
   }
 };
 
-vi.mock("axios");
 
 const mockRoutes = [
   {
@@ -104,8 +110,8 @@ describe("LoginPage Component", () => {
     await userEvent.type(passwordField, "123");
     const submitBtn = screen.getByLabelText("login-submit");
     await userEvent.click(submitBtn);
-    axios.post.mockRejectedValue({ message: "error!" });
-    const result = await sendDataToServer(mockData);
+    authService.login.mockRejectedValue({ message: "error!" });
+    const result = await sendDataToServer();
     expect(result).toEqual(mockError);
   });
   test("submitting with correct email and password should log in user", async () => {
@@ -117,8 +123,8 @@ describe("LoginPage Component", () => {
     await userEvent.type(passwordField, "!Admin123");
     const submitBtn = screen.getByLabelText("login-submit");
     await userEvent.click(submitBtn);
-    axios.post.mockResolvedValue(returnedData);
-    const result = await sendDataToServer(mockDataCorrect);
+    authService.login.mockResolvedValue(returnedData);
+    const result = await sendDataToServer();
     expect(result).toEqual(returnedData);
   });
 });
