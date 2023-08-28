@@ -1,15 +1,11 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import SignUpHeader from "../components/SignUp/SignUpHeader.jsx";
 import SignUpForm from "../components/SignUp/SignUpForm.jsx";
-import SignUpWithGoogle from "../components/SignUp/SignUpWithGoogle.jsx";
 import { useState } from "react";
-import BackEndValidationErrorMSG from "../components/SignUp/BackEndValidationErrorMSG.jsx";
-import { AnimatePresence } from "framer-motion";
 import useCanvasWaves from "../hooks/useCanvasWaves.jsx";
 import useSpinner from "../hooks/useSpinner.jsx";
 import Spinner from "../components/Spinner.jsx";
 import useAlert from "../hooks/useAlert.jsx";
-import { AgreementsProvider } from "../contexts/AgreementsContext.jsx";
 
 const Register = () => {
   const ref = useCanvasWaves();
@@ -19,7 +15,6 @@ const Register = () => {
   const { isAlertVisible } = useAlert(serverError, setServerError);
 
   return (
-    <AgreementsProvider>
     <Flex
       as={"section"}
       w={"100%"}
@@ -34,8 +29,7 @@ const Register = () => {
       ) : (
         <Flex
           as={"article"}
-          width={["316px", "30.0625rem", "30.0625rem"]}
-          maxHeight={"56rem"}
+          width={["316px", "30.0625rem"]}
           padding={[
             "1.5rem 2rem",
             "2.4375rem 4.3125rem",
@@ -55,30 +49,11 @@ const Register = () => {
           <SignUpForm
             serverError={serverError}
             setServerError={setServerError}
+            isAlertVisible={isAlertVisible}
           />
-          <Flex
-            textAlign={"center"}
-            alignItems={"center"}
-            width={"100%"}
-            justifyContent={"center"}
-          >
-            <Box h={"2px"} w={"44%"} bg={"black"} />
-            <Text as={"span"} w={"2.625rem"} fontSize={"1rem"}>
-              {" "}
-              OR{" "}
-            </Text>
-            <Box h={"2px"} w={"44%"} bg={"black"} />
-          </Flex>
-          <SignUpWithGoogle />
-          <AnimatePresence>
-            {isAlertVisible && (
-              <BackEndValidationErrorMSG serverError={serverError} />
-            )}
-          </AnimatePresence>
         </Flex>
       )}
     </Flex>
-    </AgreementsProvider>
   );
 };
 
