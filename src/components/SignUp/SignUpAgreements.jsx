@@ -33,9 +33,24 @@ const SignUpAgreements = () => {
         </CheckboxGroup>
         <Box fontSize="sm">
             <Text as="span">By clicking Sign Up, you agree to our</Text>
-            <Link as="span" ml="1" mr="1" color="red">Terms and Conditions</Link>
+            <Link 
+                as="span" 
+                ml="1" 
+                mr="1" 
+                color="red"
+                to={"/auth/user-agreement"}              
+                isExternal>
+                    Terms and Conditions
+            </Link>
             <Text as="span">and our</Text>
-            <Link as="span" ml="1" color="red">Privacy Policy</Link>
+            <Link 
+                as="span" 
+                ml="1" 
+                color="red"
+                to={"/auth/privacy-policy"}  
+                isExternal>
+                    Privacy Policy
+            </Link>
         </Box>
         </>
     );
