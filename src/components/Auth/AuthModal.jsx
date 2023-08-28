@@ -148,7 +148,7 @@ export const loader = async () => {
         return null;
       }
     } catch (error) {
-      if (error.response?.data?.message === "Expired Token") {
+      if (error.response?.data?.message === "The token has expired or is invalid") {
         return redirect("/auth/verification-expired");
       } else if (error.response?.data?.message === "Email already confirmed") {
         return redirect("/auth/already-verified");

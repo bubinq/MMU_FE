@@ -1,7 +1,7 @@
-import { Flex, Box, Text, Button, Spinner } from "@chakra-ui/react";
+import { Flex, Box, Button, Spinner, Heading } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, redirect } from "react-router-dom";
 import TemplateInput from "../SignUp/TemplateInput";
 import { passwordInitial, passwordSchema, validatePassword } from "../../utils";
 import authService from "../../services/auth";
@@ -49,9 +49,9 @@ export default function AuthResetForm() {
       position={"relative"}
     >
       <Box>
-        <Text fontWeight={"700"} fontSize={"24px"} mb={"5px"}>
+        <Heading fontWeight={"700"} fontSize={"24px"} mb={"5px"}>
           Reset Password
-        </Text>
+        </Heading>
       </Box>
 
       <Formik
@@ -103,3 +103,20 @@ export default function AuthResetForm() {
     </Flex>
   );
 }
+
+export const loader = async () => {
+  const token = new URLSearchParams(window.location.search).get("token");
+  if (token) {
+    try {
+      await authService.validateToken(token);
+    } catch (error) {
+      sessionStorage.setItem("token", JSON.stringify(token));
+      if (
+        error.response?.data?.message === "The token has expired or is invalid"
+      ) {
+        return redirect("/auth/reset-error");
+      }
+    }
+  }
+  return null;
+};

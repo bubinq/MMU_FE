@@ -19,13 +19,13 @@ const LoginModal = () => {
       bg={["rgba(255, 255, 253, 0.8)", "#FFFFFD"]}
       w={["fit-content", "460px"]}
       h={"fit-content"}
-      mt={"100px"}
       borderRadius={"15px"}
       boxShadow={"0px 4px 4px 0px rgba(0, 0, 0, 0.25)"}
       paddingX={["2rem", "69px"]}
       paddingY={["24px", "39px"]}
       gap={["25px", "35px"]}
       pos={"relative"}
+      mt={"100px"}
       zIndex={1}
     >
       <Heading fontWeight={700} fontSize={"24px"} lineHeight={"normal"}>
