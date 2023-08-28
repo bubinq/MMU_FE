@@ -3,14 +3,17 @@ import { Form as FormikForm, Formik } from "formik";
 import * as Yup from "yup";
 import TemplateInput from "./TemplateInput.jsx";
 import authService from "../../services/auth/index.js";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { validatePassword } from "../../utils.js";
+import { AgreementsContext } from "../../contexts/AgreementsContext.jsx";
+import SignUpAgreements from "./SignUpAgreements.jsx";
 
 const SignUpForm = ({ serverError, setServerError }) => {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const context = useContext(AgreementsContext);
 
   const initialValues = {
     email: "",
@@ -18,6 +21,7 @@ const SignUpForm = ({ serverError, setServerError }) => {
     lastName: "",
     password: "",
     matchingPassword: "",
+    isOver18: true
   };
 
   const validationSchema = Yup.object({
@@ -101,6 +105,7 @@ const SignUpForm = ({ serverError, setServerError }) => {
           label={"Confirm Password *"}
           error={error}
         />
+        <SignUpAgreements />
         <Button
           type={"submit"}
           variant={"signup"}
@@ -112,14 +117,14 @@ const SignUpForm = ({ serverError, setServerError }) => {
           fontWeight={"700"}
           lineHeight={"1.5rem"}
           letterSpacing={"0.00938rem"}
-          isDisabled={serverError}
+          isDisabled={serverError || !context.isAgreed}
           h={"2.75rem"}
           color={"blue.900"}
           borderRadius="5px"
           py={"10px"}
           transition={"0.2s all ease"}
           bg={"yellow.400"}
-          _disabled={{ opacity: "40%" }}
+          _disabled={{ opacity: "40%", cursor: "not-allowed" }}
           _hover={{ bg: "red.300", color: "white" }}
         >
           {isLoading ? (
