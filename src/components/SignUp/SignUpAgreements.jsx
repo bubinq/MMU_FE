@@ -61,12 +61,19 @@ const SignUpAgreements = () => {
           ml="1"
           mr="1"
           color="red"
+          fontWeight={700}
           to={"/auth/user-agreement"}
         >
           Terms and Conditions
         </ChakraLink>
         <Text as="span">and our</Text>
-        <ChakraLink as={Link} ml="1" color="red" to={"/auth/privacy-policy"}>
+        <ChakraLink
+          as={Link}
+          ml="1"
+          color="red"
+          fontWeight={700}
+          to={"/auth/privacy-policy"}
+        >
           Privacy Policy
         </ChakraLink>
       </Box>
