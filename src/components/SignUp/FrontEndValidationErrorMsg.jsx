@@ -22,7 +22,7 @@ const FrontEndValidationErrorMsg = ({ error, name }) => {
 
   if (name === "password") {
     return (
-      <Box className="invalid-input" color={"#ACA1A6"} minHeight={"26px"}>
+      <Box className="invalid-input" color={"blue.900"} minHeight={"26px"}>
         {passwordHint}
       </Box>
     );
