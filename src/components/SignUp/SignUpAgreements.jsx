@@ -64,7 +64,7 @@ const SignUpAgreements = () => {
           fontWeight={700}
           to={"/auth/user-agreement"}
         >
-          Terms and Conditions
+          User Agreement
         </ChakraLink>
         <Text as="span">and our</Text>
         <ChakraLink
