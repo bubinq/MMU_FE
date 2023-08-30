@@ -91,7 +91,7 @@ export const router = createBrowserRouter([
             element: (
               <AuthModal
                 headingMessage={EXPIRED_MESSAGE}
-                message={TOKEN_EXPIRED}
+                // message={TOKEN_EXPIRED}
                 isSuccessful={false}
               />
             ),
