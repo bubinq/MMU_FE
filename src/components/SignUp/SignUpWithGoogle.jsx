@@ -1,5 +1,5 @@
 import { Box, Flex, Image } from "@chakra-ui/react";
-import { GOOGLE_OAUTH2_URL } from "../../constants.js";
+import { GOOGLE_OAUTH2_URL2 } from "../../constants.js";
 import googleImg from "../../assets/googleTopG.png";
 import { useFormikContext } from "formik";
 
@@ -8,7 +8,7 @@ const SignUpWithGoogle = () => {
   return (
     <Flex
       as={"a"}
-      href={formik.values.isOver18 ? GOOGLE_OAUTH2_URL : "#"}
+      href={formik.values.isOver18 ? GOOGLE_OAUTH2_URL2 : "#"}
       target="_self"
       border={"2px solid #F4B400"}
       alignItems={"center"}

@@ -4,7 +4,7 @@ import { useState } from "react";
 import LoginForm from "./LoginForm";
 import googleImg from "../../assets/googleTopG.png";
 import AuthAlert from "../../components/Auth/AuthAlert";
-import { GOOGLE_OAUTH2_URL } from "../../constants";
+import { GOOGLE_OAUTH2_URL2 } from "../../constants";
 import { AnimatePresence } from "framer-motion";
 import useAlert from "../../hooks/useAlert";
 
@@ -33,7 +33,7 @@ const LoginModal = () => {
       </Heading>
       <Flex
         as={"a"}
-        href={GOOGLE_OAUTH2_URL}
+        href={GOOGLE_OAUTH2_URL2}
         target="_self"
         border={"2px solid #F4B400"}
         alignItems={"center"}
