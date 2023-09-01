@@ -7,9 +7,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import { render, screen } from "@testing-library/react";
 import Home from "../pages/Home.jsx";
-import DoctorDetails, {
-  loader as getDoctorDetails,
-} from "../pages/DoctorDetails.jsx";
+import DoctorDetails from "../pages/DoctorDetails.jsx";
 
 const mockSpecialtiesData = {
   content: [
@@ -81,7 +79,7 @@ const mockDoctorsData = {
       summary: "Summary for Doctor Lisa Smith",
       experience: 8,
       education: "Medical School X, Residency Y",
-      averageRating: 4.8,
+      averageRating: 0,
       imageUrl:
         "https://images.theconversation.com/files/304957/original/file-20191203-66986-im7o5.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop",
       address: "456 Oak Street, Sofia, Bulgaria",
@@ -143,7 +141,6 @@ const mockRoutes = [
       },
       {
         index: true,
-        // path: "/specialists",
         element: <Specialists />,
         loader: vi.fn(() => {
           return {
@@ -178,9 +175,7 @@ const mockRoutes = [
         path: "/:id",
         element: <DoctorDetails />,
         loader: vi.fn(() => {
-          return {
-            doctor: mockSingleDoctor,
-          };
+          return mockSingleDoctor;
         }),
       },
     ],
@@ -195,6 +190,7 @@ describe("Specialists Page", () => {
     render(
       <RouterProvider router={router}>
         <Specialists />
+        <DoctorDetails />
       </RouterProvider>
     );
   });
@@ -238,14 +234,16 @@ describe("Specialists Page", () => {
     const doctor = mockDoctorsData.content[0];
     const card = screen.getByTestId(`link-${doctor.id}`);
     await userEvent.click(card);
-    const heading = screen.getByRole("heading", { level: 2 });
-    expect(heading).toHaveTextContent(/^Coming soon...$/);
-  });
-
-  test("navigate back to Specialists page when click on 'GO BACK' button on the Doc Details page", async () => {
-    const button = screen.getByTestId("go-back-button");
-    await userEvent.click(button);
-    const heading = screen.getByRole("heading", { level: 1 });
-    expect(heading).toHaveTextContent("Specialists");
+    const doc = mockSingleDoctor;
+    const heading = await screen.findByRole("heading", {
+      level: 2,
+      name: `${doc.firstName} ${doc.lastName}`,
+    });
+    const summary = await screen.findByRole("heading", {
+      level: 3,
+      name: `About ${doc.firstName} ${doc.lastName}`,
+    });
+    expect(heading).toHaveTextContent(/^John Doe$/);
+    expect(summary).toHaveTextContent(/^About John Doe$/);
   });
 });

@@ -15,14 +15,10 @@ import NavModal from "./NavModal";
 const Navbar = () => {
   const { width } = useWindowResize();
   const { scroll, prevScroll } = useWindowScroll();
-  const [isMenuOpened, setIsMenuOpened] = useState(false);
-  const { user } = useAuth();
+  const { user, isMenuOpened } = useAuth();
 
   const scrollDown = scroll - prevScroll.current;
 
-  const handleMenuClick = () => {
-    setIsMenuOpened(!isMenuOpened);
-  };
   return (
     <Flex
       as={motion.nav}
@@ -31,7 +27,7 @@ const Navbar = () => {
       align="center"
       justify="space-between"
       w="100%"
-      px={["23px", "46px", "12px"]}
+      px={["calc(12.3%)", "calc(7.3%)", "calc(2.5%)"]}
       py={"8px"}
       bg={"yellow.300"}
       zIndex={30}
@@ -41,14 +37,10 @@ const Navbar = () => {
       <NavLink to="/">
         <Logo />
       </NavLink>
-      <MenuList
-        width={width}
-        handleMenuClick={handleMenuClick}
-        isMenuOpened={isMenuOpened}
-      />
+      <MenuList width={width} />
       {width > TABLET_DEVICES_RES ? (
         <>
-          {user.name ? (
+          {user.accessToken ? (
             <Buttons type={"logout"} text={"Log out"} />
           ) : (
             <Flex gap={6}>
@@ -58,14 +50,7 @@ const Navbar = () => {
           )}
         </>
       ) : (
-        <>
-          {isMenuOpened && (
-            <NavModal
-              isMenuOpened={isMenuOpened}
-              handleMenuClick={handleMenuClick}
-            />
-          )}
-        </>
+        <>{isMenuOpened && <NavModal />}</>
       )}
     </Flex>
   );

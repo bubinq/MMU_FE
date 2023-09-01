@@ -1,7 +1,9 @@
 import { NavLink } from "react-router-dom";
 import { Text } from "@chakra-ui/react";
+import useAuth from "../contexts/AuthContext";
 
-const MenuItem = ({ to, children, handleMenuClick }) => {
+const MenuItem = ({ to, children }) => {
+  const { handleMenuClick } = useAuth();
   return (
     <NavLink
       aria-label={children}
@@ -11,7 +13,7 @@ const MenuItem = ({ to, children, handleMenuClick }) => {
       }
       to={to}
     >
-      <Text fontSize={"2xl"} color={"black"}>
+      <Text fontSize={"xl"} color={"black"}>
         {children}
       </Text>
     </NavLink>

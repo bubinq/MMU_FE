@@ -1,7 +1,9 @@
 import { Flex } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import useAuth from "../contexts/AuthContext";
 
-const BurgerMenu = ({ handleMenuClick, isMenuOpened }) => {
+const BurgerMenu = () => {
+  const { handleMenuClick, isMenuOpened } = useAuth();
   return (
     <Flex
       aria-label="burger-menu"

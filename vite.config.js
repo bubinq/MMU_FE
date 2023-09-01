@@ -5,11 +5,19 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   test: {
-    include: ['**/*.test.jsx'],
+    include: ["**/*.test.jsx"],
     globals: true,
     environment: "jsdom",
+    setupFiles: ["./vitest.setup.js"],
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "lcov"],
+    },
   },
   server: {
     host: true,
-  }
+    rewrite: {
+      "^/.*": "/index.html",
+    },
+  },
 });

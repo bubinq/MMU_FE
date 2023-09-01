@@ -4,7 +4,7 @@ import MenuItem from "./MenuItem";
 import BurgerMenu from "./BurgerMenu";
 import useAuth from "../contexts/AuthContext";
 
-const MenuList = ({ width, handleMenuClick, isMenuOpened }) => {
+const MenuList = ({ width }) => {
   const { user } = useAuth();
   return (
     <Flex align="center" ml={"30%"} gap={[4, 8]}>
@@ -12,13 +12,12 @@ const MenuList = ({ width, handleMenuClick, isMenuOpened }) => {
         <>
           <MenuItem to={"/"}>Specialties</MenuItem>
           <MenuItem to={"/specialists"}>Specialists</MenuItem>
-          {user.name && <MenuItem to={"/appointments"}>Appointments</MenuItem>}
+          {user.accessToken && (
+            <MenuItem to={"/appointments"}>Appointments</MenuItem>
+          )}
         </>
       ) : (
-        <BurgerMenu
-          handleMenuClick={handleMenuClick}
-          isMenuOpened={isMenuOpened}
-        />
+        <BurgerMenu />
       )}
     </Flex>
   );
