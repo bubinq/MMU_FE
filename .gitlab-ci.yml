@@ -1,16 +1,21 @@
+stages:
+  - preview
+  - deploy
+  - release
+
 variables:
   API_TOKEN: $SWA_CLI_DEPLOYMENT_TOKEN
   APP_PATH: $CI_PROJECT_DIR
 
 preview:
-  stage: deploy
+  stage: preview
   image : node:lts-bullseye
   tags:
     - docker-linux
   script:
     - cd $APP_PATH
     - npm ci
-    - npm run build
+    - npm run build:test
     - npm install -g @azure/static-web-apps-cli
     - swa deploy --verbose=silly ./dist -d $API_TOKEN -w ./
     - echo "Done"
@@ -25,9 +30,27 @@ deploy:
   script:
     - cd $APP_PATH
     - npm ci
-    - npm run build
+    - npm run build:test
     - npm install -g @azure/static-web-apps-cli
     - swa deploy --verbose=silly ./dist -d $API_TOKEN -w ./ --env production
     - echo "Done"
   only:
     - test
+
+release:
+  stage: release
+  image : node:lts-bullseye
+  variables:
+    API_TOKEN: $SWA_CLI_DEPLOYMENT_TOKEN_PROD
+    VITE_BASE_URL: "https://app-docconnect-prod-yellow-squad-fp-api.azurewebsites.net"
+  tags:
+    - docker-linux
+  script:
+    - cd $APP_PATH
+    - npm ci
+    - npm run build
+    - npm install -g @azure/static-web-apps-cli
+    - swa deploy --verbose=silly ./dist -d $API_TOKEN -w ./ --env production
+    - echo "Done"
+  only:
+    - main
