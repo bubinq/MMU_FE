@@ -1,6 +1,7 @@
-import { Flex, Grid, Heading } from "@chakra-ui/react";
+import { Flex, Grid, Heading, Alert, AlertIcon } from "@chakra-ui/react";
 import { useLoaderData } from "react-router-dom";
 import { requestExecuter } from "../utils";
+import { REQUEST_NEW_VERIFICATION } from "../constants";
 import specialtyService from "../services/specialty";
 import SpecialtyList from "../components/Specialties/SpecialtyList";
 import useScrollToTop from "../hooks/useScrollToTop";
@@ -19,6 +20,16 @@ const Home = () => {
       w={["75%", "85%", "95%"]}
       mx={"auto"}
     >
+      <Alert
+        mt={"120px"}
+        status="success"
+        fontSize={"lg"}
+        fontWeight={600}
+        variant="subtle"
+      >
+        <AlertIcon />
+        {REQUEST_NEW_VERIFICATION}
+      </Alert>
       <Heading variant={"main"}>Specialties</Heading>
       <Grid
         templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)", "repeat(3, 1fr)"]}

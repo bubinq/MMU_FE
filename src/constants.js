@@ -5,14 +5,8 @@ export const BASE_URL = import.meta.env.VITE_BASE_URL;
 export const BASE_API = import.meta.env.VITE_BASE_API;
 
 export const TABLET_DEVICES_RES = 997;
-export const GOOGLE_OAUTH2_URL = `https://accounts.google.com/o/oauth2/v2/auth?
-scope=openid profile email&
-response_type=code&
-redirect_uri=${REDIRECT_URI}&
-client_id=${CLIENT_ID}&
-prompt=consent`;
 
-export const GOOGLE_OAUTH2_URL2 = `https://accounts.google.com/o/oauth2/auth?
+export const GOOGLE_OAUTH2_URL = `https://accounts.google.com/o/oauth2/auth?
 redirect_uri=${REDIRECT_URI}&
 client_id=${CLIENT_ID}&
 prompt=consent&
@@ -20,6 +14,7 @@ response_type=code&
 scope=openid%20profile%20email%20https://www.googleapis.com/auth/user.birthday.read`;
 
 export const EXPIRED_MESSAGE = `The token has expired or is invalid!`;
+export const REQUEST_NEW_VERIFICATION = `This account is not yet verified, please request a new verification email.`;
 export const VERRIFIED_MESSAGE = `Your account has already been verified!`;
 export const ERROR_MESSAGE = `Error`;
 export const EMAIL_ALREADY_SENT = `A reset password link is already sent to your email address.`;
