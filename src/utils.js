@@ -36,6 +36,18 @@ export const requestExecuter = async (request) => {
   return data;
 };
 
+export const genMonth = () => {
+  return Array.from({ length: 30 }, (_, idx) => {
+    const currDay = new Date(new Date().getTime() + 86400000 * (idx + 1)).toLocaleDateString();
+    return {
+      day: new Intl.DateTimeFormat("en-Us", { weekday: "long" }).format(
+        new Date(currDay)
+      ),
+      date: currDay,
+    };
+  });
+};
+
 export const passwordSchema = object({
   password: string()
     .required("Please enter a password.")

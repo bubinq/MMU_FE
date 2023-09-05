@@ -11,13 +11,22 @@ export const AuthProvider = ({ children }) => {
     return { accessToken: localStorage.getItem("accessToken") };
   });
   const [isMenuOpened, setIsMenuOpened] = useState(false);
+  const [isScheduleOpened, setIsScheduleOpened] = useState(false);
 
   const handleMenuClick = () => {
     setIsMenuOpened(!isMenuOpened);
   };
   return (
     <AuthContext.Provider
-      value={{ user, setUser, handleMenuClick, isMenuOpened, setIsMenuOpened }}
+      value={{
+        user,
+        setUser,
+        handleMenuClick,
+        isMenuOpened,
+        setIsMenuOpened,
+        isScheduleOpened,
+        setIsScheduleOpened,
+      }}
     >
       {children}
     </AuthContext.Provider>
