@@ -100,7 +100,7 @@ const MainCard = ({ title, specialty, rating, location, img, source }) => {
             <Flex>
               <Button
                 bg={"yellow.400"}
-                _hover={{ bg: "yellow.300" }}
+                _hover={{ bg: "red.300" }}
                 textColor={"blue.900"}
                 w={"100%"}
                 onClick={toggleSchedule}

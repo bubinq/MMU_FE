@@ -1,14 +1,13 @@
 import { Flex } from "@chakra-ui/react";
-import { TABLET_DEVICES_RES } from "../constants";
 import MenuItem from "./MenuItem";
 import BurgerMenu from "./BurgerMenu";
 import useAuth from "../contexts/AuthContext";
 
-const MenuList = ({ width }) => {
+const MenuList = ({ steps }) => {
   const { user } = useAuth();
   return (
     <Flex align="center" ml={"30%"} gap={[4, 8]}>
-      {width > TABLET_DEVICES_RES ? (
+      {steps > 2 ? (
         <>
           <MenuItem to={"/"}>Specialties</MenuItem>
           <MenuItem to={"/specialists"}>Specialists</MenuItem>

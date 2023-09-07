@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 
-export default function useWindowBreakpoints() {
+export default function useWindowBreakpoints(breakpoints) {
   const [steps, setSteps] = useState(
-    window.innerWidth < 768 ? 1 : window.innerWidth < 1088 ? 2 : 3
+    window.innerWidth < breakpoints.tablet ? 1 : window.innerWidth < breakpoints.desktop ? 2 : 3
   );
   useEffect(() => {
-    const mobileQuery = window.matchMedia("screen and (max-width: 767px)");
+    const mobileQuery = window.matchMedia(`screen and (max-width: ${breakpoints.tablet - 1}px)`);
     const tabletQuery = window.matchMedia(
-      "screen and (min-width: 768px) and (max-width: 1087px)"
+      `screen and (min-width: ${breakpoints.tablet}px) and (max-width: ${breakpoints.desktop - 1}px)`
     );
-    const desktopQuery = window.matchMedia("screen and (min-width: 1088px)");
+    const desktopQuery = window.matchMedia(`screen and (min-width: ${breakpoints.desktop}px)`);
 
     const handleMobileMatch = (event) => {
       if (event.matches) {

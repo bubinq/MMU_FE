@@ -1,20 +1,23 @@
 import { Button, Flex, Heading, Image } from "@chakra-ui/react";
 import useAuth from "../contexts/AuthContext";
 import { genMonth } from "../utils";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import arrowRight from "../assets/arrowRight.svg";
 import arrowLeft from "../assets/arrowLeft.svg";
 import DisplayDays from "./DisplayDays";
 import useWindowBreakpoints from "../hooks/useWindowBreakpoints";
 
 const ScheduleModal = () => {
-  const month = genMonth();
-  const steps = useWindowBreakpoints();
+  const month = useMemo(() => genMonth(), []);
+  const steps = useWindowBreakpoints({ tablet: 768, desktop: 1088 });
   const { setIsScheduleOpened } = useAuth();
 
   const [slidingWindow, setSlidingWindow] = useState({ left: 0, right: steps });
   const isFirstRender = useRef(true);
   const prevStep = useRef(steps);
+
+  const isPrevDisabled = slidingWindow.left === 0;
+  const isNextDisabled = slidingWindow.right === 30;
 
   const incrementSlide = () => {
     if (slidingWindow.right + steps <= month.length) {
@@ -46,8 +49,13 @@ const ScheduleModal = () => {
 
   useEffect(() => {
     if (!isFirstRender.current) {
+      const diff = Math.abs(steps - prevStep.current);
       const toAdd =
-        prevStep.current > steps ? -1 : prevStep.current === steps ? 0 : 1;
+        prevStep.current > steps
+          ? -diff
+          : prevStep.current === steps
+          ? 0
+          : diff;
 
       setSlidingWindow((prevPos) => ({
         left: prevPos.left,
@@ -58,61 +66,73 @@ const ScheduleModal = () => {
     isFirstRender.current = false;
   }, [steps]);
   return (
-    <Flex w={"100%"} justify={"center"} align={"center"}>
+    <Flex justify={"center"} mt={"-8rem"}>
       <Flex
-        pos={"fixed"}
+        pos={"absolute"}
         top={"0"}
         left={"0"}
         bottom={"0"}
         right={"0"}
         bg={"black"}
-        zIndex={99}
+        zIndex={100}
         opacity={"60%"}
         onClick={() => setIsScheduleOpened(false)}
       ></Flex>
       <Flex
         direction={"column"}
         mx={"auto"}
-        w={["70%", "60%", "50%"]}
+        w={["80%", "40rem", "46rem"]}
         gap={"2.5rem"}
         shadow={"md"}
-        padding={["1rem 1.5rem", "2rem 2.5rem"]}
+        padding={["1rem 2.5rem", "2rem 2.5rem"]}
         borderRadius={"6px"}
         bg={"#fff"}
         pos={"fixed"}
-        zIndex={100}
+        zIndex={101}
       >
         <Heading size={["md", "lg"]}>Schedule an Appointment</Heading>
-        <Flex justify={"space-between"}>
-          <Flex
+        <Flex justify={"space-between"}  overflow={"hidden"}>
+          <Button
             onClick={decrementSlide}
             p={"0.625rem"}
-            bg={"yellow.400"}
+            bg={isPrevDisabled ? "rgba(244, 180, 0, 0.5)" : "yellow.400"}
             alignItems={"center"}
-            cursor={"pointer"}
+            pos={"relative"}
+            zIndex={8}
+            cursor={isPrevDisabled ? "not-allowed" : "pointer"}
+            _hover={{
+              bg: isPrevDisabled ? "rgba(244, 180, 0, 0.5)" : "yellow.400",
+            }}
+            disabled={isPrevDisabled}
           >
             <Image
               src={arrowLeft}
               userSelect={"none"}
               alt="Left navigation arrow"
             />
-          </Flex>
+          </Button>
           <DisplayDays
             slots={month.slice(slidingWindow.left, slidingWindow.right)}
           />
-          <Flex
+          <Button
             onClick={incrementSlide}
             p={"0.625rem"}
-            bg={"yellow.400"}
+            pos={"relative"}
+            zIndex={8}
+            bg={isNextDisabled ? "rgba(244, 180, 0, 0.6)" : "yellow.400"}
             alignItems={"center"}
-            cursor={"pointer"}
+            cursor={isNextDisabled ? "not-allowed" : "pointer"}
+            _hover={{
+              bg: isNextDisabled ? "rgba(244, 180, 0, 0.6)" : "yellow.400",
+            }}
+            disabled={isNextDisabled}
           >
             <Image
               src={arrowRight}
               userSelect={"none"}
               alt="Right navigation arrow"
             />
-          </Flex>
+          </Button>
         </Flex>
         <Flex justify={"end"} gap={2}>
           <Button
