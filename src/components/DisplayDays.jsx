@@ -1,10 +1,13 @@
-import { Grid, GridItem, Text, Flex } from "@chakra-ui/react";
+import { Grid, GridItem, Text, Flex, Button } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 
 const DisplayDays = ({ slots }) => {
   const date = new Date(slots[0].date).getTime();
   const prevSwiper = useRef(date);
+
+  const [selectDate, setSelectDate] = useState(null);
+  console.log(selectDate);
 
   useEffect(() => {
     prevSwiper.current = date;
@@ -27,19 +30,29 @@ const DisplayDays = ({ slots }) => {
           <Text textAlign={"center"}>{slot.date}</Text>
           <Flex direction={"column"} align={"center"} gap={2} mt={"1.5rem"}>
             {slot.workingHours.map((h, idx) => (
-              <Flex
+              <Button
                 key={idx}
+                onClick={() => setSelectDate(`${slot.date}T${h}`)}
+                display={"flex"}
                 border={"2px solid"}
                 p={"0.525rem 2.375rem"}
-                cursor={"pointer"}
+                cursor={h === "Day off" ? "not-allowed" : "pointer"}
                 justify={"center"}
                 w={"152px"}
                 rounded={"6px"}
+                disabled={h === "Day off"}
                 borderColor={"blue.900"}
-                bg={h === "Day off" ? "yellow.400" : ""}
+                textColor={"blue.900"}
+                _hover={{ bg: "" }}
+                opacity={h === "Day off" ? "50%" : "100%"}
+                bg={
+                  h === "Day off" || `${slot.date}T${h}` === selectDate
+                    ? "yellow.400"
+                    : ""
+                }
               >
-                <Text textColor={"blue.900"}>{h}</Text>
-              </Flex>
+                {h}
+              </Button>
             ))}
           </Flex>
         </GridItem>

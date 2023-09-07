@@ -42,6 +42,7 @@ const Specialists = () => {
 
   return (
     <Box as={"main"} w={["100%", "85%", "95%"]} mx={"auto"} minH={"100vh"}>
+      {isScheduleOpened && <ScheduleModal />}
       <Heading
         as={"h1"}
         variant={"main"}
@@ -49,7 +50,7 @@ const Specialists = () => {
       >
         Specialists
       </Heading>
-      {isScheduleOpened && <ScheduleModal />}
+      
       <SearchBar
         searchTerms={searchTerms}
         setSearchTerms={setSearchTerms}

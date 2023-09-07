@@ -1,4 +1,15 @@
-import { Button, Flex, Heading, Image } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  ModalContent,
+  ModalOverlay,
+  ModalFooter,
+  Image,
+  Portal,
+} from "@chakra-ui/react";
 import useAuth from "../contexts/AuthContext";
 import { genMonth } from "../utils";
 import { useEffect, useState, useRef, useMemo } from "react";
@@ -10,7 +21,7 @@ import useWindowBreakpoints from "../hooks/useWindowBreakpoints";
 const ScheduleModal = () => {
   const month = useMemo(() => genMonth(), []);
   const steps = useWindowBreakpoints({ tablet: 768, desktop: 1088 });
-  const { setIsScheduleOpened } = useAuth();
+  const { isScheduleOpened, setIsScheduleOpened } = useAuth();
 
   const [slidingWindow, setSlidingWindow] = useState({ left: 0, right: steps });
   const isFirstRender = useRef(true);
@@ -47,6 +58,10 @@ const ScheduleModal = () => {
     }
   };
 
+  const closeModal = () => {
+    setIsScheduleOpened(false);
+  };
+
   useEffect(() => {
     if (!isFirstRender.current) {
       const diff = Math.abs(steps - prevStep.current);
@@ -58,7 +73,7 @@ const ScheduleModal = () => {
           : diff;
 
       setSlidingWindow((prevPos) => ({
-        left: prevPos.left,
+        ...prevPos,
         right: prevPos.right + toAdd,
       }));
       prevStep.current = steps;
@@ -66,93 +81,92 @@ const ScheduleModal = () => {
     isFirstRender.current = false;
   }, [steps]);
   return (
-    <Flex justify={"center"} mt={"-8rem"}>
-      <Flex
-        pos={"absolute"}
-        top={"0"}
-        left={"0"}
-        bottom={"0"}
-        right={"0"}
-        bg={"black"}
-        zIndex={100}
-        opacity={"60%"}
-        onClick={() => setIsScheduleOpened(false)}
-      ></Flex>
-      <Flex
-        direction={"column"}
-        mx={"auto"}
-        w={["80%", "40rem", "46rem"]}
-        gap={"2.5rem"}
-        shadow={"md"}
-        padding={["1rem 2.5rem", "2rem 2.5rem"]}
-        borderRadius={"6px"}
-        bg={"#fff"}
-        pos={"fixed"}
-        zIndex={101}
-      >
-        <Heading size={["md", "lg"]}>Schedule an Appointment</Heading>
-        <Flex justify={"space-between"}  overflow={"hidden"}>
-          <Button
-            onClick={decrementSlide}
-            p={"0.625rem"}
-            bg={isPrevDisabled ? "rgba(244, 180, 0, 0.5)" : "yellow.400"}
-            alignItems={"center"}
-            pos={"relative"}
-            zIndex={8}
-            cursor={isPrevDisabled ? "not-allowed" : "pointer"}
-            _hover={{
-              bg: isPrevDisabled ? "rgba(244, 180, 0, 0.5)" : "yellow.400",
-            }}
-            disabled={isPrevDisabled}
-          >
-            <Image
-              src={arrowLeft}
-              userSelect={"none"}
-              alt="Left navigation arrow"
-            />
-          </Button>
-          <DisplayDays
-            slots={month.slice(slidingWindow.left, slidingWindow.right)}
-          />
-          <Button
-            onClick={incrementSlide}
-            p={"0.625rem"}
-            pos={"relative"}
-            zIndex={8}
-            bg={isNextDisabled ? "rgba(244, 180, 0, 0.6)" : "yellow.400"}
-            alignItems={"center"}
-            cursor={isNextDisabled ? "not-allowed" : "pointer"}
-            _hover={{
-              bg: isNextDisabled ? "rgba(244, 180, 0, 0.6)" : "yellow.400",
-            }}
-            disabled={isNextDisabled}
-          >
-            <Image
-              src={arrowRight}
-              userSelect={"none"}
-              alt="Right navigation arrow"
-            />
-          </Button>
-        </Flex>
-        <Flex justify={"end"} gap={2}>
-          <Button
-            bg={"yellow.400"}
-            _hover={{ bg: "yellow.300" }}
-            textColor={"blue.900"}
-            onClick={() => setIsScheduleOpened(false)}
-          >
-            Cancel
-          </Button>
-          <Button
-            bg={"yellow.400"}
-            _hover={{ bg: "yellow.300" }}
-            textColor={"blue.900"}
-          >
-            Schedule
-          </Button>
-        </Flex>
-      </Flex>
-    </Flex>
+    <Portal>
+      <Modal isOpen={isScheduleOpened} onClose={closeModal}>
+        <ModalOverlay onClick={closeModal} />
+        <ModalContent
+          display={"flex"}
+          direction={"column"}
+          maxW={"auto"}
+          gap={"1.5rem"}
+          w={["80%", "40rem", "46rem"]}
+          shadow={"md"}
+          padding={["1rem 2.5rem", "2rem 2.5rem"]}
+          borderRadius={"6px"}
+        >
+          <ModalHeader fontSize={["xl", "3xl"]} p={0}>Schedule an Appointment</ModalHeader>
+          <ModalBody p={0}>
+            <Flex justify={"space-between"} overflow={"hidden"}>
+              <Button
+                onClick={decrementSlide}
+                p={"0.625rem"}
+                bg={isPrevDisabled ? "rgba(244, 180, 0, 0.5)" : "yellow.400"}
+                alignItems={"center"}
+                pos={"relative"}
+                zIndex={8}
+                cursor={isPrevDisabled ? "not-allowed" : "pointer"}
+                _hover={{
+                  bg: isPrevDisabled ? "rgba(244, 180, 0, 0.5)" : "yellow.400",
+                }}
+                disabled={isPrevDisabled}
+              >
+                <Image
+                  src={arrowLeft}
+                  userSelect={"none"}
+                  alt="Left navigation arrow"
+                />
+              </Button>
+              <DisplayDays
+                slots={month.slice(slidingWindow.left, slidingWindow.right)}
+              />
+              <Button
+                onClick={incrementSlide}
+                p={"0.625rem"}
+                pos={"relative"}
+                zIndex={8}
+                bg={isNextDisabled ? "rgba(244, 180, 0, 0.6)" : "yellow.400"}
+                alignItems={"center"}
+                cursor={isNextDisabled ? "not-allowed" : "pointer"}
+                _hover={{
+                  bg: isNextDisabled ? "rgba(244, 180, 0, 0.6)" : "yellow.400",
+                }}
+                disabled={isNextDisabled}
+              >
+                <Image
+                  src={arrowRight}
+                  userSelect={"none"}
+                  alt="Right navigation arrow"
+                />
+              </Button>
+            </Flex>
+            <ModalFooter mt={"2.5rem"} p={0} display={"flex"} gap={3}>
+              <Button
+                bg={"transparent"}
+                border={"2px solid"}
+                borderColor={"yellow.400"}
+                padding={"0.625rem 4rem"}
+                transition={"0.3s all ease"}
+                _hover={{ bg: "transparent", borderColor: "red.300" }}
+    
+                textColor={"blue.900"}
+                onClick={closeModal}
+              >
+                Cancel
+              </Button>
+              <Button
+                bg={"yellow.400"}
+                padding={"0.625rem 4rem"}
+                _hover={{ bg: "red.300" }}
+                transition={"0.3s all ease"}
+                textColor={"blue.900"}
+              >
+                Schedule
+              </Button>
+            </ModalFooter>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </Portal>
   );
 };
 

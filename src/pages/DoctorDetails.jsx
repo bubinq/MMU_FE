@@ -5,17 +5,25 @@ import { faLocationDot, faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Spinner from "../components/Spinner.jsx";
 import useSpinner from "../hooks/useSpinner.jsx";
+import ScheduleModal from "../components/ScheduleModal.jsx";
+import useAuth from "../contexts/AuthContext.jsx";
 
 const DoctorDetails = () => {
   const data = useLoaderData();
+  const { isScheduleOpened, setIsScheduleOpened } = useAuth();
   const isLoading = useSpinner();
 
+  const toggleSchedule = (ev) => {
+    ev.preventDefault();
+    setIsScheduleOpened(!isScheduleOpened);
+  };
   return (
     <>
       {isLoading ? (
         <Spinner />
       ) : (
         <Box mx={"auto"} minHeight={"100vh"}>
+          {isScheduleOpened && <ScheduleModal />}
           <Flex
             w={["310px", "740px", "1034px"]}
             minHeight={"622px"}
@@ -33,6 +41,7 @@ const DoctorDetails = () => {
               overflow={"hidden"}
               backgroundColor={"#fff"}
             >
+              
               <Box
                 // background="linear-gradient(90deg, rgba(217,175,14,1) 0%, rgba(195,71,35,1) 100%)"
                 background="linear-gradient(90deg, rgba(244,180,0,1) 0%, rgba(217,175,14,1) 100%)"
@@ -46,7 +55,11 @@ const DoctorDetails = () => {
                 mb={"8px"}
                 display={["none", "flex", "flex"]}
               >
-                <Flex direction={"column"} gap={"1.875rem"} alignItems={"center"}>
+                <Flex
+                  direction={"column"}
+                  gap={"1.875rem"}
+                  alignItems={"center"}
+                >
                   <Flex gap={2}>
                     <FontAwesomeIcon
                       icon={faLocationDot}
@@ -58,9 +71,10 @@ const DoctorDetails = () => {
 
                   <Button
                     bg={"yellow.400"}
-                    _hover={{ bg: "yellow.300" }}
+                    _hover={{ bg: "red.300" }}
                     textColor={"blue.900"}
                     w={"100%"}
+                    onClick={toggleSchedule}
                   >
                     Schedule an Appointment
                   </Button>
