@@ -14,6 +14,7 @@ import { getSpecialistsSettings } from "../pages/Specialists";
 import Specialists, { loader as getSpecialistData } from "../pages/Specialists";
 import { loader as checkTokenAvailability } from "../components/Auth/AuthResetForm";
 import { loader as getConfirmationToken } from "../components/Auth/AuthModal";
+import {loader as getAppointmentsData} from "../pages/Appointments"
 import AuthPage from "../pages/AuthPage.jsx";
 import AuthModal from "../components/Auth/AuthModal";
 import AuthForm from "../components/Auth/AuthForm";
@@ -59,6 +60,7 @@ export const router = createBrowserRouter([
       {
         path: "/appointments",
         element: <Appointments />,
+        loader: getAppointmentsData,
       },
 
       {

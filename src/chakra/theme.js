@@ -75,7 +75,7 @@ export const theme = extendTheme({
       variants: {
         main: {
           color: "blue.900",
-          mt: "8.25rem",
+          mt: "7.25rem",
         },
         errorHeading: {
           color: "blue.900",

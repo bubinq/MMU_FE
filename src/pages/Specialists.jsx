@@ -10,11 +10,14 @@ import { requestExecuter } from "../utils.js";
 import useScrollToTop from "../hooks/useScrollToTop.jsx";
 import useSpinner from "../hooks/useSpinner.jsx";
 import Spinner from "../components/Spinner.jsx";
+import ScheduleModal from "../components/ScheduleModal.jsx";
+import useAuth from "../contexts/AuthContext.jsx";
 
 const Specialists = () => {
   const data = useLoaderData();
   const actionData = useActionData();
   const isLoading = useSpinner();
+  const { isScheduleOpened } = useAuth();
   useScrollToTop();
 
   const fromSpecialtyCard = actionData && actionData.length > 0;
@@ -39,6 +42,7 @@ const Specialists = () => {
 
   return (
     <Box as={"main"} w={["100%", "85%", "95%"]} mx={"auto"} minH={"100vh"}>
+      {isScheduleOpened && <ScheduleModal />}
       <Heading
         as={"h1"}
         variant={"main"}
@@ -46,6 +50,7 @@ const Specialists = () => {
       >
         Specialists
       </Heading>
+      
       <SearchBar
         searchTerms={searchTerms}
         setSearchTerms={setSearchTerms}

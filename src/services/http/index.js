@@ -3,6 +3,7 @@ import { BASE_API } from "../../constants";
 
 export const axiosEnv = axios.create({
   baseURL: BASE_API,
+  // withCredentials: true,
 });
 
 const call =

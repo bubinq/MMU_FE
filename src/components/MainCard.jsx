@@ -1,14 +1,21 @@
-import { Card, CardBody, Image, Box, Flex } from "@chakra-ui/react";
+import { Card, CardBody, Image, Box, Flex, Button } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import useAuth from "../contexts/AuthContext";
 
 const MainCard = ({ title, specialty, rating, location, img, source }) => {
+  const { isScheduleOpened, setIsScheduleOpened } = useAuth();
+
+  const toggleSchedule = (ev) => {
+    ev.preventDefault();
+    setIsScheduleOpened(!isScheduleOpened);
+  };
   return (
     <Card
       as={"article"}
       maxW="410px"
-      minH="420px"
+      minH="480px"
       borderRadius={"5%"}
       boxShadow={"0px 2px 6px 1px rgba(0,0,0,0.75);"}
       overflow={"hidden"}
@@ -21,7 +28,7 @@ const MainCard = ({ title, specialty, rating, location, img, source }) => {
           as={motion.img}
           transition={"0.2s all"}
           whileHover={{ scale: 1.05 }}
-          h={specialty ? "75%" : "90%"}
+          h={specialty ? "65%" : "90%"}
           w={"100%"}
           objectFit={"cover"}
           src={img}
@@ -35,7 +42,7 @@ const MainCard = ({ title, specialty, rating, location, img, source }) => {
           h={"4%"}
           w={"94.1%"}
           left={"3%"}
-          top={specialty ? "75%" : "92%"}
+          top={specialty ? "65%" : "92%"}
           bg={"white"}
           boxShadow={"0px 0px 20px 30px rgba(255, 255, 255, 1)"}
           overflow={"hidden"}
@@ -64,7 +71,7 @@ const MainCard = ({ title, specialty, rating, location, img, source }) => {
           <Flex
             justify={"space-between"}
             position={"absolute"}
-            top={"73%"}
+            top={"63%"}
             direction={"column"}
             gap={3}
             width={"100%"}
@@ -82,13 +89,24 @@ const MainCard = ({ title, specialty, rating, location, img, source }) => {
                 </Flex>
               </Flex>
             </Flex>
-            <Flex gap={3} alignItems={"center"}>
+            <Flex gap={2} alignItems={"center"}>
               <FontAwesomeIcon
                 icon={faLocationDot}
                 fontSize={"1.5rem"}
                 color={"#5b4a0d"}
               />
               {location}
+            </Flex>
+            <Flex>
+              <Button
+                bg={"yellow.400"}
+                _hover={{ bg: "red.300" }}
+                textColor={"blue.900"}
+                w={"100%"}
+                onClick={toggleSchedule}
+              >
+                Schedule an Appointment
+              </Button>
             </Flex>
           </Flex>
         )}
