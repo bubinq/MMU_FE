@@ -1,10 +1,8 @@
-import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Flex } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { TABLET_DEVICES_RES } from "../constants";
 import { shouldNavShow } from "../utils";
-import { useWindowResize } from "../hooks/useWindowResize";
+import useWindowBreakpoints from "../hooks/useWindowBreakpoints";
 import { useWindowScroll } from "../hooks/useWindowScroll";
 import Logo from "./Logo";
 import MenuList from "./MenuList";
@@ -13,7 +11,7 @@ import useAuth from "../contexts/AuthContext";
 import NavModal from "./NavModal";
 
 const Navbar = () => {
-  const { width } = useWindowResize();
+  const steps  = useWindowBreakpoints({ tablet: 768, desktop: 997 });
   const { scroll, prevScroll } = useWindowScroll();
   const { user, isMenuOpened } = useAuth();
 
@@ -37,8 +35,8 @@ const Navbar = () => {
       <NavLink to="/">
         <Logo />
       </NavLink>
-      <MenuList width={width} />
-      {width > TABLET_DEVICES_RES ? (
+      <MenuList steps={steps} />
+      {steps > 2 ? (
         <>
           {user.accessToken ? (
             <Buttons type={"logout"} text={"Log out"} />

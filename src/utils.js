@@ -36,6 +36,29 @@ export const requestExecuter = async (request) => {
   return data;
 };
 
+const genWorkingHours = (day) => {
+  return Array.from({length: 8}, (_, idx) => {
+    const isDayOff = day === "Saturday" || day ===  "Sunday";
+    return isDayOff ? "Day off" : `${idx===0 ? "0" : ""}${9 + idx}:00`
+  })
+}
+
+export const genMonth = () => {
+  return Array.from({ length: 30 }, (_, idx) => {
+    const currDay = new Date(
+      new Date().getTime() + 86400000 * (idx + 1)
+    ).toLocaleDateString();
+    const dayOfWeek = new Intl.DateTimeFormat("en-Us", {
+      weekday: "long",
+    }).format(new Date(currDay));
+    return {
+      day: dayOfWeek,
+      date: currDay,
+      workingHours: genWorkingHours(dayOfWeek),
+    };
+  });
+};
+
 export const passwordSchema = object({
   password: string()
     .required("Please enter a password.")

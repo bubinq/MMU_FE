@@ -1,4 +1,4 @@
-import { Flex, Grid, Heading, Alert, AlertIcon } from "@chakra-ui/react";
+import { Flex, Grid, Heading } from "@chakra-ui/react";
 import { useLoaderData } from "react-router-dom";
 import { requestExecuter } from "../utils";
 import specialtyService from "../services/specialty";
@@ -19,16 +19,6 @@ const Home = () => {
       w={["75%", "85%", "95%"]}
       mx={"auto"}
     >
-      <Alert
-        mt={"120px"}
-        status="success"
-        fontSize={"lg"}
-        fontWeight={600}
-        variant="subtle"
-      >
-        <AlertIcon />
-        Request a new Token
-      </Alert>
       <Heading variant={"main"}>Specialties</Heading>
       <Grid
         templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)", "repeat(3, 1fr)"]}
