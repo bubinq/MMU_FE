@@ -41,9 +41,7 @@ const DoctorDetails = () => {
               overflow={"hidden"}
               backgroundColor={"#fff"}
             >
-              
               <Box
-                // background="linear-gradient(90deg, rgba(217,175,14,1) 0%, rgba(195,71,35,1) 100%)"
                 background="linear-gradient(90deg, rgba(244,180,0,1) 0%, rgba(217,175,14,1) 100%)"
                 w={"100%"}
                 h={"148px"}
