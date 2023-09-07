@@ -1,6 +1,7 @@
 import { Flex, Grid, Heading } from "@chakra-ui/react";
 import { useLoaderData } from "react-router-dom";
 import { requestExecuter } from "../utils";
+import { REQUEST_NEW_VERIFICATION } from "../constants";
 import specialtyService from "../services/specialty";
 import SpecialtyList from "../components/Specialties/SpecialtyList";
 import useScrollToTop from "../hooks/useScrollToTop";
