@@ -85,8 +85,7 @@ main {
 
 .search-icon {
   position: absolute;
-  right: 5%;
-  top: 46%;
+  right: 10px;
 }
 
 .invalid-input {
