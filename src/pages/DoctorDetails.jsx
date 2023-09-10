@@ -14,12 +14,14 @@ import { faLocationDot, faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ScheduleModal from "../components/ScheduleModal.jsx";
 import useAppointments from "../contexts/AppointmentsContext.jsx";
+import useAuth from "../contexts/AuthContext.jsx";
 
 const DoctorDetails = () => {
   const [hover, setHover] = useState(0);
   const [rating, setRating] = useState(0);
   const data = useLoaderData();
   const { scheduleInfo, setScheduleInfo } = useAppointments();
+  const {user} = useAuth();
 
   const toggleSchedule = (ev) => {
     ev.preventDefault();
@@ -95,6 +97,7 @@ const DoctorDetails = () => {
                 textColor={"blue.900"}
                 w={"100%"}
                 onClick={toggleSchedule}
+                isDisabled={!user.accessToken}
               >
                 Schedule an Appointment
               </Button>
