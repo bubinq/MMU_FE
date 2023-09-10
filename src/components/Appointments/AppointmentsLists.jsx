@@ -1,7 +1,9 @@
 import { Flex, Heading, Accordion } from "@chakra-ui/react";
 import AppointmentItem from "./AppointmentItem";
+import { useState } from "react";
 
-const AppointmentsList = ({ appointments }) => {
+const AppointmentsList = ({ appointments, setAppointments }) => {
+  const [accordionIndex, setAccordionIndex] = useState(-1)
   return (
     <>
       {appointments.length === 0 ? (
@@ -12,17 +14,17 @@ const AppointmentsList = ({ appointments }) => {
         </>
       ) : (
         <Accordion
-          as={"section"}
           w={"100%"}
           direction={"column"}
           gap={5}
           px={6}
           py={8}
           allowToggle
-
+          index={accordionIndex}
+          onChange={(i) => setAccordionIndex(i)}
         >
           {appointments.map((data) => (
-            <AppointmentItem key={data.id} data={data} />
+            <AppointmentItem key={data.id} data={data} setAppointments={setAppointments} setAccordionIndex={setAccordionIndex} />
           ))}
         </Accordion>
       )}

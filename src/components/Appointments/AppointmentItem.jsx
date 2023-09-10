@@ -17,11 +17,23 @@ import {
 } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import { useState, useRef } from 'react'
-const AppointmentItem = ({ data }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+import { useRef } from 'react'
+import appointmentsService from '../../services/appointments/index'
+const AppointmentItem = ({ data, setAppointments, setAccordionIndex }) => {
+  const { isOpen, onToggle } = useDisclosure();
   const cancelRef = useRef();
-  const page = 'upcoming'
+  const page = 'upcoming';
+  const onCancel = async (id) => {
+    try {
+      await appointmentsService.cancelAppointment(id);
+      setAppointments(state => state.filter(x => x.id !== id))
+      setAccordionIndex(-1)
+    }
+    catch (err) {
+      console.log(err.message)
+    }
+  }
+
   return (
     <AccordionItem mt='1rem'>
       <Box
@@ -40,7 +52,7 @@ const AppointmentItem = ({ data }) => {
           justifyContent={["space-between", "initial"]}
         >
           <Text fontWeight="700">Date</Text>
-          <Text>{data.date}</Text>
+          <Text>{data.startTime.split('T')[0]}</Text>
         </Box>
         <Box
           textAlign={["center", "left"]}
@@ -48,7 +60,7 @@ const AppointmentItem = ({ data }) => {
           justifyContent={["space-between", "initial"]}
         >
           <Text fontWeight="700">Doctor</Text>
-          <Text>{data.doctor}</Text>
+          <Text>{data.doctorName}</Text>
         </Box>
         <AccordionButton
           w="auto"
@@ -90,8 +102,6 @@ const AppointmentItem = ({ data }) => {
             <Box
               display="flex"
               alignItems='center'
-            // ml='2rem'
-            // key={x}
             >
               <FontAwesomeIcon
                 icon={faLocationDot}
@@ -104,7 +114,7 @@ const AppointmentItem = ({ data }) => {
                 fontSize={["14px", "14px", "14px", "16px"]}
                 textAlign='left'
               >
-                New York Brato
+                {data.appointmentAddress}
               </Text>
             </Box>
           </Box>
@@ -120,7 +130,7 @@ const AppointmentItem = ({ data }) => {
                 _hover={{
                   bg: "#FF1B00",
                 }}
-                onClick={onOpen}
+                onClick={onToggle}
                 minW="auto"
                 mx={["auto", "0"]}
                 fontSize={["12px", "13px", "15px"]}
@@ -131,7 +141,7 @@ const AppointmentItem = ({ data }) => {
               <AlertDialog
                 isOpen={isOpen}
                 leastDestructiveRef={cancelRef}
-                onClose={onClose}
+                onClose={onToggle}
                 isCentered
                 motionPreset="slideInBottom"
               >
@@ -147,12 +157,12 @@ const AppointmentItem = ({ data }) => {
                     <AlertDialogFooter>
                       <Button
                         ref={cancelRef}
-                        onClick={onClose}
+                        onClick={onToggle}
                       >
                         Back
                       </Button>
                       <Button
-                        // onClick={() => onCancel()}
+                        onClick={() => onCancel(data.id)}
                         bg="#D71C21"
                         ml="10px"
                         color='#fff'

@@ -47,7 +47,7 @@ const Appointments = () => {
           >
             <AppointmentsHeading />
 
-            <AppointmentsList appointments={appointments} />
+            <AppointmentsList appointments={appointments} setAppointments={setAppointments} />
           </Flex>
         </>
       )}
