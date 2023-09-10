@@ -31,9 +31,6 @@ const Appointments = () => {
   const goToPage = async (e, value) => {
     try {
       const data = await appointmentsService.getPage(value - 1);
-      if (appointments.length === 0) {
-        window.location.reload();
-      }
       setPage(value);
       setAppointments(data.content);
     } catch (error) {
