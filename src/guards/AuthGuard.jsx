@@ -1,13 +1,12 @@
 import { Navigate } from "react-router-dom";
 import useAuth from "../contexts/AuthContext";
 
-const RouteGuard = ({children}) => {
+const AuthGuard = ({children}) => {
   const { user } = useAuth();
-
   if (!user.accessToken) {
     return <>{children}</>;
   }
   return <Navigate to={"/"} replace />;
 };
 
-export default RouteGuard;
+export default AuthGuard;

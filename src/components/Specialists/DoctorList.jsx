@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
-const DoctorList = ({ doctors, specialties }) => {
+const DoctorList = ({ doctors }) => {
 
   return (
     <>
@@ -52,6 +52,7 @@ const DoctorList = ({ doctors, specialties }) => {
                 }
                 img={d.imageUrl}
                 source={"docs"}
+                id={d.id}
               />
             </Link>
           ))}

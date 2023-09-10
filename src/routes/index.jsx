@@ -8,13 +8,13 @@ import DoctorDetails, {
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Appointments from "../pages/Appointments";
-import RouteGuard from "../guards/RouteGuard";
+import AuthGuard from "../guards/AuthGuard";
 import { loader as getAllSpecialties } from "../pages/Home";
 import { getSpecialistsSettings } from "../pages/Specialists";
 import Specialists, { loader as getSpecialistData } from "../pages/Specialists";
 import { loader as checkTokenAvailability } from "../components/Auth/AuthResetForm";
 import { loader as getConfirmationToken } from "../components/Auth/AuthModal";
-import {loader as getAppointmentsData} from "../pages/Appointments"
+import { loader as getAppointmentsData } from "../pages/Appointments";
 import AuthPage from "../pages/AuthPage.jsx";
 import AuthModal from "../components/Auth/AuthModal";
 import AuthForm from "../components/Auth/AuthForm";
@@ -66,14 +66,18 @@ export const router = createBrowserRouter([
       {
         path: "/login",
         element: (
-          <RouteGuard>
+          <AuthGuard>
             <Login />
-          </RouteGuard>
+          </AuthGuard>
         ),
       },
       {
         path: "/register",
-        element: <Register />,
+        element: (
+          <AuthGuard>
+            <Register />
+          </AuthGuard>
+        ),
       },
       {
         path: "/auth",

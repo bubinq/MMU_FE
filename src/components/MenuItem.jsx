@@ -3,17 +3,17 @@ import { Text } from "@chakra-ui/react";
 import useAuth from "../contexts/AuthContext";
 
 const MenuItem = ({ to, children }) => {
-  const { handleMenuClick } = useAuth();
+  const { handleMenuClick, isMenuOpened } = useAuth();
   return (
     <NavLink
       aria-label={children}
-      onClick={handleMenuClick}
+      onClick={isMenuOpened && handleMenuClick}
       className={({ isActive, isPending }) =>
         isPending ? "pending" : isActive ? "active-link" : "styled-link"
       }
       to={to}
     >
-      <Text fontSize={"xl"} color={"black"}>
+      <Text fontSize={"lg"} color={"black"}>
         {children}
       </Text>
     </NavLink>
