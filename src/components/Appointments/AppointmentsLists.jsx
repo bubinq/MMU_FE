@@ -1,4 +1,4 @@
-import { Flex, Heading } from "@chakra-ui/react";
+import { Flex, Heading, Accordion } from "@chakra-ui/react";
 import AppointmentItem from "./AppointmentItem";
 
 const AppointmentsList = ({ appointments }) => {
@@ -11,11 +11,20 @@ const AppointmentsList = ({ appointments }) => {
           </Heading>
         </>
       ) : (
-        <Flex as={"section"} w={"100%"} direction={"column"} gap={5} px={6} py={8}>
+        <Accordion
+          as={"section"}
+          w={"100%"}
+          direction={"column"}
+          gap={5}
+          px={6}
+          py={8}
+          allowToggle
+
+        >
           {appointments.map((data) => (
             <AppointmentItem key={data.id} data={data} />
           ))}
-        </Flex>
+        </Accordion>
       )}
     </>
   );

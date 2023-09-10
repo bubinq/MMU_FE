@@ -14,10 +14,12 @@ const AppointmentsHeading = () => {
         <ChakraLink
           as={NavLink}
           textDecoration={"none"}
-          fontSize={"1.5rem"}
+          fontSize={["1.4rem", "1.5rem"]}
           textAlign={"center"}
           textColor={"yellow.400"}
-          _hover={{textDecoration: "none"}}
+          _hover={{ textDecoration: "none" }}
+          display='flex'
+          alignItems='center'
         >
           Upcoming appointments
         </ChakraLink>
@@ -26,10 +28,12 @@ const AppointmentsHeading = () => {
         <ChakraLink
           as={NavLink}
           textDecoration={"none"}
-          fontSize={"1.5rem"}
+          fontSize={["1.4rem", "1.5rem"]}
           textAlign={"center"}
           textColor={"grey"}
-          _hover={{textDecoration: "none"}}
+          _hover={{ textDecoration: "none" }}
+          display='flex'
+          alignItems='center'
         >
           Past appointments
         </ChakraLink>
