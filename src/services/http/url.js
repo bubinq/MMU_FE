@@ -49,6 +49,7 @@ const auth = {
 const appointments = {
   getUpcoming: (type) => `/appointments/search?type=${type}`,
   scheduleAppointment: `/appointments`,
+  cancel: (id) => `/appointments/${id}`,
   getDoctorAppointments: (id) => `/doctors/${id}/appointments`,
 };
 

@@ -1,4 +1,4 @@
-import { callGet, callPost } from "../http/index.js";
+import { callGet, callPatch, callPost } from "../http/index.js";
 import urls from "../http/url.js";
 
 const appointmentsService = {
@@ -7,6 +7,7 @@ const appointmentsService = {
   getUpcoming: (type) => callGet(urls.appointments.getUpcoming(type)),
   getDoctorAppointments: (id) =>
     callGet(urls.appointments.getDoctorAppointments(id)),
+  cancelAppointment: (id) => callPatch(urls.appointments.cancel(id)),
 };
 
 export default appointmentsService;

@@ -3,9 +3,12 @@ import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import useAppointments from "../contexts/AppointmentsContext";
+import useAuth from "../contexts/AuthContext"
 
 const MainCard = ({ id, title, specialty, rating, location, img, source }) => {
   const { setScheduleInfo } = useAppointments();
+  const {user} = useAuth();
+  console.log(user.accessToken);
 
   const toggleSchedule = (ev) => {
     ev.preventDefault();
@@ -104,6 +107,7 @@ const MainCard = ({ id, title, specialty, rating, location, img, source }) => {
                 textColor={"blue.900"}
                 w={"100%"}
                 onClick={toggleSchedule}
+                isDisabled={!user.accessToken}
               >
                 Schedule an Appointment
               </Button>
