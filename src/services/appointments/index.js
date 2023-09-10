@@ -8,6 +8,7 @@ const appointmentsService = {
   getDoctorAppointments: (id) =>
     callGet(urls.appointments.getDoctorAppointments(id)),
   cancelAppointment: (id) => callPatch(urls.appointments.cancel(id)),
+  getPage: (pageNum) => callGet(urls.appointments.getPage(pageNum)),
 };
 
 export default appointmentsService;

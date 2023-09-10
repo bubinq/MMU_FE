@@ -1,6 +1,8 @@
 import { Flex, Heading } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLoaderData, redirect } from "react-router-dom";
+import Pagination from "@mui/material/Pagination";
+import { ThemeProvider, createTheme } from "@mui/material";
 import specialtyService from "../services/specialty";
 import appointmentsService from "../services/appointments";
 import useSpinner from "../hooks/useSpinner";
@@ -12,6 +14,11 @@ import AppointmentsHeading from "../components/Appointments/AppointmentsHeading"
 const Appointments = () => {
   const data = useLoaderData();
   const isLoading = useSpinner();
+  const theme = createTheme({
+    palette: {
+      primary: { main: "#F4B400", contrastText: "#200017" },
+    },
+  });
   const [searchTerms, setSearchTerms] = useState({
     name: "",
     specialty: "",
@@ -19,7 +26,26 @@ const Appointments = () => {
     to: "",
   });
   const [appointments, setAppointments] = useState(data.upcoming.content || []);
+  const [page, setPage] = useState(1);
 
+  const goToPage = async (e, value) => {
+    try {
+      const data = await appointmentsService.getPage(value - 1);
+      if (appointments.length === 0) {
+        window.location.reload();
+      }
+      setPage(value);
+      setAppointments(data.content);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (appointments.length === 0 && page > 1) {
+      window.location.reload();
+    }
+  }, [appointments, page]);
   return (
     <Flex
       as={"section"}
@@ -47,7 +73,23 @@ const Appointments = () => {
           >
             <AppointmentsHeading />
 
-            <AppointmentsList appointments={appointments} setAppointments={setAppointments} />
+            <AppointmentsList
+              appointments={appointments}
+              setAppointments={setAppointments}
+            />
+            {appointments.length > 0 && (
+              <ThemeProvider theme={theme}>
+                <Flex justify={"center"} pb={"20px"}>
+                  <Pagination
+                    count={data.upcoming.totalPages}
+                    size="large"
+                    color="primary"
+                    page={page}
+                    onChange={goToPage}
+                  />
+                </Flex>
+              </ThemeProvider>
+            )}
           </Flex>
         </>
       )}

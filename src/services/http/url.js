@@ -51,6 +51,7 @@ const appointments = {
   scheduleAppointment: `/appointments`,
   cancel: (id) => `/appointments/${id}`,
   getDoctorAppointments: (id) => `/doctors/${id}/appointments`,
+  getPage: (pageNum) => `/appointments/search?type=UPCOMING&pageNo=${pageNum}`,
 };
 
 const urls = {

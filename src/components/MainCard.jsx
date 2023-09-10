@@ -8,7 +8,6 @@ import useAuth from "../contexts/AuthContext"
 const MainCard = ({ id, title, specialty, rating, location, img, source }) => {
   const { setScheduleInfo } = useAppointments();
   const {user} = useAuth();
-  console.log(user.accessToken);
 
   const toggleSchedule = (ev) => {
     ev.preventDefault();
