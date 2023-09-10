@@ -2,14 +2,14 @@ import { Card, CardBody, Image, Box, Flex, Button } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import useAuth from "../contexts/AuthContext";
+import useAppointments from "../contexts/AppointmentsContext";
 
-const MainCard = ({ title, specialty, rating, location, img, source }) => {
-  const { isScheduleOpened, setIsScheduleOpened } = useAuth();
+const MainCard = ({ id, title, specialty, rating, location, img, source }) => {
+  const { setScheduleInfo } = useAppointments();
 
   const toggleSchedule = (ev) => {
     ev.preventDefault();
-    setIsScheduleOpened(!isScheduleOpened);
+    setScheduleInfo(prev => ({doctorId: id, isOpened: !prev.isOpened}));
   };
   return (
     <Card

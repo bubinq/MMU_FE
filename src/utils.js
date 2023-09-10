@@ -36,14 +36,34 @@ export const requestExecuter = async (request) => {
   return data;
 };
 
-const genWorkingHours = (day) => {
-  return Array.from({length: 8}, (_, idx) => {
-    const isDayOff = day === "Saturday" || day ===  "Sunday";
-    return isDayOff ? "Day off" : `${idx===0 ? "0" : ""}${9 + idx}:00`
-  })
-}
+const genWorkingHours = (day, reservedDay) => {
+  let isReserved = typeof reservedDay === "object";
+  return Array.from({ length: 8 }, (_, idx) => {
+    const hour = `${idx === 0 ? "0" : ""}${9 + idx}:00`;
+    const isDayOff = day === "Saturday" || day === "Sunday";
+    const reservedHour = isReserved && reservedDay.find(h => parseInt(h) === parseInt(hour))
+    if (isDayOff) return "Day off";
+    if (reservedHour) {
+      return "Reserved";
+    }
+    return hour
+  });
+};
 
-export const genMonth = () => {
+export const genMonth = (availableHours) => {
+  let days = {};
+  if (availableHours) {
+    const formattedData = availableHours.map((appointment) =>
+      appointment.split("T")
+    );
+    for (const [key, value] of formattedData) {
+      let formattedKey = new Date(key).toLocaleDateString();
+      if (!(formattedKey in days)) {
+        days[formattedKey] = [];
+      }
+      days[formattedKey].push(value);
+    }
+  }
   return Array.from({ length: 30 }, (_, idx) => {
     const currDay = new Date(
       new Date().getTime() + 86400000 * (idx + 1)
@@ -51,10 +71,11 @@ export const genMonth = () => {
     const dayOfWeek = new Intl.DateTimeFormat("en-Us", {
       weekday: "long",
     }).format(new Date(currDay));
+    const reservedDays = days[currDay];
     return {
       day: dayOfWeek,
       date: currDay,
-      workingHours: genWorkingHours(dayOfWeek),
+      workingHours: genWorkingHours(dayOfWeek, reservedDays),
     };
   });
 };

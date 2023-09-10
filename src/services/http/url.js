@@ -46,7 +46,14 @@ const auth = {
   forgottenPassword: "/auth/forgot",
 };
 
+const appointments = {
+  getUpcoming: (type) => `/appointments/search?type=${type}`,
+  scheduleAppointment: `/appointments`,
+  getDoctorAppointments: (id) => `/doctors/${id}/appointments`,
+};
+
 const urls = {
+  appointments,
   specialty,
   specialist,
   country,

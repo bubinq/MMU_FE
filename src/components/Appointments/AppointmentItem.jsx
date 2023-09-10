@@ -15,11 +15,11 @@ const AppointmentItem = ({ data }) => {
       <Flex gap={5}>
         <Flex direction={"column"}>
           <Text fontWeight={700}>Date</Text>
-          <Text>{data.date}</Text>
+          <Text>{data.startTime.split("T")[0]}</Text>
         </Flex>
         <Flex direction={"column"}>
           <Text fontWeight={700}>Doctor</Text>
-          <Text>{data.doctor}</Text>
+          <Text>{data.doctorName}</Text>
         </Flex>
       </Flex>
       <Flex>

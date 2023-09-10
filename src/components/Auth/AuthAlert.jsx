@@ -2,7 +2,7 @@ import { Flex, Image } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import exclamation from "../../assets/exclamation.svg";
 
-const AuthAlert = ({ serverError }) => {
+const AuthAlert = ({ serverError, isSchedule }) => {
   return (
     <Flex
       position={"relative"}
@@ -11,7 +11,9 @@ const AuthAlert = ({ serverError }) => {
       initial={{ opacity: 0, scale: 0 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0 }}
-      w={"100%"}
+      w={isSchedule ? "60%":"100%"}
+      mx={isSchedule && "auto"}
+      mb={isSchedule && "2rem"}
       backgroundColor={"#D71C21"}
       borderRadius={"0.3125rem"}
       boxShadow={"0px 4px 4px 0px rgba(0, 0, 0, 0.25)"}

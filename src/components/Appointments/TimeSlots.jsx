@@ -15,17 +15,21 @@ export default function TimeSlots({ slot, setSelectDate, selectDate }) {
             display={"flex"}
             border={"2px solid"}
             p={"0.525rem 2.375rem"}
-            cursor={h === "Day off" ? "not-allowed" : "pointer"}
+            cursor={
+              h === "Day off" || h === "Reserved" ? "not-allowed" : "pointer"
+            }
             justify={"center"}
             w={"152px"}
             rounded={"6px"}
-            disabled={h === "Day off"}
+            disabled={h === "Day off" || h === "Reserved"}
             borderColor={"blue.900"}
             textColor={"blue.900"}
             _hover={{ bg: "" }}
-            opacity={h === "Day off" ? "50%" : "100%"}
+            opacity={h === "Day off" || h === "Reserved" ? "50%" : "100%"}
             bg={
-              h === "Day off" || `${slot.date}T${h}` === selectDate
+              h === "Day off" ||
+              h === "Reserved" ||
+              `${slot.date}T${h}` === selectDate
                 ? "yellow.400"
                 : ""
             }

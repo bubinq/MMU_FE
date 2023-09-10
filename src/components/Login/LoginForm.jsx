@@ -1,10 +1,12 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { object, string } from "yup";
-import { FormLabel, Button, Link, Spinner } from "@chakra-ui/react";
+import { FormLabel, Button, Link, Spinner, Box } from "@chakra-ui/react";
 import { NavLink, useNavigate } from "react-router-dom";
 import authService from "../../services/auth";
 import { useState } from "react";
 import useAuth from "../../contexts/AuthContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 const initialVals = {
   email: "",
@@ -20,6 +22,7 @@ const validationSchema = object({
 const LoginForm = ({ setServerError }) => {
   const { setUser } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const goTo = useNavigate();
 
   const handleLogin = async (values) => {
@@ -76,9 +79,19 @@ const LoginForm = ({ setServerError }) => {
             mt={"10px"}
             pos={"relative"}
           >
+            <Box
+              zIndex={"3"}
+              _hover={{ cursor: "pointer" }}
+              position={"absolute"}
+              top={"50%"}
+              right={"10px"}
+              onClick={() => setIsVisible(!isVisible)}
+            >
+              <FontAwesomeIcon icon={isVisible ? faEye : faEyeSlash} />
+            </Box>
             Password &#42;
             <Field
-              type="password"
+              type={isVisible ? "text" : "password"}
               name="password"
               aria-label="password-field"
               className={
