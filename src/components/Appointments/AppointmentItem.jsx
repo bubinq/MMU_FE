@@ -23,6 +23,7 @@ const AppointmentItem = ({ data, setAppointments, setAccordionIndex }) => {
   const { isOpen, onToggle } = useDisclosure();
   const cancelRef = useRef();
   const page = 'upcoming';
+  
   const onCancel = async (id) => {
     try {
       await appointmentsService.cancelAppointment(id);

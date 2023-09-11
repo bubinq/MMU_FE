@@ -1,8 +1,7 @@
 import { Flex, Heading } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useLoaderData, redirect } from "react-router-dom";
-import Pagination from "@mui/material/Pagination";
-import { ThemeProvider, createTheme } from "@mui/material";
+import Paginate from "../components/Paginate";
 import specialtyService from "../services/specialty";
 import appointmentsService from "../services/appointments";
 import useSpinner from "../hooks/useSpinner";
@@ -14,11 +13,6 @@ import AppointmentsHeading from "../components/Appointments/AppointmentsHeading"
 const Appointments = () => {
   const data = useLoaderData();
   const isLoading = useSpinner();
-  const theme = createTheme({
-    palette: {
-      primary: { main: "#F4B400", contrastText: "#200017" },
-    },
-  });
   const [searchTerms, setSearchTerms] = useState({
     name: "",
     specialty: "",
@@ -75,17 +69,11 @@ const Appointments = () => {
               setAppointments={setAppointments}
             />
             {appointments.length > 0 && (
-              <ThemeProvider theme={theme}>
-                <Flex justify={"center"} pb={"20px"}>
-                  <Pagination
-                    count={data.upcoming.totalPages}
-                    size="large"
-                    color="primary"
-                    page={page}
-                    onChange={goToPage}
-                  />
-                </Flex>
-              </ThemeProvider>
+              <Paginate
+                count={data.upcoming.totalPages}
+                page={page}
+                goToPage={goToPage}
+              />
             )}
           </Flex>
         </>

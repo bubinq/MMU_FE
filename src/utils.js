@@ -1,4 +1,5 @@
-import { object, string, ref, boolean } from "yup";
+import { object, string, ref, boolean, number } from "yup";
+import { createTheme } from "@mui/material";
 
 export const throttle = (func, delay) => {
   let prevTime = 0;
@@ -41,12 +42,13 @@ const genWorkingHours = (day, reservedDay) => {
   return Array.from({ length: 8 }, (_, idx) => {
     const hour = `${idx === 0 ? "0" : ""}${9 + idx}:00`;
     const isDayOff = day === "Saturday" || day === "Sunday";
-    const reservedHour = isReserved && reservedDay.find(h => parseInt(h) === parseInt(hour))
+    const reservedHour =
+      isReserved && reservedDay.find((h) => parseInt(h) === parseInt(hour));
     if (isDayOff) return "Day off";
     if (reservedHour) {
       return "Reserved";
     }
-    return hour
+    return hour;
   });
 };
 
@@ -80,6 +82,12 @@ export const genMonth = (availableHours) => {
   });
 };
 
+export const muiTheme = createTheme({
+  palette: {
+    primary: { main: "#F4B400", contrastText: "#200017" },
+  },
+});
+
 export const passwordSchema = object({
   password: string()
     .required("Please enter a password.")
@@ -94,6 +102,18 @@ export const passwordSchema = object({
     "Those passwords didn't match. Please try again."
   ),
 });
+
+export const commentsSchema = object({
+  comment: string()
+    .min(3, "Comments must be at least 3 letters long.")
+    .max(500, "Character limit exceeded."),
+  rating: number().min(1, "Please enter your rating score.").max(5),
+});
+
+export const commentsVals = {
+  comment: "",
+  rating: 0,
+};
 
 export const passwordInitial = {
   password: "",

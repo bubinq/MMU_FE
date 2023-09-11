@@ -9,7 +9,6 @@ const specialist = {
   getSingleDoctor: (uuid) => `/doctors/${uuid}`,
   updateDoctor: (uuid) => `/doctors/${uuid}`,
   deleteDoctor: (uuid) => `/doctors/${uuid}`,
-
   searchBy: ({
     name = "",
     specialty = "",
@@ -19,6 +18,10 @@ const specialist = {
     sortDir = "desc",
   }) =>
     `/doctors?name=${name}&specialtyId=${specialty}&cityId=${city}&pageSize=${pageSize}&sortBy=${sortBy}&sortDir=${sortDir}`,
+  getComments: (id) => `/doctors/${id}/reviews`,
+  createComments: `/doctors/reviews`,
+  getPage: (id, pageNum) =>
+    `/doctors/${id}/reviews?pageNo=${pageNum}&pageSize=3&sortBy=postedAt&sortDir=desc`,
 };
 
 const city = {
@@ -52,6 +55,18 @@ const appointments = {
   cancel: (id) => `/appointments/${id}`,
   getDoctorAppointments: (id) => `/doctors/${id}/appointments`,
   getPage: (pageNum) => `/appointments/search?type=UPCOMING&pageNo=${pageNum}`,
+  searchBy: ({
+    name = "",
+    specialty = "",
+    city = "",
+    fromYear = "",
+    fromMonth = "",
+    fromDay = "",
+    toYear = "",
+    toMonth = "",
+    toDay = "",
+  }) =>
+    `/appointments/search?type=UPCOMING&name=${name}&cityId=${city}&specialtyId=${specialty}`,
 };
 
 const urls = {

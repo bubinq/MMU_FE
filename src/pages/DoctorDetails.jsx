@@ -1,53 +1,49 @@
 import { useLoaderData } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import specialistService from "../services/specialist/index.js";
-import {
-  Box,
-  Flex,
-  Heading,
-  Image,
-  Text,
-  Button,
-  Textarea,
-} from "@chakra-ui/react";
+import { Box, Flex, Heading, Image, Button } from "@chakra-ui/react";
 import { faLocationDot, faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Paginate from "../components/Paginate.jsx";
+import Comment from "../components/Comments/Comment.jsx";
+import CommentForm from "../components/Comments/CommentForm.jsx";
 import ScheduleModal from "../components/ScheduleModal.jsx";
 import useAppointments from "../contexts/AppointmentsContext.jsx";
 import useAuth from "../contexts/AuthContext.jsx";
 
 const DoctorDetails = () => {
-  const [hover, setHover] = useState(0);
-  const [rating, setRating] = useState(0);
   const data = useLoaderData();
   const { scheduleInfo, setScheduleInfo } = useAppointments();
-  const {user} = useAuth();
+  const { user } = useAuth();
+  const [page, setPage] = useState(1);
+  const [comments, setComments] = useState(data.comments.content || []);
+
+  const goToPage = async (e, value) => {
+    try {
+      const response = await specialistService.getPage(
+        data.doctor.id,
+        value - 1
+      );
+      setPage(value);
+      setComments(response.content);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const toggleSchedule = (ev) => {
     ev.preventDefault();
     setScheduleInfo((prev) => ({
-      doctorId: data.id,
+      doctorId: data.doctor.id,
       isOpened: !prev.isOpened,
     }));
   };
 
-  const mockReviews = [
-    {
-      id: 0,
-      name: "Divina Benitez",
-      rating: 3,
-      date: "March 23, 2023",
-      desc: "I had the pleasure of seeing Elizabeth for a recent medical issue and I must say, I am thoroughly impressed. From the moment I walked into the office, I felt comfortable and at ease. Dr. Smith took the time to listen to all of my concerns and answered all of my questions with patience and clarity.",
-    },
-    {
-      id: 1,
-      name: "Pedro Perez",
-      rating: 4,
-      date: "March 23, 2023",
-      desc: "The office staff were also fantastic, always friendly and accommodating. I really appreciated the efficiency of the check-in process and how organized everything was. Overall, I highly recommend Dr. to anyone in need of a compassionate and skilled physician. Thank you for everything!",
-    },
-  ];
-
+  useEffect(() => {
+    if (data) {
+      setComments(data.comments.content);
+    }
+  }, [data]);
   return (
     <Box mx={"auto"} minHeight={"100vh"}>
       <Flex
@@ -87,7 +83,7 @@ const DoctorDetails = () => {
                   fontSize={"1.75rem"}
                   color={"#5b4a0d"}
                 />
-                <Box>{data.address}</Box>
+                <Box>{data.doctor.address}</Box>
               </Flex>
 
               <Button
@@ -120,8 +116,8 @@ const DoctorDetails = () => {
             fontSize={"20px"}
             lineHeight={"normal"}
             fontWeight={"700"}
-          >{`About ${data.firstName} ${data.lastName}`}</Heading>
-          <Box>{data.summary}</Box>
+          >{`About ${data.doctor.firstName} ${data.doctor.lastName}`}</Heading>
+          <Box>{data.doctor.summary}</Box>
         </Flex>
         <Flex
           position={"absolute"}
@@ -139,7 +135,7 @@ const DoctorDetails = () => {
             border={"none"}
           >
             <Image
-              src={data.imageUrl}
+              src={data.doctor.imageUrl}
               w={"217px"}
               h={"217px"}
               objectFit={"cover"}
@@ -156,9 +152,9 @@ const DoctorDetails = () => {
           >
             <FontAwesomeIcon icon={faStar} color={"#d9af0e"} />
             <Box fontSize={"15px"} color={"#200017"} textAlign={"center"}>
-              {data.averageRating < 1 || data.averageRating > 5
+              {data.doctor.averageRating < 1 || data.doctor.averageRating > 5
                 ? "--"
-                : data.averageRating}
+                : data.doctor.averageRating}
             </Box>
           </Flex>
           <Flex flexDir={"column"} gap={"-1px"}>
@@ -170,7 +166,7 @@ const DoctorDetails = () => {
               fontStyle={"normal"}
               w={["100%", "max-content", "max-content"]}
             >
-              {`${data.firstName} ${data.lastName}`}
+              {`${data.doctor.firstName} ${data.doctor.lastName}`}
             </Heading>
             <Box
               color={"#c34723"}
@@ -179,7 +175,7 @@ const DoctorDetails = () => {
               fontWeight={"400"}
               lineHeight={"normal"}
             >
-              {data.specialtyName}
+              {data.doctor.specialtyName}
             </Box>
             <Flex mt={"8px"} display={["flex", "none", "none"]}>
               <Flex gap={"10px"} alignItems={"center"}>
@@ -188,8 +184,8 @@ const DoctorDetails = () => {
                   fontSize={"1.75rem"}
                   color={"#5b4a0d"}
                 />
-                <Box as={"div"} data-testid={data.address}>
-                  {data.address}
+                <Box as={"div"} data-testid={data.doctor.address}>
+                  {data.doctor.address}
                 </Box>
               </Flex>
             </Flex>
@@ -215,56 +211,7 @@ const DoctorDetails = () => {
           >
             Create a Review
           </Heading>
-          <Box
-            as={"form"}
-            onSubmit={(e) => {
-              e.preventDefault();
-            }}
-          >
-            <Box mt={"24px"}>
-              <Text fontSize={"18px"} fontWeight={"700"}>
-                Rating *
-              </Text>
-              <Flex mt={"8px"}>
-                {[...Array(5)].map((star, index) => {
-                  const value = index + 1;
-
-                  return (
-                    <FontAwesomeIcon
-                      icon={faStar}
-                      color={value <= (hover || rating) ? "#d9af0e" : "grey"}
-                      key={index}
-                      style={{ transition: "all .3s" }}
-                      onMouseEnter={() => setHover(value)}
-                      onMouseLeave={() => setHover(0)}
-                      onClick={() => setRating(value)}
-                    />
-                  );
-                })}
-              </Flex>
-            </Box>
-            <Box mt={"24px"}>
-              <Text
-                as={"label"}
-                htmlFor={"comment"}
-                fontSize={"18px"}
-                fontWeight={"700"}
-              >
-                Comment *
-              </Text>
-              <Textarea
-                name={"comment"}
-                id={"comment"}
-                placeholder={"Write your comments here..."}
-                resize={"none"}
-                h={"106px"}
-                mt={"24px"}
-              />
-            </Box>
-            <Button type={"submit"} mt={"40px"}>
-              {"Submit Review"}
-            </Button>
-          </Box>
+          <CommentForm doctorId={data.doctor.id} />
         </Box>
         <Flex
           w={"100%"}
@@ -288,33 +235,17 @@ const DoctorDetails = () => {
             Reviews
           </Heading>
           <Box>
-            {mockReviews.map((review) => (
-              <Box key={review.id} _notFirst={{ marginTop: "31px" }}>
-                <Heading fontSize={"16px"}>{review.name}</Heading>
-                <Flex alignItems={"center"} mt={"8px"}>
-                  {[...Array(5)].map((star, index) => {
-                    return (
-                      <FontAwesomeIcon
-                        icon={faStar}
-                        color={index < review.rating ? "#d9af0e" : "grey"}
-                        key={index}
-                      />
-                    );
-                  })}
-                  <Text
-                    fontWeight={"600"}
-                    fontSize={"15px"}
-                    pt={"3px"}
-                    ml={"5px"}
-                  >
-                    {review.rating}
-                  </Text>
-                </Flex>
-                <Text mt={"8px"}>{review.date}</Text>
-                <Text mt={"31px"}>{review.desc}</Text>
-              </Box>
+            {comments.map((comment) => (
+              <Comment key={comment.id} comment={comment} />
             ))}
           </Box>
+          {comments.length > 0 && (
+            <Paginate
+              count={data.comments.totalPages}
+              page={page}
+              goToPage={goToPage}
+            />
+          )}
         </Flex>
       </Flex>
     </Box>
@@ -327,7 +258,8 @@ export const loader = async ({ params }) => {
   let data = {};
 
   try {
-    data = await specialistService.getDoctorDetails(params.id);
+    data.doctor = await specialistService.getDoctorDetails(params.id);
+    data.comments = await specialistService.getComentsAndReview(params.id);
   } catch (err) {
     console.log(err);
   }

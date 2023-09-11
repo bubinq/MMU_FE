@@ -1,6 +1,6 @@
 import { Heading, Accordion } from "@chakra-ui/react";
 import AppointmentItem from "./AppointmentItem";
-import { useState } from "react";
+import { useState, memo } from "react";
 
 const AppointmentsList = ({ appointments, setAppointments }) => {
   const [accordionIndex, setAccordionIndex] = useState(-1);
@@ -38,4 +38,4 @@ const AppointmentsList = ({ appointments, setAppointments }) => {
   );
 };
 
-export default AppointmentsList;
+export default memo(AppointmentsList);

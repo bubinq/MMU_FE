@@ -115,6 +115,23 @@ main {
   width: 100%;
   gap: 1.8rem;
 }
+.comments-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1.8rem;
+  margin-top: "24px";
+}
+
+.comments {
+  resize: "none";
+  height: "106px";
+  margin-top: "24px";
+}
+
+.hidden-field {
+  display: none;
+}
 
 .input-fields {
   width: 100%;
@@ -221,12 +238,8 @@ canvas {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  background: #F4B400;
-  background: linear-gradient(
-    0deg,
-    rgba(249, 227, 63, 0.1) 33%,
-    #F4B400 100%
-  );
+  background: #f4b400;
+  background: linear-gradient(0deg, rgba(249, 227, 63, 0.1) 33%, #f4b400 100%);
   animation: spin 0.8s linear 0s infinite;
 }
 
