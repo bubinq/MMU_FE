@@ -51,7 +51,7 @@ const SearchBar = ({
               />
               <FontAwesomeIcon
                 icon={faMagnifyingGlass}
-                className="search-icon"
+                className="search-icon-specialist"
               />
             </Box>
           </FormLabel>

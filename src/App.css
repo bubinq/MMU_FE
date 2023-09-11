@@ -87,6 +87,11 @@ main {
   position: absolute;
   right: 10px;
 }
+.search-icon-specialist {
+  position: absolute;
+  right: 10px;
+  top: 45%;
+}
 
 .invalid-input {
   color: #d71c21;

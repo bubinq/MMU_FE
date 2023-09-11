@@ -9,6 +9,7 @@ import {
   ModalFooter,
   Image,
   Portal,
+  Spinner as ScheduleSpinner,
 } from "@chakra-ui/react";
 import { AnimatePresence } from "framer-motion";
 import useAppointments from "../contexts/AppointmentsContext";
@@ -26,7 +27,7 @@ import Spinner from "./Spinner";
 const ScheduleModal = () => {
   const [selectDate, setSelectDate] = useState("");
   const [serverError, setServerError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState({ mount: false, schedule: false });
   const [availableHours, setAvailableHours] = useState(null);
   const isFirstRender = useRef(true);
   const month = useMemo(() => genMonth(availableHours), [availableHours]);
@@ -76,6 +77,7 @@ const ScheduleModal = () => {
     if (!selectDate) {
       return;
     }
+    setIsLoading((prev) => ({ ...prev, schedule: true }));
     try {
       const [date, time] = selectDate.split("T");
       const data = {
@@ -87,11 +89,13 @@ const ScheduleModal = () => {
       closeModal();
     } catch (error) {
       setServerError(error.response.data.message);
+    } finally {
+      setIsLoading((prev) => ({ ...prev, schedule: false }));
     }
   };
 
   const fetchAvailableHours = async () => {
-    setIsLoading(true);
+    setIsLoading((prev) => ({ ...prev, mount: true }));
     try {
       const hours = await appointmentsService.getDoctorAppointments(
         scheduleInfo.doctorId
@@ -100,7 +104,7 @@ const ScheduleModal = () => {
     } catch (error) {
       console.log(error);
     }
-    setIsLoading(false);
+    setIsLoading((prev) => ({ ...prev, mount: false }));
   };
   useEffect(() => {
     if (isFirstRender.current) {
@@ -170,7 +174,7 @@ const ScheduleModal = () => {
                   alt="Left navigation arrow"
                 />
               </Button>{" "}
-              {isLoading ? (
+              {isLoading.mount ? (
                 <Spinner />
               ) : (
                 <DisplayDays
@@ -199,7 +203,7 @@ const ScheduleModal = () => {
                 />
               </Button>
             </Flex>
-            {!isLoading && (
+            {!isLoading.mount && (
               <ModalFooter mt={"2.5rem"} p={0} display={"flex"} gap={3}>
                 <Button
                   bg={"transparent"}
@@ -221,7 +225,16 @@ const ScheduleModal = () => {
                   textColor={"blue.900"}
                   onClick={scheduleAppointment}
                 >
-                  Schedule
+                  {isLoading.schedule ? (
+                    <ScheduleSpinner
+                      thickness="4px"
+                      speed="0.65s"
+                      color="white"
+                      size="lg"
+                    />
+                  ) : (
+                    "Schedule"
+                  )}
                 </Button>
               </ModalFooter>
             )}
