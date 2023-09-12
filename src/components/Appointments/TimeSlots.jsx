@@ -1,4 +1,5 @@
 import { Flex, Button, Text, GridItem } from "@chakra-ui/react";
+import "../../App.css";
 
 export default function TimeSlots({ slot, setSelectDate, selectDate }) {
   return (
@@ -36,6 +37,7 @@ export default function TimeSlots({ slot, setSelectDate, selectDate }) {
           >
             {h}
           </Button>
+         
         ))}
       </Flex>
     </GridItem>

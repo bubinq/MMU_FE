@@ -1,7 +1,7 @@
 import { Grid } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useRef, useEffect } from "react";
-import TimeSlots from "./Appointments/TimeSlots";
+import TimeSlots from "./TimeSlots";
 
 const DisplayDays = ({ slots, selectDate, setSelectDate }) => {
   const date = new Date(slots[0].date).getTime();

@@ -39,14 +39,14 @@ const DoctorList = ({ doctors }) => {
             >
               <MainCard
                 title={
-                  <Heading size="md" color={"#181938"}>
+                  <Heading size="lg" color={"#181938"}>
                     {" "}
                     {`${d.firstName} ${d.lastName}`}
                   </Heading>
                 }
                 specialty={
                   <Text
-                    fontSize={"md"}
+                    fontSize={"lg"}
                     color="#c34723"
                     id={`${d.id}-specialtyName`}
                     data-testid={d.id}
@@ -55,7 +55,7 @@ const DoctorList = ({ doctors }) => {
                   </Text>
                 }
                 rating={
-                  <Text fontSize={"md"} data-testid={d.averageRating}>
+                  <Text fontSize={"lg"} data-testid={d.averageRating}>
                     {d.averageRating < 1 || d.averageRating > 5
                       ? "- -"
                       : d.averageRating}
@@ -64,7 +64,6 @@ const DoctorList = ({ doctors }) => {
                 location={
                   <Text
                     className="doc-location"
-                    h={"42px"}
                     fontSize={["sm", "sm", "md"]}
                     data-testid={d.address}
                   >

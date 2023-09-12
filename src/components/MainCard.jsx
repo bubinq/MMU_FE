@@ -17,7 +17,7 @@ const MainCard = ({ id, title, specialty, rating, location, img, source }) => {
     <Card
       as={"article"}
       maxW="410px"
-      minH="480px"
+      minH="460px"
       borderRadius={"5%"}
       boxShadow={"0px 2px 6px 1px rgba(0,0,0,0.75);"}
       overflow={"hidden"}
@@ -30,7 +30,7 @@ const MainCard = ({ id, title, specialty, rating, location, img, source }) => {
           as={motion.img}
           transition={"0.2s all"}
           whileHover={{ scale: 1.05 }}
-          h={specialty ? "65%" : "90%"}
+          h={specialty ? "69%" : "90%"}
           w={"100%"}
           objectFit={"cover"}
           src={img}
@@ -44,7 +44,7 @@ const MainCard = ({ id, title, specialty, rating, location, img, source }) => {
           h={"4%"}
           w={"94.1%"}
           left={"3%"}
-          top={specialty ? "65%" : "92%"}
+          top={specialty ? "69%" : "91%"}
           bg={"white"}
           boxShadow={"0px 0px 20px 30px rgba(255, 255, 255, 1)"}
           overflow={"hidden"}
@@ -73,7 +73,7 @@ const MainCard = ({ id, title, specialty, rating, location, img, source }) => {
           <Flex
             justify={"space-between"}
             position={"absolute"}
-            top={"63%"}
+            top={"69%"}
             direction={"column"}
             gap={3}
             width={"100%"}
@@ -104,6 +104,7 @@ const MainCard = ({ id, title, specialty, rating, location, img, source }) => {
                 bg={"yellow.400"}
                 _hover={{ bg: "red.300" }}
                 textColor={"blue.900"}
+                h={"36px"}
                 w={"100%"}
                 onClick={toggleSchedule}
                 isDisabled={!user.accessToken}

@@ -19,7 +19,7 @@ import { genMonth } from "../utils";
 import { useEffect, useState, useRef, useMemo } from "react";
 import arrowRight from "../assets/arrowRight.svg";
 import arrowLeft from "../assets/arrowLeft.svg";
-import DisplayDays from "./DisplayDays";
+import DisplayDays from "./Appointments/DisplayDays";
 import useWindowBreakpoints from "../hooks/useWindowBreakpoints";
 import appointmentsService from "../services/appointments";
 import Spinner from "./Spinner";
