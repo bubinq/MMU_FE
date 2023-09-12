@@ -32,6 +32,15 @@ const Appointments = () => {
     }
   };
 
+  // const handleSearch = (ev) => {
+  //   specialistService
+  //     .searchDocs(searchTerms)
+  //     .then((res) => {
+  //       setDoctors(res.content);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+
   useEffect(() => {
     if (appointments.length === 0 && page > 1) {
       window.location.reload();

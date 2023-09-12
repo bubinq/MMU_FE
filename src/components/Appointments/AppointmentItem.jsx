@@ -3,7 +3,6 @@ import {
   AccordionIcon,
   AccordionButton,
   AccordionPanel,
-  Flex,
   Text,
   Box,
   useDisclosure,
@@ -13,30 +12,35 @@ import {
   AlertDialogContent,
   AlertDialogHeader,
   AlertDialogBody,
-  AlertDialogFooter
+  AlertDialogFooter,
 } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import { useRef } from 'react'
-import appointmentsService from '../../services/appointments/index'
+import { useRef, useState } from "react";
+import { AnimatePresence } from "framer-motion";
+import useAlert from "../../hooks/useAlert";
+import AuthAlert from "../Auth/AuthAlert";
+import appointmentsService from "../../services/appointments/index";
 const AppointmentItem = ({ data, setAppointments, setAccordionIndex }) => {
   const { isOpen, onToggle } = useDisclosure();
+  const [serverError, setServerError] = useState("");
+  const { isAlertVisible } = useAlert(serverError, setServerError);
   const cancelRef = useRef();
-  const page = 'upcoming';
-  
+  const page = "upcoming";
+
   const onCancel = async (id) => {
     try {
       await appointmentsService.cancelAppointment(id);
-      setAppointments(state => state.filter(x => x.id !== id))
-      setAccordionIndex(-1)
+      setAppointments((state) => state.filter((x) => x.id !== id));
+      setAccordionIndex(-1);
+    } catch (err) {
+      console.log(err.message);
+      setServerError(err.response.data.message)
     }
-    catch (err) {
-      console.log(err.message)
-    }
-  }
+  };
 
   return (
-    <AccordionItem mt='1rem'>
+    <AccordionItem mt="1rem">
       <Box
         display="flex"
         borderRadius="4px"
@@ -53,7 +57,7 @@ const AppointmentItem = ({ data, setAppointments, setAccordionIndex }) => {
           justifyContent={["space-between", "initial"]}
         >
           <Text fontWeight="700">Date</Text>
-          <Text>{data.startTime.split('T')[0]}</Text>
+          <Text>{data.startTime.split("T")[0]}</Text>
         </Box>
         <Box
           textAlign={["center", "left"]}
@@ -92,18 +96,15 @@ const AppointmentItem = ({ data, setAppointments, setAccordionIndex }) => {
             <Box
               fontWeight="700"
               textAlign={["center", "left"]}
-              display='flex'
-              alignItems='center'
+              display="flex"
+              alignItems="center"
               mt="5px"
-              justifyContent={['center', 'left']}
+              justifyContent={["center", "left"]}
             >
               Address:
             </Box>
 
-            <Box
-              display="flex"
-              alignItems='center'
-            >
+            <Box display="flex" alignItems="center">
               <FontAwesomeIcon
                 icon={faLocationDot}
                 fontSize={"1.75rem"}
@@ -113,13 +114,12 @@ const AppointmentItem = ({ data, setAppointments, setAccordionIndex }) => {
                 ml="5px"
                 lineHeight="16px"
                 fontSize={["14px", "14px", "14px", "16px"]}
-                textAlign='left'
+                textAlign="left"
               >
                 {data.appointmentAddress}
               </Text>
             </Box>
           </Box>
-
 
           {page === "upcoming" && (
             <>
@@ -127,7 +127,7 @@ const AppointmentItem = ({ data, setAppointments, setAccordionIndex }) => {
                 display="block"
                 ml="auto"
                 bg="#D71C21"
-                color='#fff'
+                color="#fff"
                 _hover={{
                   bg: "#FF1B00",
                 }}
@@ -135,7 +135,7 @@ const AppointmentItem = ({ data, setAppointments, setAccordionIndex }) => {
                 minW="auto"
                 mx={["auto", "0"]}
                 fontSize={["12px", "13px", "15px"]}
-                w={['100%', 'auto']}
+                w={["100%", "auto"]}
               >
                 Cancel Appointment
               </Button>
@@ -148,25 +148,27 @@ const AppointmentItem = ({ data, setAppointments, setAccordionIndex }) => {
               >
                 <AlertDialogOverlay>
                   <AlertDialogContent width={["90%", "auto"]}>
-                    <AlertDialogHeader
-                      fontSize="lg"
-                      fontWeight="bold"
-                    >
+                    <AlertDialogHeader fontSize="lg" fontWeight="bold">
                       Cancel Appointment
                     </AlertDialogHeader>
+                    <AnimatePresence>
+                      {isAlertVisible && (
+                        <AuthAlert
+                          isSchedule={true}
+                          serverError={serverError}
+                        />
+                      )}
+                    </AnimatePresence>
                     <AlertDialogBody>Are you sure?</AlertDialogBody>
                     <AlertDialogFooter>
-                      <Button
-                        ref={cancelRef}
-                        onClick={onToggle}
-                      >
+                      <Button ref={cancelRef} onClick={onToggle}>
                         Back
                       </Button>
                       <Button
                         onClick={() => onCancel(data.id)}
                         bg="#D71C21"
                         ml="10px"
-                        color='#fff'
+                        color="#fff"
                         _hover={{
                           _disabled: { bg: "red" },
                           bg: "#FF1B00",
