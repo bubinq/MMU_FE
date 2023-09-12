@@ -92,9 +92,12 @@ const ScheduleModal = () => {
       closeModal();
     } catch (error) {
       setServerError(error.response.data.message);
+      console.log(error.response.data.message);
       if (
         error.response.data.message !==
-        "You have already scheduled an appointment with this doctor for today."
+          "You have already scheduled an appointment with this doctor for today." &&
+        error.response.data.message !==
+          "You have another appointment scheduled at the same time with a different doctor"
       ) {
         setVerifyMessage(EMAIL_VERIFY_SENT);
       }
