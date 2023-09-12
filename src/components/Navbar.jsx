@@ -14,7 +14,7 @@ import NavModal from "./NavModal";
 const Navbar = () => {
   const steps = useWindowBreakpoints({ tablet: 768, desktop: 997 });
   const { scroll, prevScroll } = useWindowScroll();
-  const { user, isMenuOpened, showVerifyMessage } = useAuth();
+  const { user, isMenuOpened, verifyMessage } = useAuth();
 
   const scrollDown = scroll - prevScroll.current;
   const animation = shouldNavShow(scrollDown, isMenuOpened);
@@ -51,11 +51,10 @@ const Navbar = () => {
       ) : (
         <>{isMenuOpened && <NavModal />}</>
       )}
-      {showVerifyMessage && (
-        <AnimatePresence>
-          <VerifyEmailAlert message={animation.message} />
-        </AnimatePresence>
-      )}
+
+      <AnimatePresence>
+        {verifyMessage && <VerifyEmailAlert animation={animation.message} />}
+      </AnimatePresence>
     </Flex>
   );
 };

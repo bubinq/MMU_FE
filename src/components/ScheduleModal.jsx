@@ -18,6 +18,7 @@ import useAuth from "../contexts/AuthContext";
 import AuthAlert from "./Auth/AuthAlert";
 import { genMonth } from "../utils";
 import { useEffect, useState, useRef, useMemo } from "react";
+import { EMAIL_VERIFY_SENT } from "../constants";
 import arrowRight from "../assets/arrowRight.svg";
 import arrowLeft from "../assets/arrowLeft.svg";
 import DisplayDays from "./Appointments/DisplayDays";
@@ -31,7 +32,7 @@ const ScheduleModal = () => {
   const [isLoading, setIsLoading] = useState({ mount: false, schedule: false });
   const [availableHours, setAvailableHours] = useState(null);
   const isFirstRender = useRef(true);
-  const { setShowVerifyMessage } = useAuth();
+  const { setVerifyMessage } = useAuth();
   const month = useMemo(() => genMonth(availableHours), [availableHours]);
 
   const steps = useWindowBreakpoints({ tablet: 768, desktop: 1088 });
@@ -95,7 +96,7 @@ const ScheduleModal = () => {
         error.response.data.message !==
         "You have already scheduled an appointment with this doctor for today."
       ) {
-        setShowVerifyMessage(true);
+        setVerifyMessage(EMAIL_VERIFY_SENT);
       }
     } finally {
       setIsLoading((prev) => ({ ...prev, schedule: false }));

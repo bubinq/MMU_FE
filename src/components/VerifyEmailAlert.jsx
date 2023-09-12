@@ -12,12 +12,14 @@ import exclamation from "../assets/exclamation.svg";
 import useAuth from "../contexts/AuthContext";
 import useAlert from "../hooks/useAlert";
 import AuthAlert from "./Auth/AuthAlert";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const VerifyEmailAlert = ({ message }) => {
-  const { setShowVerifyMessage } = useAuth();
+const VerifyEmailAlert = ({ animation }) => {
+  const { setVerifyMessage } = useAuth();
   const [serverError, setServerError] = useState("");
   const { isAlertVisible } = useAlert(serverError, setServerError);
+
+  const width = window.innerWidth;
 
   const resendVerificationEmail = async (ev) => {
     ev.preventDefault();
@@ -30,27 +32,40 @@ const VerifyEmailAlert = ({ message }) => {
         setServerError(
           "An active link has already been sent, please check your email inbox"
         );
+      } else if (error.response.data.message === "Access denied") {
+        setServerError("Something went wrong!");
       }
-    } finally {
-      setTimeout(() => {
-        setShowVerifyMessage(false);
-      }, 10000);
     }
   };
+  useEffect(() => {
+    let timer;
+    if (serverError) {
+      timer = setTimeout(() => {
+        setVerifyMessage("");
+      }, 5000);
+    }
+    return () => clearTimeout(timer);
+  }, [serverError]);
   return (
     <Flex
       position={"absolute"}
       as={motion.div}
-      transition={"0.2s all"}
-      animate={message}
-      left={"50%"}
-      w={"30%"}
+      initial={{ scale: 0, opacity: 0 }}
+      exit={{ scale: 0, opacity: 0 }}
+      animate={{ ...animation, scale: 1, opacity: 1 }}
+      left={[
+        `calc(50% - ${(width * 0.7) / 2}px)`,
+        `calc(50% - ${(width * 0.7) / 2}px)`,
+        "50%",
+      ]}
+      w={["70%", "70%", "30%"]}
       minW={"120px"}
       backgroundColor={"yellow.400"}
       borderRadius={"0.3125rem"}
       boxShadow={"0px 4px 4px 0px rgba(0, 0, 0, 0.25)"}
       paddingY={"10px"}
-      paddingX={"22px"}
+      paddingX={["12px", "22px"]}
+      transition={"0.2s all"}
     >
       <Image w={"3.125rem"} src={exclamation} />
       <Flex
@@ -59,11 +74,12 @@ const VerifyEmailAlert = ({ message }) => {
         fontSize={["1rem", "1.2rem"]}
         fontWeight={"500"}
         letterSpacing={"0.2px"}
-        lineHeight={["1.25rem", "1.5rem"]}
-        textAlign={"center"}
+        lineHeight={"1.5rem"}
+        textAlign={["left", "center"]}
         py={"5px"}
+        px={["5px", "10px"]}
       >
-        <Text>
+        <Text key={"text"}>
           Your account is not yet verified. Please check your inbox or verify
           your email{" "}
           <ChakraLink
@@ -78,7 +94,7 @@ const VerifyEmailAlert = ({ message }) => {
         </Text>
 
         <Button
-          onClick={() => setShowVerifyMessage(false)}
+          onClick={() => setVerifyMessage("")}
           pos={"absolute"}
           top={"5%"}
           color={"#fff"}

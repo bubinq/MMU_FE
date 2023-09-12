@@ -15,6 +15,7 @@ export const EXPIRED_MESSAGE = `The token has expired or is invalid!`;
 export const REQUEST_NEW_VERIFICATION = `This account is not yet verified, please request a new verification email.`;
 export const VERRIFIED_MESSAGE = `Your account has already been verified!`;
 export const ERROR_MESSAGE = `Error`;
+export const EMAIL_VERIFY_SENT = "Your account is not yet verified. Please check your inbox or verify your email"
 export const EMAIL_ALREADY_SENT = `A reset password link is already sent to your email address.`;
 export const RESEND_SENT =
   "Successfully resend reset password link to your email.";
