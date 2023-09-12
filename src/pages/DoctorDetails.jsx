@@ -58,7 +58,7 @@ const DoctorDetails = () => {
         {scheduleInfo.isOpened && <ScheduleModal />}
         <Box
           w={"100%"}
-          minHeight={["419px", " 363px", "363px"]}
+          minHeight={["449px", " 363px", "363px"]}
           borderRadius={"15px"}
           boxShadow={"2px 2px 6px 0px rgba(0, 0, 0, 0.25)"}
           overflow={"hidden"}
@@ -178,15 +178,30 @@ const DoctorDetails = () => {
               {data.doctor.specialtyName}
             </Box>
             <Flex mt={"8px"} display={["flex", "none", "none"]}>
-              <Flex gap={"10px"} alignItems={"center"}>
-                <FontAwesomeIcon
-                  icon={faLocationDot}
-                  fontSize={"1.75rem"}
-                  color={"#5b4a0d"}
-                />
-                <Box as={"div"} data-testid={data.doctor.address}>
-                  {data.doctor.address}
-                </Box>
+              <Flex alignItems={"center"} direction={"column"}>
+                <Flex align={"center"} gap={"5px"}>
+                  <FontAwesomeIcon
+                    icon={faLocationDot}
+                    fontSize={"1.75rem"}
+                    color={"#5b4a0d"}
+                  />
+
+                  <Box as={"div"} data-testid={data.doctor.address}>
+                    {data.doctor.address}
+                  </Box>
+                </Flex>
+
+                <Button
+                  bg={"yellow.400"}
+                  mt={"1rem"}
+                  _hover={{ bg: "red.300" }}
+                  textColor={"blue.900"}
+                  w={"100%"}
+                  onClick={toggleSchedule}
+                  isDisabled={!user.accessToken}
+                >
+                  Schedule an Appointment
+                </Button>
               </Flex>
             </Flex>
           </Flex>
