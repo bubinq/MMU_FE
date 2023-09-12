@@ -1,6 +1,7 @@
 import { Flex, Heading } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useLoaderData, redirect } from "react-router-dom";
+import { formatData } from "../utils";
 import Paginate from "../components/Paginate";
 import specialtyService from "../services/specialty";
 import appointmentsService from "../services/appointments";
@@ -12,7 +13,8 @@ import AppointmentsHeading from "../components/Appointments/AppointmentsHeading"
 
 const Appointments = () => {
   const data = useLoaderData();
-  const isLoading = useSpinner();
+  const isTransitioning = useSpinner();
+  const hasSearched = useRef(false);
   const [searchTerms, setSearchTerms] = useState({
     name: "",
     specialty: "",
@@ -21,25 +23,42 @@ const Appointments = () => {
   });
   const [appointments, setAppointments] = useState(data.upcoming.content || []);
   const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [count, setCount] = useState(data.upcoming.totalPages || 0);
 
   const goToPage = async (e, value) => {
+    let data;
+    setIsLoading(true);
     try {
-      const data = await appointmentsService.getPage(value - 1);
+      if (hasSearched.current) {
+        data = await appointmentsService.searchAppointments(
+          formatData(searchTerms),
+          value - 1
+        );
+      } else {
+        data = await appointmentsService.getPage(value - 1);
+      }
       setPage(value);
       setAppointments(data.content);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  // const handleSearch = (ev) => {
-  //   specialistService
-  //     .searchDocs(searchTerms)
-  //     .then((res) => {
-  //       setDoctors(res.content);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
+  const handleSearch = () => {
+    setIsLoading(true);
+    appointmentsService
+      .searchAppointments(formatData(searchTerms))
+      .then((res) => {
+        hasSearched.current = true;
+        setAppointments(res.content);
+        setCount(res.totalPages);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false));
+  };
 
   useEffect(() => {
     if (appointments.length === 0 && page > 1) {
@@ -54,7 +73,7 @@ const Appointments = () => {
       mx={"auto"}
       minH={"100vh"}
     >
-      {isLoading ? (
+      {isTransitioning ? (
         <Spinner />
       ) : (
         <>
@@ -63,6 +82,7 @@ const Appointments = () => {
             searchTerms={searchTerms}
             setSearchTerms={setSearchTerms}
             specialties={data.specialties}
+            onSearch={handleSearch}
           />
           <Flex
             direction={"column"}
@@ -72,17 +92,18 @@ const Appointments = () => {
             shadow={"md"}
           >
             <AppointmentsHeading />
-
-            <AppointmentsList
-              appointments={appointments}
-              setAppointments={setAppointments}
-            />
-            {appointments.length > 0 && (
-              <Paginate
-                count={data.upcoming.totalPages}
-                page={page}
-                goToPage={goToPage}
-              />
+            {isLoading ? (
+              <Spinner />
+            ) : (
+              <>
+                <AppointmentsList
+                  appointments={appointments}
+                  setAppointments={setAppointments}
+                />
+                {appointments.length > 0 && (
+                  <Paginate count={count} page={page} goToPage={goToPage} />
+                )}
+              </>
             )}
           </Flex>
         </>

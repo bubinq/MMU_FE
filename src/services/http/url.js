@@ -55,18 +55,21 @@ const appointments = {
   cancel: (id) => `/appointments/${id}`,
   getDoctorAppointments: (id) => `/doctors/${id}/appointments`,
   getPage: (pageNum) => `/appointments/search?type=UPCOMING&pageNo=${pageNum}`,
-  searchBy: ({
-    name = "",
-    specialty = "",
-    city = "",
-    fromYear = "",
-    fromMonth = "",
-    fromDay = "",
-    toYear = "",
-    toMonth = "",
-    toDay = "",
-  }) =>
-    `/appointments/search?type=UPCOMING&name=${name}&cityId=${city}&specialtyId=${specialty}`,
+  searchBy: (
+    {
+      name = "",
+      specialty = "",
+      city = "",
+      fromYear = "",
+      fromMonth = "",
+      fromDay = "",
+      toYear = "",
+      toMonth = "",
+      toDay = "",
+    },
+    pageNum = 0
+  ) =>
+    `/appointments/search?type=UPCOMING&name=${name}&cityId=${city}&specialtyId=${specialty}&pageNo=${pageNum}&fromYear=${fromYear}&fromMonth=${fromMonth}&fromDay=${fromDay}&toYear=${toYear}&toMonth=${toMonth}&toDay=${toDay}`,
 };
 
 const urls = {

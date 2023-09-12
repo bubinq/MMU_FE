@@ -24,6 +24,23 @@ export const shouldNavShow = (scrollDown, isMenuOpened) => {
   return animation;
 };
 
+export const formatData = (searchTerms) => {
+  const from = searchTerms.from
+    ? searchTerms.from.split("-").map(Number)
+    : "";
+  const to = searchTerms.to ? searchTerms.to.split("-").map(Number) : "";
+  return {
+    name: searchTerms.name,
+    specialty: searchTerms.specialty,
+    fromYear: from && from[0],
+    fromMonth: from && from[1],
+    fromDay: from && from[2],
+    toYear: to && to[0],
+    toMonth: to && to[1],
+    toDay: to && to[2] + 1,
+  };
+};
+
 export const requestExecuter = async (request) => {
   let data;
   try {

@@ -21,6 +21,7 @@ import { AnimatePresence } from "framer-motion";
 import useAlert from "../../hooks/useAlert";
 import AuthAlert from "../Auth/AuthAlert";
 import appointmentsService from "../../services/appointments/index";
+
 const AppointmentItem = ({ data, setAppointments, setAccordionIndex }) => {
   const { isOpen, onToggle } = useDisclosure();
   const [serverError, setServerError] = useState("");

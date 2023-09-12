@@ -2,11 +2,12 @@ import { Box, Button, Flex, FormLabel, Input, Select } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useFetcher } from "react-router-dom";
-import { requestExecuter } from "../../utils";
-import appointmentsService from "../../services/appointments";
+import { useRef } from "react";
 
 const SearchBar = ({ searchTerms, setSearchTerms, specialties, onSearch }) => {
+  
   const fetcher = useFetcher();
+  const minDate = useRef(null);
   const handleTermsChange = (e) => {
     const fieldKey = e.target.name;
     const value = e.target.value;
@@ -100,6 +101,7 @@ const SearchBar = ({ searchTerms, setSearchTerms, specialties, onSearch }) => {
               _focusVisible={{ borderColor: "yellow.400", outline: "none" }}
               px="7px"
               height={"3rem"}
+              ref={minDate}
             />
           </FormLabel>
           <FormLabel fontSize={"16px"} fontWeight={"bold"} w={"50%"} m={0}>
@@ -110,6 +112,7 @@ const SearchBar = ({ searchTerms, setSearchTerms, specialties, onSearch }) => {
               onChange={handleTermsChange}
               mt={"0.3rem"}
               value={searchTerms.to}
+              min={minDate.current?.value}
               name="to"
               border={"2px solid"}
               borderColor={"yellow.400"}
@@ -142,13 +145,3 @@ const SearchBar = ({ searchTerms, setSearchTerms, specialties, onSearch }) => {
 };
 
 export default SearchBar;
-
-export const getAppointmentsSettings = async ({ request }) => {
-  const formData = Object.fromEntries(await request.formData());
-
-  const data = await requestExecuter(
-    appointmentsService.searchDocs({ specialty: formData.id })
-  );
-
-  return data.content;
-};
