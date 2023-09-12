@@ -4,6 +4,8 @@ export const AuthContext = createContext({
   user: { accessToken: "" },
   isMenuOpened: false,
   setIsMenuOpened: () => {},
+  showVerifyMessage: false,
+  setShowVerifyMessage: () => {},
 });
 
 export const AuthProvider = ({ children }) => {
@@ -11,6 +13,7 @@ export const AuthProvider = ({ children }) => {
     return { accessToken: localStorage.getItem("accessToken") };
   });
   const [isMenuOpened, setIsMenuOpened] = useState(false);
+  const [showVerifyMessage, setShowVerifyMessage] = useState(false);
 
   const handleMenuClick = () => {
     setIsMenuOpened(!isMenuOpened);
@@ -23,6 +26,8 @@ export const AuthProvider = ({ children }) => {
         handleMenuClick,
         isMenuOpened,
         setIsMenuOpened,
+        showVerifyMessage,
+        setShowVerifyMessage,
       }}
     >
       {children}

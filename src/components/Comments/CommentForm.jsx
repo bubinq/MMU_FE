@@ -13,7 +13,7 @@ export default function CommentForm({ doctorId }) {
   const [hover, setHover] = useState(0);
   const [rating, setRating] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const { user } = useAuth();
+  const { user, setShowVerifyMessage } = useAuth();
 
   const handleAddComment = async (values, { resetForm }) => {
     setIsLoading(true);
@@ -29,6 +29,7 @@ export default function CommentForm({ doctorId }) {
       resetForm();
     } catch (error) {
       console.log(error);
+      setShowVerifyMessage(true)
     } finally {
       setIsLoading(false);
     }

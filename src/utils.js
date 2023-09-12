@@ -15,19 +15,17 @@ export const throttle = (func, delay) => {
 };
 
 export const shouldNavShow = (scrollDown, isMenuOpened) => {
-  const animation = { top: "0%" };
+  const animation = { nav: { top: "0%" }, message: { top: "130%" } };
 
   if (scrollDown > 0 && !isMenuOpened) {
-    animation.top = "-10%";
+    animation.nav.top = "-10%";
   }
 
   return animation;
 };
 
 export const formatData = (searchTerms) => {
-  const from = searchTerms.from
-    ? searchTerms.from.split("-").map(Number)
-    : "";
+  const from = searchTerms.from ? searchTerms.from.split("-").map(Number) : "";
   const to = searchTerms.to ? searchTerms.to.split("-").map(Number) : "";
   return {
     name: searchTerms.name,

@@ -1,26 +1,27 @@
 import { NavLink } from "react-router-dom";
 import { Flex } from "@chakra-ui/react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { shouldNavShow } from "../utils";
 import useWindowBreakpoints from "../hooks/useWindowBreakpoints";
 import { useWindowScroll } from "../hooks/useWindowScroll";
 import Logo from "./Logo";
+import VerifyEmailAlert from "./VerifyEmailAlert";
 import MenuList from "./MenuList";
 import Buttons from "./Buttons";
 import useAuth from "../contexts/AuthContext";
 import NavModal from "./NavModal";
 
 const Navbar = () => {
-  const steps  = useWindowBreakpoints({ tablet: 768, desktop: 997 });
+  const steps = useWindowBreakpoints({ tablet: 768, desktop: 997 });
   const { scroll, prevScroll } = useWindowScroll();
-  const { user, isMenuOpened } = useAuth();
+  const { user, isMenuOpened, showVerifyMessage } = useAuth();
 
   const scrollDown = scroll - prevScroll.current;
-
+  const animation = shouldNavShow(scrollDown, isMenuOpened);
   return (
     <Flex
       as={motion.nav}
-      animate={shouldNavShow(scrollDown, isMenuOpened)}
+      animate={animation.nav}
       transition="0.05s"
       align="center"
       justify="space-between"
@@ -49,6 +50,11 @@ const Navbar = () => {
         </>
       ) : (
         <>{isMenuOpened && <NavModal />}</>
+      )}
+      {showVerifyMessage && (
+        <AnimatePresence>
+          <VerifyEmailAlert message={animation.message} />
+        </AnimatePresence>
       )}
     </Flex>
   );

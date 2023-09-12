@@ -14,6 +14,7 @@ import {
 import { AnimatePresence } from "framer-motion";
 import useAppointments from "../contexts/AppointmentsContext";
 import useAlert from "../hooks/useAlert";
+import useAuth from "../contexts/AuthContext";
 import AuthAlert from "./Auth/AuthAlert";
 import { genMonth } from "../utils";
 import { useEffect, useState, useRef, useMemo } from "react";
@@ -30,6 +31,7 @@ const ScheduleModal = () => {
   const [isLoading, setIsLoading] = useState({ mount: false, schedule: false });
   const [availableHours, setAvailableHours] = useState(null);
   const isFirstRender = useRef(true);
+  const { setShowVerifyMessage } = useAuth();
   const month = useMemo(() => genMonth(availableHours), [availableHours]);
 
   const steps = useWindowBreakpoints({ tablet: 768, desktop: 1088 });
@@ -89,6 +91,12 @@ const ScheduleModal = () => {
       closeModal();
     } catch (error) {
       setServerError(error.response.data.message);
+      if (
+        error.response.data.message !==
+        "You have already scheduled an appointment with this doctor for today."
+      ) {
+        setShowVerifyMessage(true);
+      }
     } finally {
       setIsLoading((prev) => ({ ...prev, schedule: false }));
     }

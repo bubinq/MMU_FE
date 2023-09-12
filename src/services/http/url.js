@@ -43,7 +43,7 @@ const auth = {
   login: "/auth/login",
   verify: (token) => `/auth/verify-email?token=${token}`,
   validateToken: (token) => `/auth/validate-token?token=${token}`,
-  resendVerification: (email) => `/auth/send-email-verification?email=${email}`,
+  resendVerification: `/auth/send-email-verification`,
   resend: (token) => `/auth/resend-forgot?token=${token}`,
   changePassword: (token) => `auth/change-password?token=${token}`,
   forgottenPassword: "/auth/forgot",
