@@ -11,7 +11,7 @@ const AuthAlert = ({ serverError, isSchedule, isVerify }) => {
       initial={{ opacity: 0, scale: 0 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0 }}
-      w={isSchedule ? "70%" : isVerify? "80%"  :"100%"}
+      w={isSchedule ? "90%" : isVerify? "80%"  :"100%"}
       top={`${isVerify && "100%"}`}
       mx={isSchedule && "auto"}
       mb={isSchedule && "2rem"}
