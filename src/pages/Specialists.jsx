@@ -1,10 +1,10 @@
 import { Box, Heading } from "@chakra-ui/react";
 import SearchBar from "../components/Specialists/SearchBar.jsx";
 import specialistService from "../services/specialist/index.js";
-import cityService from "../services/city/index.js";
+import stateService from "../services/state/index.js";
 import specialtyService from "../services/specialty/index.js";
 import { useLoaderData, useActionData } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DoctorList from "../components/Specialists/DoctorList.jsx";
 import { requestExecuter } from "../utils.js";
 import useScrollToTop from "../hooks/useScrollToTop.jsx";
@@ -25,11 +25,13 @@ const Specialists = () => {
   const [searchTerms, setSearchTerms] = useState({
     name: "",
     specialty: fromSpecialtyCard ? actionData[0].specialtyId : "",
+    state: "",
     city: "",
   });
   const [doctors, setDoctors] = useState(
     actionData || data.specialists.content
   );
+  const [cities, setCities] = useState([]);
 
   const handleSearch = () => {
     specialistService
@@ -39,6 +41,19 @@ const Specialists = () => {
       })
       .catch((err) => console.log(err));
   };
+
+  useEffect(() => {
+    if (searchTerms.state) {
+      (async function () {
+        const res = await stateService.getCitiesByState(searchTerms.state);
+        if (res && res.content.length > 0) {
+          setCities(res.content);
+        }
+      })();
+    }
+
+    setSearchTerms((prev) => ({ ...prev, city: "" }));
+  }, [searchTerms.state]);
 
   return (
     <Box as={"main"} w={["100%", "85%", "95%"]} mx={"auto"} minH={"100vh"}>
@@ -59,7 +74,8 @@ const Specialists = () => {
             searchTerms={searchTerms}
             setSearchTerms={setSearchTerms}
             specialties={data.specialties}
-            cities={data.cities}
+            cities={cities}
+            states={data.states}
             onSearch={handleSearch}
           />
 
@@ -92,7 +108,7 @@ export const loader = async () => {
       sortDir: "desc",
     });
 
-    data.cities = await cityService.getAllCities();
+    data.states = await stateService.getAllStates();
 
     data.specialties = await specialtyService.getAllSpecialties();
   } catch (err) {

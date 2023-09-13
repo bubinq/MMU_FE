@@ -30,12 +30,9 @@ const city = {
   create: (countryUuid) => `/countries/${countryUuid}/cities`,
 };
 
-const country = {
-  listAll: () => "/country",
-  create: () => "/country",
-  getCountry: (uuid) => `/countries/${uuid}`,
-  updateCountry: (uuid) => `/countries/${uuid}`,
-  deleteCountry: (uuid) => `/countries/${uuid}`,
+const state = {
+  listAll: "/states?pageNo=0&pageSize=50&sortBy=id&sortDir=asc",
+  getCitiesByState: (stateId) => `/states/${stateId}/cities`
 };
 
 const auth = {
@@ -76,7 +73,7 @@ const urls = {
   appointments,
   specialty,
   specialist,
-  country,
+  state,
   city,
   auth,
 };

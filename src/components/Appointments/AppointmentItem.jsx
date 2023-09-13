@@ -19,11 +19,13 @@ import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { useRef, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import useAlert from "../../hooks/useAlert";
+import useAuth from "../../contexts/AuthContext";
 import AuthAlert from "../Auth/AuthAlert";
 import appointmentsService from "../../services/appointments/index";
 
 const AppointmentItem = ({ data, setAppointments, setAccordionIndex }) => {
   const { isOpen, onToggle } = useDisclosure();
+  const { setSuccessMessage } = useAuth();
   const [serverError, setServerError] = useState("");
   const { isAlertVisible } = useAlert(serverError, setServerError);
   const cancelRef = useRef();
@@ -31,12 +33,12 @@ const AppointmentItem = ({ data, setAppointments, setAccordionIndex }) => {
 
   const onCancel = async (id) => {
     try {
-      await appointmentsService.cancelAppointment(id);
+      const response = await appointmentsService.cancelAppointment(id);
       setAppointments((state) => state.filter((x) => x.id !== id));
       setAccordionIndex(-1);
+      setSuccessMessage(response);
     } catch (err) {
-      console.log(err.message);
-      setServerError(err.response.data.message)
+      setServerError(err.response.data.message);
     }
   };
 

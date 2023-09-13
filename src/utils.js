@@ -15,7 +15,7 @@ export const throttle = (func, delay) => {
 };
 
 export const shouldNavShow = (scrollDown, isMenuOpened) => {
-  const animation = { nav: { top: "0%" }, message: { top: "120%" } };
+  const animation = { nav: { top: "0%" }, message: { top: "125%" } };
 
   if (scrollDown > 0 && !isMenuOpened) {
     animation.nav.top = "-10%";
