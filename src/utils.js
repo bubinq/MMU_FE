@@ -74,7 +74,7 @@ export const genMonth = (availableHours) => {
       appointment.split("T")
     );
     for (const [key, value] of formattedData) {
-      let formattedKey = new Date(key).toLocaleDateString();
+      let formattedKey = new Date(key).toLocaleDateString("en-Us");
       if (!(formattedKey in days)) {
         days[formattedKey] = [];
       }

@@ -7,6 +7,9 @@ const DisplayDays = ({ slots, selectDate, setSelectDate }) => {
   const date = new Date(slots[0].date).getTime();
   const prevSwiper = useRef(date);
 
+
+  console.log(prevSwiper.current);
+  console.log(date);
   useEffect(() => {
     prevSwiper.current = date;
   }, [slots]);
