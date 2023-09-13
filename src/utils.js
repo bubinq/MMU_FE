@@ -83,7 +83,7 @@ export const genMonth = (availableHours) => {
   }
   return Array.from({ length: 30 }, (_, idx) => {
     const timeFormat = new Date(new Date().getTime() + 86400000 * (idx + 1));
-    const currDay = timeFormat.toLocaleDateString();
+    const currDay = timeFormat.toLocaleDateString("en-Us");
     const dayOfWeek = new Intl.DateTimeFormat("en-Us", {
       weekday: "long",
     }).format(timeFormat);

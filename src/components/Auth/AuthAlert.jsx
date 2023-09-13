@@ -15,6 +15,7 @@ const AuthAlert = ({ serverError, isSchedule, isVerify }) => {
       top={`${isVerify && "100%"}`}
       mx={isSchedule && "auto"}
       mb={isSchedule && "2rem"}
+      mt={isVerify && "1.5rem"}
       backgroundColor={"#D71C21"}
       borderRadius={"0.3125rem"}
       boxShadow={"0px 4px 4px 0px rgba(0, 0, 0, 0.25)"}

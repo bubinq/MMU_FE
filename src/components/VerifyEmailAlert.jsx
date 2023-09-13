@@ -12,11 +12,13 @@ import exclamation from "../assets/exclamation.svg";
 import useAuth from "../contexts/AuthContext";
 import useAlert from "../hooks/useAlert";
 import AuthAlert from "./Auth/AuthAlert";
+import SuccessMessageAlert from "./SuccessMessageAlert";
 import { useEffect, useState } from "react";
 
 const VerifyEmailAlert = ({ animation }) => {
   const { setVerifyMessage } = useAuth();
   const [serverError, setServerError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const { isAlertVisible } = useAlert(serverError, setServerError);
 
   const width = window.innerWidth;
@@ -24,7 +26,8 @@ const VerifyEmailAlert = ({ animation }) => {
   const resendVerificationEmail = async (ev) => {
     ev.preventDefault();
     try {
-      await authService.resendVerifyEmail();
+      const response = await authService.resendVerifyEmail();
+      setSuccessMessage(response);
     } catch (error) {
       if (
         error.response.data.message === "A previous token has not expired yet"
@@ -109,6 +112,9 @@ const VerifyEmailAlert = ({ animation }) => {
       <AnimatePresence>
         {isAlertVisible && (
           <AuthAlert isVerify={true} serverError={serverError} />
+        )}
+        {successMessage && (
+          <SuccessMessageAlert message={successMessage} />
         )}
       </AnimatePresence>
     </Flex>

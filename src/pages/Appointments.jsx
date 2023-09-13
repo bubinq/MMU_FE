@@ -125,6 +125,11 @@ export const loader = async () => {
     data.upcoming = await appointmentsService.getUpcoming("UPCOMING");
   } catch (err) {
     console.log(err);
+    if (err.response.data.message === "Access Denied") {
+      throw new Error(
+        "You are not authorized to access this resource or you might not have verified your account."
+      );
+    }
     throw new Error(
       "Server Error: Keep refreshing this page. We will be back soon!"
     );
