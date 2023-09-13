@@ -124,6 +124,7 @@ export const loader = async () => {
     data.specialties = await specialtyService.getAllSpecialties();
     data.upcoming = await appointmentsService.getUpcoming("UPCOMING");
   } catch (err) {
+    console.log(err);
     throw new Error(
       "Server Error: Keep refreshing this page. We will be back soon!"
     );

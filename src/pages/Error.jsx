@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useRouteError } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import { Flex, Button, Image } from "@chakra-ui/react";
-import oops from "../assets/oops.avif"
+import { Flex, Button, Image, Text, Heading } from "@chakra-ui/react";
+import oops from "../assets/oops.avif";
 
 const Error = () => {
-
+  const error = useRouteError();
   return (
     <>
       <Navbar />
@@ -16,8 +16,18 @@ const Error = () => {
         gap={5}
         mx={"auto"}
       >
-        <Image w={"420px"} mt={"100px"} src={oops} alt="Oops error!"/>
-        <Button variant={"signup"} as={Link} to="/">Return Home</Button>
+        <Heading variant={"main"}>Oops!</Heading>
+        <Text textAlign={"center"}>
+          Sorry, an unexpected error has occurred.
+        </Text>
+        <Heading size={"md"} textAlign={"center"} color={"tomato"}>
+          <i>{error.statusText || error.message}</i>
+        </Heading>
+
+        {/* <Image w={"420px"} mt={"100px"} src={oops} alt="Oops error!"/> */}
+        <Button variant={"signup"} as={Link} to="/">
+          Return Home
+        </Button>
       </Flex>
     </>
   );

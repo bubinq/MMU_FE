@@ -8,15 +8,13 @@ import useAuth from "../../contexts/AuthContext";
 const SpecialtyList = ({ data }) => {
   const submit = useSubmit();
   const { setUser } = useAuth();
-  
+
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const jwtToken = urlParams.get("jwt_token");
     if (jwtToken) {
-      localStorage.setItem(
-        "accessToken",
-        JSON.stringify(jwtToken)
-      );
+      localStorage.setItem("accessToken", jwtToken);
+
       setUser({ accessToken: jwtToken });
       window.history.replaceState(null, null, BASE_URL);
     }
