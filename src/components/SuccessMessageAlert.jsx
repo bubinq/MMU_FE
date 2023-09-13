@@ -1,17 +1,25 @@
 import { Flex, Image, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-
 import exclamation from "../assets/exclamation.svg";
+import useAuth from "../contexts/AuthContext";
+import { useEffect } from "react";
 
-const SuccessMessageAlert = ({ message }) => {
+const SuccessMessageAlert = ({ message, animation }) => {
   const width = window.innerWidth;
+  const { setSuccessMessage } = useAuth();
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      setSuccessMessage("");
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <Flex
       position={"absolute"}
       as={motion.div}
       initial={{ scale: 0, opacity: 0 }}
       exit={{ scale: 0, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
+      animate={{ ...animation, scale: 1, opacity: 1 }}
       left={[
         `calc(50% - ${(width * 0.7) / 2}px)`,
         `calc(50% - ${(width * 0.7) / 2}px)`,

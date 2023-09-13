@@ -45,22 +45,15 @@ const SignUpAgreements = () => {
               />
             </Tooltip>
           </Flex>
-
-          {/* <Checkbox value="">
-            I have read and agree to the Privacy Policy
-          </Checkbox>
-          <Checkbox value="">
-            I have read and agree to the Terms and Conditions
-          </Checkbox> */}
         </Stack>
       </CheckboxGroup>
-      <Box fontSize="sm">
+      <Box fontSize="md">
         <Text as="span">By clicking Sign Up, you agree to our</Text>
         <ChakraLink
           as={Link}
           ml="1"
           mr="1"
-          color="red"
+          color="blue.900"
           fontWeight={700}
           to={"/auth/user-agreement"}
         >
@@ -70,7 +63,7 @@ const SignUpAgreements = () => {
         <ChakraLink
           as={Link}
           ml="1"
-          color="red"
+          color="blue.900"
           fontWeight={700}
           to={"/auth/privacy-policy"}
         >

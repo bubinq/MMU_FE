@@ -6,6 +6,7 @@ import useWindowBreakpoints from "../hooks/useWindowBreakpoints";
 import { useWindowScroll } from "../hooks/useWindowScroll";
 import Logo from "./Logo";
 import VerifyEmailAlert from "./VerifyEmailAlert";
+import SuccessMessageAlert from "./SuccessMessageAlert";
 import MenuList from "./MenuList";
 import Buttons from "./Buttons";
 import useAuth from "../contexts/AuthContext";
@@ -14,7 +15,8 @@ import NavModal from "./NavModal";
 const Navbar = () => {
   const steps = useWindowBreakpoints({ tablet: 768, desktop: 997 });
   const { scroll, prevScroll } = useWindowScroll();
-  const { user, isMenuOpened, verifyMessage } = useAuth();
+  const { user, isMenuOpened, verifyMessage, successMessage } = useAuth();
+
 
   const scrollDown = scroll - prevScroll.current;
   const animation = shouldNavShow(scrollDown, isMenuOpened);
@@ -54,6 +56,7 @@ const Navbar = () => {
 
       <AnimatePresence>
         {verifyMessage && <VerifyEmailAlert animation={animation.message} />}
+        {successMessage && <SuccessMessageAlert message={successMessage} animation={animation.message} />}
       </AnimatePresence>
     </Flex>
   );

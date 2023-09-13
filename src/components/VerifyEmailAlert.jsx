@@ -12,13 +12,11 @@ import exclamation from "../assets/exclamation.svg";
 import useAuth from "../contexts/AuthContext";
 import useAlert from "../hooks/useAlert";
 import AuthAlert from "./Auth/AuthAlert";
-import SuccessMessageAlert from "./SuccessMessageAlert";
 import { useEffect, useState } from "react";
 
 const VerifyEmailAlert = ({ animation }) => {
-  const { setVerifyMessage } = useAuth();
+  const { setVerifyMessage, setSuccessMessage } = useAuth();
   const [serverError, setServerError] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
   const { isAlertVisible } = useAlert(serverError, setServerError);
 
   const width = window.innerWidth;
@@ -112,9 +110,6 @@ const VerifyEmailAlert = ({ animation }) => {
       <AnimatePresence>
         {isAlertVisible && (
           <AuthAlert isVerify={true} serverError={serverError} />
-        )}
-        {successMessage && (
-          <SuccessMessageAlert message={successMessage} />
         )}
       </AnimatePresence>
     </Flex>

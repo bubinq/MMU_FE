@@ -18,7 +18,7 @@ import useAuth from "../contexts/AuthContext";
 import AuthAlert from "./Auth/AuthAlert";
 import { genMonth } from "../utils";
 import { useEffect, useState, useRef, useMemo } from "react";
-import { EMAIL_VERIFY_SENT } from "../constants";
+import { EMAIL_VERIFY_SENT, VERIFY_VALIDATIONS } from "../constants";
 import arrowRight from "../assets/arrowRight.svg";
 import arrowLeft from "../assets/arrowLeft.svg";
 import DisplayDays from "./Appointments/DisplayDays";
@@ -32,7 +32,7 @@ const ScheduleModal = () => {
   const [isLoading, setIsLoading] = useState({ mount: false, schedule: false });
   const [availableHours, setAvailableHours] = useState(null);
   const isFirstRender = useRef(true);
-  const { setVerifyMessage } = useAuth();
+  const { setVerifyMessage, setSuccessMessage } = useAuth();
   const month = useMemo(() => genMonth(availableHours), [availableHours]);
 
   const steps = useWindowBreakpoints({ tablet: 768, desktop: 1088 });
@@ -88,16 +88,15 @@ const ScheduleModal = () => {
         date,
         hour: parseInt(time),
       };
-      await appointmentsService.scheduleAppointment(data);
+      const response = await appointmentsService.scheduleAppointment(data);
       closeModal();
+      setSuccessMessage(`Successfully scheduled an appointment with doctor ${response.doctorName} `)
     } catch (error) {
       setServerError(error.response.data.message);
-      console.log(error.response.data.message);
       if (
-        error.response.data.message !==
-          "You have already scheduled an appointment with this doctor for today." &&
-        error.response.data.message !==
-          "You have another appointment scheduled at the same time with a different doctor"
+        VERIFY_VALIDATIONS.some(
+          (validation) => validation === error.response.data.message
+        )
       ) {
         setVerifyMessage(EMAIL_VERIFY_SENT);
       }
@@ -151,6 +150,7 @@ const ScheduleModal = () => {
           maxW={"auto"}
           gap={"1.5rem"}
           w={["80%", "40rem", "52rem"]}
+          mt={"5rem"}
           minH={"500px"}
           shadow={"md"}
           padding={["1rem 2.5rem", "2rem 2.5rem"]}
