@@ -33,7 +33,7 @@ const VerifyEmailAlert = ({ animation }) => {
         setServerError(
           "An active link has already been sent, please check your email inbox"
         );
-      } else if (error.response.data.message === "Access denied") {
+      } else {
         setServerError("Something went wrong!");
       }
     }

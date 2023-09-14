@@ -6,10 +6,11 @@ import { useEffect } from "react";
 
 const SuccessMessageAlert = ({ message, animation }) => {
   const width = window.innerWidth;
-  const { setSuccessMessage } = useAuth();
+  const { setSuccessMessage, setVerifyMessage } = useAuth();
   useEffect(() => {
     let timer = setTimeout(() => {
       setSuccessMessage("");
+      setVerifyMessage("");
     }, 5000);
     return () => clearTimeout(timer);
   }, []);

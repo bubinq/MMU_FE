@@ -3,12 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../contexts/AuthContext";
 
 const Buttons = ({ type, text }) => {
-  const { setUser, setIsMenuOpened } = useAuth();
+  const { setUser, setIsMenuOpened, setVerifyMessage } = useAuth();
   const goTo = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     setUser({ accessToken: "" });
     setIsMenuOpened(false);
+    setVerifyMessage("");
     goTo("/", { replace: true });
   };
   switch (type) {
