@@ -8,7 +8,7 @@ export const AuthContext = createContext({
   setVerifyMessage: () => {},
   successMessage: "",
   setSuccessMessage: () => {},
-  broadcastChannel: BroadcastChannel,
+  broadcastInstance: BroadcastChannel,
 });
 
 const broadcastChannel = new BroadcastChannel("reloadChannel");
@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     return { accessToken: localStorage.getItem("accessToken") };
   });
-  const [broadcastChannel, setBroadcastChannel] = useState(broadcastChannel);
+  const [broadcastInstance, setBroadcastChannel] = useState(broadcastChannel);
   const [isMenuOpened, setIsMenuOpened] = useState(false);
   const [verifyMessage, setVerifyMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
         setVerifyMessage,
         successMessage,
         setSuccessMessage,
-        broadcastChannel,
+        broadcastInstance,
       }}
     >
       {children}

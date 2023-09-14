@@ -30,7 +30,7 @@ export default function AuthModal({
     success: false,
     error: "",
   });
-  const { broadcastChannel } = useAuth();
+  const { broadcastInstance } = useAuth();
 
   const [serverError, setServerError] = useState("");
   const { isAlertVisible } = useAlert(serverError, setServerError);
@@ -51,7 +51,7 @@ export default function AuthModal({
 
   useEffect(() => {
     // setUser((prev) => ({ ...prev, accessToken: "" }));
-    broadcastChannel.postMessage({ action: 'reload' });
+    broadcastInstance.postMessage({ action: 'reload' });
   }, []);
   return (
     <Flex
