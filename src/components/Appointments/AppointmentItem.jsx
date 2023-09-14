@@ -5,6 +5,7 @@ import {
   AccordionPanel,
   Text,
   Box,
+  Flex,
   useDisclosure,
   AlertDialog,
   Button,
@@ -95,7 +96,28 @@ const AppointmentItem = ({ data, setAppointments, setAccordionIndex }) => {
           rowGap={["1rem", "0"]}
           columnGap={["0", "0.7rem"]}
         >
-          <Box>
+          <Flex direction={"column"}>
+          <Box
+              fontWeight="700"
+              textAlign={["center", "left"]}
+              display="flex"
+              alignItems="center"
+              mt="5px"
+              justifyContent={["center", "left"]}
+            >
+              Specialty:
+            </Box>
+
+            <Box display="flex" alignItems="center" justifyContent={["center", "left"]}>
+              <Text
+                ml="5px"
+                lineHeight="16px"
+                fontSize={["14px", "14px", "14px", "16px"]}
+                textAlign={["center","left"]}
+              >
+                {data.specialtyName}
+              </Text>
+            </Box>
             <Box
               fontWeight="700"
               textAlign={["center", "left"]}
@@ -122,7 +144,7 @@ const AppointmentItem = ({ data, setAppointments, setAccordionIndex }) => {
                 {data.appointmentAddress}
               </Text>
             </Box>
-          </Box>
+          </Flex>
 
           {page === "upcoming" && (
             <>
