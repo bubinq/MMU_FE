@@ -153,6 +153,7 @@ export const loader = async () => {
       const response = await authService.verifyEmail(token);
       if (typeof response === "string") {
         window.history.replaceState(null, null, "/auth/confirm");
+        window.location.reload();
         return null;
       }
     } catch (error) {
