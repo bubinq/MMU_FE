@@ -13,11 +13,12 @@ const specialist = {
     name = "",
     specialty = "",
     city = "",
+    state = "",
     pageSize = 100,
     sortBy = "averageRating",
     sortDir = "desc",
   }) =>
-    `/doctors?name=${name}&specialtyId=${specialty}&cityId=${city}&pageSize=${pageSize}&sortBy=${sortBy}&sortDir=${sortDir}`,
+    `/doctors?name=${name}&specialtyId=${specialty}&cityId=${city}&pageSize=${pageSize}&sortBy=${sortBy}&sortDir=${sortDir}&stateId=${state}`,
   getComments: (id) => `/doctors/${id}/reviews`,
   createComments: `/doctors/reviews`,
   getPage: (id, pageNum) =>

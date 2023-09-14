@@ -34,8 +34,9 @@ const AppointmentsHeading = () => {
           _hover={{ textDecoration: "none" }}
           display='flex'
           alignItems='center'
+          textDecor={"line-through"}
         >
-          Past appointments
+          Past appointments(TBD)
         </ChakraLink>
       </Flex>
     </Flex>
