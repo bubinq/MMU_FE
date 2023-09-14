@@ -147,13 +147,13 @@ export default function AuthModal({
 export const loader = async () => {
   const token = new URLSearchParams(window.location.search).get("token");
   localStorage.removeItem("accessToken");
+  window.location.reload();
 
   if (token) {
     try {
       const response = await authService.verifyEmail(token);
       if (typeof response === "string") {
         window.history.replaceState(null, null, "/auth/confirm");
-        window.location.reload();
         return null;
       }
     } catch (error) {
