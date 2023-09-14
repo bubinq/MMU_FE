@@ -17,7 +17,6 @@ const Navbar = () => {
   const { scroll, prevScroll } = useWindowScroll();
   const { user, isMenuOpened, verifyMessage, successMessage } = useAuth();
 
-
   const scrollDown = scroll - prevScroll.current;
   const animation = shouldNavShow(scrollDown, isMenuOpened);
   return (
@@ -56,7 +55,14 @@ const Navbar = () => {
 
       <AnimatePresence>
         {verifyMessage && <VerifyEmailAlert animation={animation.message} />}
-        {successMessage && <SuccessMessageAlert message={successMessage} animation={animation.message} />}
+      </AnimatePresence>
+      <AnimatePresence>
+        {successMessage && (
+          <SuccessMessageAlert
+            message={successMessage}
+            animation={animation.message}
+          />
+        )}
       </AnimatePresence>
     </Flex>
   );

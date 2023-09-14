@@ -5,7 +5,6 @@ import oops from "../assets/oops.avif";
 
 const Error = () => {
   const error = useRouteError();
-  console.log(error);
   return (
     <>
       <Navbar />

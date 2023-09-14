@@ -90,7 +90,9 @@ const ScheduleModal = () => {
       };
       const response = await appointmentsService.scheduleAppointment(data);
       closeModal();
-      setSuccessMessage(`Successfully scheduled an appointment with doctor ${response.doctorName} `)
+      setSuccessMessage(
+        `Successfully scheduled an appointment with doctor ${response.doctorName} `
+      );
     } catch (error) {
       setServerError(error.response.data.message);
       if (
@@ -114,8 +116,9 @@ const ScheduleModal = () => {
       setAvailableHours(hours);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading((prev) => ({ ...prev, mount: false }));
     }
-    setIsLoading((prev) => ({ ...prev, mount: false }));
   };
   useEffect(() => {
     if (isFirstRender.current) {

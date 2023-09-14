@@ -2,6 +2,8 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { object, string } from "yup";
 import { FormLabel, Button, Link, Spinner, Box } from "@chakra-ui/react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { EMAIL_VERIFY_SENT } from "../../constants";
+import jwt_decode from "jwt-decode";
 import authService from "../../services/auth";
 import { useState } from "react";
 import useAuth from "../../contexts/AuthContext";
@@ -20,7 +22,7 @@ const validationSchema = object({
 });
 
 const LoginForm = ({ setServerError }) => {
-  const { setUser } = useAuth();
+  const { setUser, setVerifyMessage } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const goTo = useNavigate();
@@ -32,8 +34,12 @@ const LoginForm = ({ setServerError }) => {
         email: values.email,
         password: values.password,
       });
+      const decodedToken = jwt_decode(response.accessToken);
       localStorage.setItem("accessToken", response.accessToken);
       setUser({ accessToken: response.accessToken });
+      if (!decodedToken.isEmailVerified) {
+        setVerifyMessage(EMAIL_VERIFY_SENT);
+      }
       goTo("/", { replace: true });
     } catch (error) {
       setIsLoading(false);

@@ -9,7 +9,7 @@ const SuccessMessageAlert = ({ message, animation }) => {
   const { setSuccessMessage, setVerifyMessage } = useAuth();
   useEffect(() => {
     let timer = setTimeout(() => {
-      setSuccessMessage("");
+      setSuccessMessage(null);
       setVerifyMessage("");
     }, 5000);
     return () => clearTimeout(timer);
@@ -51,7 +51,10 @@ const SuccessMessageAlert = ({ message, animation }) => {
         <Text>{message}</Text>
       </Flex>
       <Button
-        onClick={() => setSuccessMessage("")}
+        onClick={() => {
+          setSuccessMessage(null);
+          setVerifyMessage("");
+        }}
         pos={"absolute"}
         top={"5%"}
         color={"#fff"}
