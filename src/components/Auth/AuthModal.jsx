@@ -9,12 +9,13 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { Link, redirect } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import authService from "../../services/auth";
 import checkIcon from "../../assets/registered_checked.svg";
 import deniedIcon from "../../assets/denied.svg";
 import BackEndValidationErrorMSG from "../../components/SignUp/BackEndValidationErrorMSG";
 import useAlert from "../../hooks/useAlert";
+import useAuth from "../../contexts/AuthContext";
 import { EMAIL_ALREADY_SENT, RESEND_SENT } from "../../constants";
 
 export default function AuthModal({
@@ -29,6 +30,7 @@ export default function AuthModal({
     success: false,
     error: "",
   });
+  const { setUser } = useAuth();
 
   const [serverError, setServerError] = useState("");
   const { isAlertVisible } = useAlert(serverError, setServerError);
@@ -46,6 +48,10 @@ export default function AuthModal({
       setServerError({ message: EMAIL_ALREADY_SENT });
     }
   };
+
+  useEffect(() => {
+    setUser(null);
+  }, []);
   return (
     <Flex
       mt={"15.4425rem"}
