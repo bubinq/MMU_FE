@@ -41,7 +41,7 @@ export default function CommentForm({ doctorId }) {
       validationSchema={commentsSchema}
       onSubmit={handleAddComment}
     >
-      {({ values }) => (
+      {({ values, errors, touched }) => (
         <Form className="comments-form">
           <FormLabel
             fontSize={"18px"}
@@ -128,18 +128,17 @@ export default function CommentForm({ doctorId }) {
             color={"blue.900"}
             borderRadius="5px"
             isDisabled={
-              (!values.rating && !values.comment) ||
+              !values.rating ||
+              !values.comment ||
               isLoading ||
-              !user.accessToken
+              !user.accessToken ||
+              errors.rating ||
+              errors.comment
             }
             px={"2rem"}
             mt={"5px"}
             transition={"0.2s all ease"}
-            bg={
-              (!values.rating && !values.comment) || isLoading
-                ? "rgba(244, 180, 0, 0.6)"
-                : "yellow.400"
-            }
+            bg={"yellow.400"}
             _hover={{ bg: "red.300", color: "white" }}
           >
             {isLoading ? (
