@@ -50,7 +50,7 @@ export default function AuthModal({
   };
 
   useEffect(() => {
-    setUser(null);
+    setUser((prev) => ({ ...prev, accessToken: "" }));
   }, []);
   return (
     <Flex
@@ -146,11 +146,11 @@ export default function AuthModal({
 
 export const loader = async () => {
   const token = new URLSearchParams(window.location.search).get("token");
+  localStorage.removeItem("accessToken");
 
   if (token) {
     try {
       const response = await authService.verifyEmail(token);
-      localStorage.removeItem("accessToken");
       if (typeof response === "string") {
         window.history.replaceState(null, null, "/auth/confirm");
         return null;
