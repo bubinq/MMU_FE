@@ -140,15 +140,19 @@ export default function AuthModal({
 
 export const loader = async () => {
   const token = new URLSearchParams(window.location.search).get("token");
+
   if (token) {
     try {
       const response = await authService.verifyEmail(token);
+      localStorage.removeItem("accessToken");
       if (typeof response === "string") {
         window.history.replaceState(null, null, "/auth/confirm");
         return null;
       }
     } catch (error) {
-      if (error.response?.data?.message === "The token has expired or is invalid") {
+      if (
+        error.response?.data?.message === "The token has expired or is invalid"
+      ) {
         return redirect("/auth/verification-expired");
       } else if (error.response?.data?.message === "Email already confirmed") {
         return redirect("/auth/already-verified");
