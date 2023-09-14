@@ -12,7 +12,10 @@ const SuccessMessageAlert = ({ message, animation }) => {
       setSuccessMessage(null);
       setVerifyMessage("");
     }, 5000);
-    return () => clearTimeout(timer);
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, []);
   return (
     <Flex

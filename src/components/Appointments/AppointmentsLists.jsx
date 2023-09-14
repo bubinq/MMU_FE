@@ -1,16 +1,18 @@
 import { Heading, Accordion } from "@chakra-ui/react";
 import AppointmentItem from "./AppointmentItem";
 import { useState, memo } from "react";
+import useAppointments from "../../contexts/AppointmentsContext";
 
 const AppointmentsList = ({ appointments, setAppointments }) => {
   const [accordionIndex, setAccordionIndex] = useState(-1);
+  const { selectedType } = useAppointments();
 
   return (
     <>
       {appointments.length === 0 ? (
         <>
           <Heading textAlign={"center"} py={4} size={"md"} mt={"1rem"}>
-            There are no upcoming appointments
+            There are no {selectedType.toLocaleLowerCase()} appointments
           </Heading>
         </>
       ) : (

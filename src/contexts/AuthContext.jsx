@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     return { accessToken: localStorage.getItem("accessToken") };
   });
-  const [broadcastInstance, setBroadcastChannel] = useState(broadcastChannel);
+  const [broadcastInstance, _] = useState(broadcastChannel);
   const [isMenuOpened, setIsMenuOpened] = useState(false);
   const [verifyMessage, setVerifyMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");

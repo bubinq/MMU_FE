@@ -1,6 +1,6 @@
 import { Flex, Heading } from "@chakra-ui/react";
 import { useEffect, useState, useRef } from "react";
-import { useLoaderData, redirect } from "react-router-dom";
+import { useLoaderData, redirect, useFetcher } from "react-router-dom";
 import { formatData } from "../utils";
 import Paginate from "../components/Paginate";
 import specialtyService from "../services/specialty";
@@ -10,10 +10,15 @@ import SearchBar from "../components/Appointments/SearchBar";
 import Spinner from "../components/Spinner";
 import AppointmentsList from "../components/Appointments/AppointmentsLists";
 import AppointmentsHeading from "../components/Appointments/AppointmentsHeading";
+import useAppointments from "../contexts/AppointmentsContext";
 
 const Appointments = () => {
   const data = useLoaderData();
+  const fetcher = useFetcher();
+
   const isTransitioning = useSpinner();
+  const { selectedType } = useAppointments();
+
   const hasSearched = useRef(false);
   const [searchTerms, setSearchTerms] = useState({
     name: "",
@@ -33,10 +38,11 @@ const Appointments = () => {
       if (hasSearched.current) {
         data = await appointmentsService.searchAppointments(
           formatData(searchTerms),
-          value - 1
+          value - 1,
+          selectedType
         );
       } else {
-        data = await appointmentsService.getPage(value - 1);
+        data = await appointmentsService.getPage(selectedType, value - 1);
       }
       setPage(value);
       setAppointments(data.content);
@@ -50,11 +56,12 @@ const Appointments = () => {
   const handleSearch = () => {
     setIsLoading(true);
     appointmentsService
-      .searchAppointments(formatData(searchTerms))
+      .searchAppointments(formatData(searchTerms), "", selectedType)
       .then((res) => {
         hasSearched.current = true;
         setAppointments(res.content);
         setCount(res.totalPages);
+        setPage(1);
       })
       .catch((err) => console.log(err))
       .finally(() => setIsLoading(false));
@@ -62,9 +69,33 @@ const Appointments = () => {
 
   useEffect(() => {
     if (appointments.length === 0 && page > 1) {
-      window.location.reload();
+      fetcher.load();
+      setIsLoading(true);
     }
   }, [appointments, page]);
+
+  useEffect(() => {
+    if (fetcher.data) {
+      setAppointments(
+        fetcher.data.upcoming
+          ? fetcher.data.upcoming.content
+          : fetcher.data.content
+      );
+      setCount(
+        fetcher.data.upcoming
+          ? fetcher.data.upcoming.totalPages
+          : fetcher.data.totalPages
+      );
+      setPage(1);
+      setSearchTerms({
+        name: "",
+        specialty: "",
+        from: "",
+        to: "",
+      });
+      setIsLoading(false);
+    }
+  }, [fetcher.data]);
   return (
     <Flex
       as={"section"}
@@ -91,7 +122,7 @@ const Appointments = () => {
             borderRadius={"10px"}
             shadow={"md"}
           >
-            <AppointmentsHeading />
+            <AppointmentsHeading fetcher={fetcher} />
             {isLoading ? (
               <Spinner />
             ) : (
@@ -100,7 +131,7 @@ const Appointments = () => {
                   appointments={appointments}
                   setAppointments={setAppointments}
                 />
-                {appointments.length > 0 && (
+                {appointments?.length > 0 && (
                   <Paginate count={count} page={page} goToPage={goToPage} />
                 )}
               </>
@@ -114,6 +145,25 @@ const Appointments = () => {
 
 export default Appointments;
 
+export const getAppointmentsType = async ({ request }) => {
+  const formData = Object.fromEntries(await request.formData());
+  try {
+    const response = await appointmentsService.getAppointments(
+      formData.selectedType
+    );
+    return response;
+  } catch (error) {
+    if (error.response.data.message === "Access Denied") {
+      throw new Error(
+        "You are not authorized to access this resource or you might not have verified your account."
+      );
+    }
+    throw new Error(
+      "Server Error: Keep refreshing this page. We will be back soon!"
+    );
+  }
+};
+
 export const loader = async () => {
   let data = {};
   const token = localStorage.getItem("accessToken");
@@ -122,9 +172,8 @@ export const loader = async () => {
   }
   try {
     data.specialties = await specialtyService.getAllSpecialties();
-    data.upcoming = await appointmentsService.getUpcoming("UPCOMING");
+    data.upcoming = await appointmentsService.getAppointments("UPCOMING");
   } catch (err) {
-    console.log(err);
     if (err.response.data.message === "Access Denied") {
       throw new Error(
         "You are not authorized to access this resource or you might not have verified your account."

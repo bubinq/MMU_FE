@@ -33,7 +33,7 @@ const city = {
 
 const state = {
   listAll: "/states?pageNo=0&pageSize=50&sortBy=id&sortDir=asc",
-  getCitiesByState: (stateId) => `/states/${stateId}/cities`
+  getCitiesByState: (stateId) => `/states/${stateId}/cities`,
 };
 
 const auth = {
@@ -48,11 +48,12 @@ const auth = {
 };
 
 const appointments = {
-  getUpcoming: (type) => `/appointments/search?type=${type}`,
+  getAppointments: (type) => `/appointments/search?type=${type}`,
   scheduleAppointment: `/appointments`,
   cancel: (id) => `/appointments/${id}`,
   getDoctorAppointments: (id) => `/doctors/${id}/appointments`,
-  getPage: (pageNum) => `/appointments/search?type=UPCOMING&pageNo=${pageNum}`,
+  getPage: (type, pageNum) =>
+    `/appointments/search?type=${type}&pageNo=${pageNum}`,
   searchBy: (
     {
       name = "",
@@ -65,9 +66,10 @@ const appointments = {
       toMonth = "",
       toDay = "",
     },
-    pageNum = 0
+    pageNum = 0,
+    type
   ) =>
-    `/appointments/search?type=UPCOMING&name=${name}&cityId=${city}&specialtyId=${specialty}&pageNo=${pageNum}&fromYear=${fromYear}&fromMonth=${fromMonth}&fromDay=${fromDay}&toYear=${toYear}&toMonth=${toMonth}&toDay=${toDay}`,
+    `/appointments/search?type=${type}&name=${name}&cityId=${city}&specialtyId=${specialty}&pageNo=${pageNum}&fromYear=${fromYear}&fromMonth=${fromMonth}&fromDay=${fromDay}&toYear=${toYear}&toMonth=${toMonth}&toDay=${toDay}`,
 };
 
 const urls = {

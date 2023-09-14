@@ -23,14 +23,15 @@ import useAlert from "../../hooks/useAlert";
 import useAuth from "../../contexts/AuthContext";
 import AuthAlert from "../Auth/AuthAlert";
 import appointmentsService from "../../services/appointments/index";
+import useAppointments from "../../contexts/AppointmentsContext";
 
 const AppointmentItem = ({ data, setAppointments, setAccordionIndex }) => {
   const { isOpen, onToggle } = useDisclosure();
+  const { selectedType } = useAppointments();
   const { setSuccessMessage } = useAuth();
   const [serverError, setServerError] = useState("");
   const { isAlertVisible } = useAlert(serverError, setServerError);
   const cancelRef = useRef();
-  const page = "upcoming";
 
   const onCancel = async (id) => {
     try {
@@ -97,7 +98,7 @@ const AppointmentItem = ({ data, setAppointments, setAccordionIndex }) => {
           columnGap={["0", "0.7rem"]}
         >
           <Flex direction={"column"}>
-          <Box
+            <Box
               fontWeight="700"
               textAlign={["center", "left"]}
               display="flex"
@@ -108,12 +109,16 @@ const AppointmentItem = ({ data, setAppointments, setAccordionIndex }) => {
               Specialty:
             </Box>
 
-            <Box display="flex" alignItems="center" justifyContent={["center", "left"]}>
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent={["center", "left"]}
+            >
               <Text
                 ml="5px"
                 lineHeight="16px"
                 fontSize={["14px", "14px", "14px", "16px"]}
-                textAlign={["center","left"]}
+                textAlign={["center", "left"]}
               >
                 {data.specialtyName}
               </Text>
@@ -146,7 +151,7 @@ const AppointmentItem = ({ data, setAppointments, setAccordionIndex }) => {
             </Box>
           </Flex>
 
-          {page === "upcoming" && (
+          {selectedType === "UPCOMING" && (
             <>
               <Button
                 display="block"

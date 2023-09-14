@@ -7,7 +7,7 @@ import DoctorDetails, {
 } from "../pages/DoctorDetails.jsx";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-import Appointments from "../pages/Appointments";
+import Appointments, { getAppointmentsType } from "../pages/Appointments";
 import AuthGuard from "../guards/AuthGuard";
 import { loader as getAllSpecialties } from "../pages/Home";
 import { getSpecialistsSettings } from "../pages/Specialists";
@@ -61,6 +61,10 @@ export const router = createBrowserRouter([
         path: "/appointments",
         element: <Appointments />,
         loader: getAppointmentsData,
+        action: getAppointmentsType,
+        shouldRevalidate: ({ currentUrl }) => {
+          return currentUrl.pathname !== "/appointments";
+        },
       },
 
       {
