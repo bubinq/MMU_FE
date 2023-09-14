@@ -30,7 +30,7 @@ export default function AuthModal({
     success: false,
     error: "",
   });
-  const { setUser } = useAuth();
+  const { broadcastChannel } = useAuth();
 
   const [serverError, setServerError] = useState("");
   const { isAlertVisible } = useAlert(serverError, setServerError);
@@ -50,7 +50,8 @@ export default function AuthModal({
   };
 
   useEffect(() => {
-    setUser((prev) => ({ ...prev, accessToken: "" }));
+    // setUser((prev) => ({ ...prev, accessToken: "" }));
+    broadcastChannel.postMessage({ action: 'reload' });
   }, []);
   return (
     <Flex
@@ -153,12 +154,6 @@ export const loader = async () => {
       const response = await authService.verifyEmail(token);
       if (typeof response === "string") {
         window.history.replaceState(null, null, "/auth/confirm");
-        const broadcastChannel = new BroadcastChannel("reloadChannel");
-        broadcastChannel.onmessage = function (event) {
-          if (event.data && event.data.action === "reload") {
-            window.location.reload();
-          }
-        };
         return null;
       }
     } catch (error) {
