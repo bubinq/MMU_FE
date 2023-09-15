@@ -3,7 +3,6 @@ import { FormLabel, Flex, Textarea, Button, Spinner } from "@chakra-ui/react";
 import { commentsSchema, commentsVals } from "../../utils";
 import { useRevalidator } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { EMAIL_VERIFY_SENT } from "../../constants";
 import { useState } from "react";
 import specialistService from "../../services/specialist";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
@@ -14,7 +13,7 @@ export default function CommentForm({ doctorId }) {
   const [hover, setHover] = useState(0);
   const [rating, setRating] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const { user, setVerifyMessage } = useAuth();
+  const { user } = useAuth();
 
   const handleAddComment = async (values, { resetForm }) => {
     setIsLoading(true);
@@ -29,8 +28,7 @@ export default function CommentForm({ doctorId }) {
       setRating(0);
       resetForm();
     } catch (error) {
-      console.log(error);
-      setVerifyMessage(EMAIL_VERIFY_SENT);
+      console.log(error.response.data.comment);
     } finally {
       setIsLoading(false);
     }
@@ -41,7 +39,7 @@ export default function CommentForm({ doctorId }) {
       validationSchema={commentsSchema}
       onSubmit={handleAddComment}
     >
-      {({ values, errors, touched }) => (
+      {({ values, errors }) => (
         <Form className="comments-form">
           <FormLabel
             fontSize={"18px"}
@@ -54,7 +52,7 @@ export default function CommentForm({ doctorId }) {
             <Field name="rating" aria-label="rating-field">
               {({ form: { setValues } }) => (
                 <Flex mt={"8px"}>
-                  {[...Array(5)].map((star, index) => {
+                  {[...Array(5)].map((_, index) => {
                     const value = index + 1;
                     return (
                       <FontAwesomeIcon
