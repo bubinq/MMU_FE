@@ -1,12 +1,12 @@
-import { Link, useSubmit } from "react-router-dom";
+import { Link, useSubmit, useNavigate } from "react-router-dom";
 import { Heading } from "@chakra-ui/react";
 import MainCard from "../MainCard";
 import { useEffect } from "react";
-import { BASE_URL } from "../../constants";
 import useAuth from "../../contexts/AuthContext";
 
 const SpecialtyList = ({ data }) => {
   const submit = useSubmit();
+  const goTo = useNavigate();
   const { setUser } = useAuth();
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const SpecialtyList = ({ data }) => {
       localStorage.setItem("accessToken", jwtToken);
 
       setUser({ accessToken: jwtToken });
-      window.history.replaceState(null, null, BASE_URL);
+      goTo("/", { replace: true });
     }
   }, []);
   return (
